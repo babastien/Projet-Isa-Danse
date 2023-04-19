@@ -1,0 +1,47 @@
+<p>Tu souhaites offrir un pack en cadeau ? C'est adorable :) <br>
+    Pour cela, sélectionne le pack à offrir dans la liste déroulante et renseigne les champs demandés<br>
+    Une fois le paiement effectué, tu recevras une carte cadeau par email <br>
+    Cette carte cadeau contiendra un code à usage unique avec toutes les indications nécessaires pour accéder au pack<br>
+    Tu n'auras plus qu'à transferez la carte cadeau à l'heureuse élue
+</p>
+
+<form action="" method="POST">
+        <legend>Commande</legend>
+        <select name="pack" id="pack">
+            <?php foreach($packs as $pack): ?>
+                <option value="<?= $pack['id'] ?>"><?= $pack['title'] ?></option>
+            <?php endforeach; ?>
+        </select>
+        <br>
+        <label for="lastname">Nom</label><br>
+        <input type="text" id="lastname" name="lastname">
+        <br>
+        <label for="firstname">Prénom</label><br>
+        <input type="text" id="firstname" name="firstname">
+        <br>
+        <label for="email">Email</label><br>
+        <input type="email" id="email" name="email">
+        <br>
+        <label for="email2">Confirmer l'email</label><br>
+        <input type="email" id="email2" name="email2">
+        <br><br>
+        <!-- <input type="submit" name="info-gift-submit" value="Procéder au paiement">
+    </form>
+        
+    <form action="" method="POST" class="payment-form"> -->
+        <label for="card-number">Numéro de la carte</label><br>
+        <input type="text" id="card-number" placeholder="•••• •••• •••• ••••" data-stripe="number">
+        <br>
+        <label for="exp-date">Date d'expiration</label><br>
+        <div class="exp-date">
+            <input type="text" placeholder="MM" data-stripe="exp_month">
+            <input type="text" placeholder="YY" data-stripe="exp_year">
+        </div>
+        <label for="cvc">Code de sécurité</label><br>
+        <input type="text" id="cvc" placeholder="CVC" data-stripe="cvc">
+        <br>
+        <label for="card-name">Titulaire de la carte</label><br>
+        <input type="text" id="card-name" placeholder="NOM Prénom">
+        <br>
+        <input type="submit" name="buy-submit" value="Acheter">
+    </form>

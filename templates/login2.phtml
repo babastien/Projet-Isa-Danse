@@ -1,0 +1,68 @@
+<div class="login-page">
+
+<?php if(isset($new_user)): ?>
+    <p style="color:green"><?= $new_user ?></p>
+<?php endif; ?>
+
+<form action="" method="POST" class="login-form" <?php if ($_SESSION['show_register']) { echo 'style="display:none"'; } ?>>
+    <legend>Connexion</legend>
+    <label for="email">Email</label><br>
+    <input type="text" id="email" name="email-login" value="<?php if(isset($email_login)) { echo $email_login; } ?>">
+    <br>
+    <label for="password">Mot de passe</label><br>
+    <input type="password" id="password" name="password-login">
+    <br>
+    <input type="submit" name="login-submit" value="Se connecter">
+    <br>
+    <p>Pas encore inscris ? <a href="#" class="register">S'inscrire</a></p>
+    <a href="<?=constructUrl('/forgot-password')?>">Mot de passe oublié ?</a>
+    <br><br>
+</form>
+
+<form action="" method="POST" class="register-form" <?php if ($_SESSION['show_register']) { echo 'style="display:block"'; } ?>>
+    <legend>Inscription</legend>
+    <label for="lastname">Nom</label><br>
+    <input type="text" id="lastname" name="lastname" value="<?php if(isset($lastname)) { echo $lastname; } ?>">
+    <br>
+    <label for="firstname">Prénom</label><br>
+    <input type="text" id="firstname" name="firstname" value="<?php if(isset($firstname)) { echo $firstname; } ?>">
+    <br>
+    <label for="email">Email</label><br>
+    <input type="email" id="email" name="email" value="<?php if(isset($email)) { echo $email; } ?>">
+    <br>
+    <label for="password">Mot de passe</label><br>
+    <input type="password" id="password" name="password">
+    <br>
+    <label for="password">Confirmer le mot de passe</label><br>
+    <input type="password" id="password2" name="password2">
+    <br>
+    <input type="submit" name="register-submit" value="S'inscrire">
+    <br>
+    <p>Déjà inscris ? <a href="#" class="login">Se connecter</a></p>
+</form>
+
+<?php if(isset($errors)): ?>
+    <p class="error"><?= $errors ?></p>
+<?php endif; ?>
+
+</div>
+
+<script>
+
+const registerForm = document.querySelector('.register-form');
+const loginForm = document.querySelector('.login-form');
+const error = document.querySelector('.error');
+
+document.querySelector('.register').addEventListener('click', () => {
+    registerForm.style.display = "block";
+    loginForm.style.display = "none";
+    error.innerHTML = "";
+})
+
+document.querySelector('.login').addEventListener('click', () => {
+    registerForm.style.display = "none";
+    loginForm.style.display = "block";
+    error.innerHTML = "";
+})
+
+</script>

@@ -1,0 +1,23 @@
+<?php if(isset($new_user)): ?>
+    <p style="color:green"><?= $new_user ?></p>
+<?php endif; ?>
+
+<form action="" method="POST">
+    <legend>Connexion</legend>
+    <br>
+    <label for="email">Email</label><br>
+    <input type="text" id="email" name="email" value="<?php if(isset($email)) { echo $email; } ?>">
+    <br><br>
+    <label for="password">Mot de passe</label><br>
+    <input type="password" id="password" name="password">
+    <br><br>
+    <button>Se connecter</button>
+    <br>
+    <p>Pas encore inscris ? <a href="register.php">S'inscrire</a></p>
+    <a href="<?=constructUrl('/forgotpass')?>">Mot de passe oublié ?</a>
+    <br><br>
+</form>
+
+<?php if(isset($errors)): ?>
+    <p style="color:red"><?= $errors ?></p>
+<?php endif; ?>

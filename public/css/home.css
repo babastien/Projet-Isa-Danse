@@ -1,0 +1,162 @@
+body {
+    margin: 0;
+    width: 100%;
+    background-image: url("/Projet-Isa/public/images/losange-deco.png");
+    background-position: center;
+    background-size: cover;
+    background-attachment: fixed;
+    font-family: 'Quicksand', sans-serif;
+}
+
+main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+/* HOME */
+
+.top-page-home video {
+    width: 100%;
+}
+
+h2 {
+    margin: 0;
+    font-size: 45px;
+    padding-top: 30px;
+}
+
+.h2-subtitle {
+    margin: 0;
+    font-size: 20px;
+    margin-left: 25%;
+    padding-bottom: 30px;
+    font-family: 'Niconne', cursive;
+    font-size: 30px;
+}
+
+.presentation-text, .details-text {
+    width: 70%;
+}
+
+h3 {
+    font-size: 25px;
+}
+
+.packs-presentation {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    flex-wrap: wrap;
+}
+
+.pack-image {
+    width: 250px;
+    border-radius: 10px;
+    margin: 20px 50px;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
+}
+
+.video-clips {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 30px;
+}
+
+.video-clips video {
+    width: 400px;
+    margin: 20px;
+    position: relative;
+    margin-top: -5px;
+}
+
+.video-clips p {
+    position: relative;
+    z-index: 1;
+    top: 20px;
+    left: 30px;
+    margin: 0;
+    color: white;
+    text-shadow: 1px 1px 1px black;
+    font-weight: bold;
+}
+
+.accessibility {
+    font-weight: bold;
+}
+
+.buy-packs {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.pack-to-buy {
+    text-align: center;
+    width: 250px;
+    border: 1px solid lightgrey;
+    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+    border-radius: 20px;
+    margin: 20px;
+    background: white;
+}
+
+h4 {
+    font-family: 'Niconne', cursive;
+    color: goldenrod;
+    font-size: 30px;
+    line-height: 50%;
+    margin: 30px 0;
+}
+
+.price {
+    font-size: 25px;
+    margin: 10px 0;
+}
+
+.buy-description {
+    font-size: 13px;
+    margin-bottom: 30px;
+}
+
+/* .pack-to-buy button {
+    margin-bottom: 20px;
+    border-radius: 20px;
+    background: white;
+    padding: 5px;
+    cursor: pointer;
+} */
+
+.pack-to-buy a {
+    color: black;
+    border: 1px solid lightgrey;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 0.0625em 0.0625em, rgba(0, 0, 0, 0.25) 0px 0.125em 0.5em, rgba(255, 255, 255, 0.1) 0px 0px 0px 1px inset;
+    border-radius: 20px;
+    padding: 5px 10px;
+    text-decoration: none;
+    background: white;
+}
+
+.select-pack {
+    margin-bottom: 30px;
+}
+
+#present {
+    display: flex;
+    align-items: center;
+}
+
+.present {
+    color: red;
+    font-weight: bold;
+    margin-left: 10px;
+}
+
+.present a {
+    color: red;
+    border: 1px solid red;
+    padding: 5px 10px;
+    text-decoration: none;
+}

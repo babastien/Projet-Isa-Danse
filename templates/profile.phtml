@@ -1,0 +1,47 @@
+<div class="left">
+
+</div>
+
+<div class="right">
+
+</div>
+
+<div class="profile">
+    <legend>Mon profil</legend>
+    <p><u>Nom :</u><br><?= $_SESSION['lastname'].' '.$_SESSION['firstname'] ?></p>
+    <p><u>Email :</u><br><?= $_SESSION['email'] ?></p>
+    <p><u>Souscription(s) :</u><br>
+    <?php if(isset($_SESSION['packs']) AND !empty($_SESSION['packs'])) {
+        foreach($_SESSION['packs'] as $pack) {
+            echo $pack['title'].'<br>';
+        }
+    } else {
+        echo "Vous n'avez souscris à aucun pack pour le moment";
+    } ?>
+    </p>
+</div>
+<br>
+
+<form action="" method="POST">
+    <legend>Modifier mon mot de passe</legend>
+    <input type="password" name="password" placeholder="Mot de passe actuel">
+    <input type="password" name="new-password" placeholder="Nouveau mot de passe">
+    <input type="password" name="new-password2" placeholder="Confirmer le mot de passe">
+    <br>
+    <input type="submit" name="password-submit" value="Modifier">
+</form>
+<?php if(isset($password_errors)): ?>
+    <p style="color:red"><?= $password_errors ?></p>
+<?php elseif(isset($password_changed)): ?>
+    <p style="color:green"><?= $password_changed ?></p>
+<?php endif; ?>
+<br>
+
+<form action="" method="POST">
+    <legend>Tu as un code cadeau ?</legend>
+    <input type="text" id="gift-code" name="gift-code">
+    <input type="submit" name="code-submit" value="Valider">
+</form>
+<?php if(isset($code_errors)): ?>
+    <p style="color:red"><?= $code_errors ?></p>
+<?php endif; ?>

@@ -1,0 +1,25 @@
+<form action="" method="POST">
+    <legend>Inscription</legend>
+    <br>
+    <label for="lastname">Nom</label><br>
+    <input type="text" id="lastname" name="lastname" value="<?php if(isset($lastname)) { echo $lastname; } ?>">
+    <br><br>
+    <label for="firstname">Prénom</label><br>
+    <input type="text" id="firstname" name="firstname" value="<?php if(isset($firstname)) { echo $firstname; } ?>">
+    <br><br>
+    <label for="email">Email</label><br>
+    <input type="email" id="email" name="email" value="<?php if(isset($email)) { echo $email; } ?>">
+    <br><br>
+    <label for="password">Mot de passe</label><br>
+    <input type="password" id="password" name="password">
+    <br><br>
+    <label for="password">Confirmer le mot de passe</label><br>
+    <input type="password" id="password2" name="password2">
+    <br><br>
+    <button>S'inscrire</button>
+    <br>
+    <p>Déjà inscris ? <a href="<?=constructUrl('/login')?>">Se connecter</a></p>
+</form>
+<?php if(isset($errors)): ?>
+    <p style="color:red"><?= $errors ?></p>
+<?php endif; ?>

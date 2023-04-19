@@ -1,0 +1,41 @@
+<form action="" method="POST">
+    <legend>Éditer l'utilisateur</legend>
+    <label for="lastname">Nom</label><br>
+    <input type="text" id="lastname" name="lastname" value="<?= $user['lastname'] ?>">
+    <br>
+    <label for="firstname">Prénom</label><br>
+    <input type="text" id="firstname" name="firstname" value="<?= $user['firstname'] ?>">
+    <br>
+    <label for="email">Email</label><br>
+    <input type="email" id="email" name="email" value="<?= $user['email'] ?>">
+    <?php if(isset($errors['email'])) { echo $errors['email']; } ?>
+    <br>
+    <input type="submit" name="edit-user" value="Modifier l'utilisateur">
+</form>
+<br>
+
+<form action="" method="POST">
+    <legend>Souscription(s) de l'utilisateur</legend>
+
+    <?php if(!empty($userPacks)) {?>
+        <?php foreach($userPacks as $pack) { ?>
+            <p style="margin:0"><?= $pack['title'] ?><input type="submit" name="delete-<?= $pack['pack_id'] ?>" value="Retirer le pack"></p>
+        <?php } ?>
+    <?php } else { ?>
+        <p>Aucun pack pour l'instant</p>
+    <?php } ?>
+
+    <select name="pack-selected">
+        <?php foreach($packs as $pack): ?>
+            <option value="<?= $pack['id'] ?>"><?= $pack['title'] ?></option>
+        <?php endforeach; ?>
+    </select>
+
+    <input type="submit" name="add-pack" value="Ajouter le pack">
+</form>
+<br>
+
+<div class="frame">
+    <legend>Supprimer l'utilisateur</legend>
+    <a href="<?= constructUrl('/deleteUser', ['id' => $_GET['id']])?>"><input type="button" value="Supprimer"></a>
+</div>

@@ -1,0 +1,15 @@
+<div class="packs">
+
+    <?php if(!empty($packs)) { ?>
+
+        <?php foreach($packs as $pack) { ?>    
+            <div class="pack-bachata">
+                <a href="<?=constructUrl('/course', ['pack' => $pack['id']])?>"><img class="pack-image" src="<?=asset($pack['image'])?>" alt="<?= $pack['title'] ?>"></a>
+            </div>
+        <?php } ?>
+
+    <?php } else { ?>
+        <p>Vous n'avez souscris à aucun pack pour le moment</p>
+    <?php } ?>
+
+</div>

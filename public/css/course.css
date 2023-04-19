@@ -1,0 +1,25 @@
+body {
+    margin: 0;
+    width: 100%;
+    background-image: url("/Projet-Isa/public/images/losange-deco.png");
+    background-position: center;
+    background-size: cover;
+    background-attachment: fixed;
+    font-family: 'Quicksand', sans-serif;
+}
+
+main {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    flex-direction: column;
+}
+
+video {
+    width: 300px;
+    margin: 50px;
+}
+
+p {
+    margin-top: 100px;;
+}

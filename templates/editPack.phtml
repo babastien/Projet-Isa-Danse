@@ -1,0 +1,74 @@
+<form action="" method="POST">
+    <legend>Éditer le pack</legend>
+    <label for="pack-title">Titre</label><br>
+    <input type="text" id="pack-title" name="pack-title" value="<?= $pack['title'] ?>">
+    <br>
+    <label for="price">Prix</label><br>
+    <input type="number" id="price" name="price" value="<?= $pack['price'] ?>">
+    <br>
+    <label for="image">Image</label><br>
+    <img src="<?= asset($pack['image']) ?>" alt="<?= $pack['image'] ?>" style="width:100px">
+    <input type="file" id="image" name="image">
+    <br>
+    <input type="submit" name="edit-pack" value="Modifier le pack">
+</form><br>
+
+<!-- <form action="" method="POST">
+    <legend>Les vidéos du pack</legend>
+    <?php if(!empty($videos)) {?>
+        <?php foreach($videos as $video): ?>
+            <p style="margin:0"><?= $video['title'] ?> 
+                <input type="number" value="<?= $video['rank_order'] ?>">
+                <input type="submit" name="delete-<?= $video['id'] ?>" value="Supprimer">
+            </p>
+        <?php endforeach; ?>
+    <?php } else { ?>
+        <p>Aucune vidéo pour l'instant</p>
+    <?php } ?>
+    <input type="submit" name="edit-video" value="Modifier">
+</form><br> -->
+
+<?php if(!empty($videos)) {?>
+<form action="" method="POST">
+<table border="1">
+    <thead>
+        <th colspan="5">Les vidéos du pack</th>
+    </thead>
+    <tr>
+        <th>Titre</th>
+        <th>Fichier</th>
+        <th>Ordre</th>
+        <th>Modifier</th>
+        <th>Supprimer</th>
+    </tr>
+    <?php foreach($videos as $video): ?>
+        <tr>
+            <td><input type="text" name="video-title-<?= $video['id'] ?>" value="<?= $video['title'] ?>"></td>
+            <td>
+                <p style="margin:0"><?= $video['filename'] ?></p>
+                <input type="file" name="video-filename-<?= $video['id'] ?>" value="<?= $video['filename'] ?>">
+            </td>
+            <td><input type="number" name="rank-order-<?= $video['id'] ?>" value="<?= $video['rank_order'] ?>"></td>
+            <td><input type="submit" name="edit-<?= $video['id'] ?>" value="Modifier"></td>
+            <td><input type="submit" name="delete-<?= $video['id'] ?>" value="Supprimer"></td>
+        </tr>
+    <?php endforeach; ?>
+</table><br>
+<?php } else { ?>
+        <p>Aucune vidéo pour l'instant</p>
+<?php } ?>
+</form><br>
+
+<form action="" method="POST">
+    <legend>Ajouter une vidéo</legend>
+    <label for="video-title">Titre de la vidéo</label>
+    <input type="text" id="video-title" name="video-title">
+    <label for="video-filename"></label>
+    <input type="file" id="video-filename" name="video-filename">
+    <label for="rank-order">Ordre de classement</label>
+    <input type="number" id="rank-order" name="rank-order">
+    <input type="submit" name="add-video" value="Ajouter une vidéo">
+</form>
+<?php if(isset($errors['add-video'])) : ?>
+    <p class="error"><?= $errors['add-video'] ?></p>
+<?php endif ?>
