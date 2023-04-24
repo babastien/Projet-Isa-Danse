@@ -1,5 +1,5 @@
 <div class="top-page-home">
-    <video autoplay="autoplay" muted="muted" loop src="<?=asset('videos/teaser-complet.mp4')?>"></video>
+    <video autoplay="autoplay" muted="muted" loop src="<?= asset('videos/teaser-complet.mp4') ?>"></video>
 </div>
 
 <h2>COURS EN LIGNE</h2>
@@ -20,7 +20,7 @@
 <h3>THÈMES ABORDÉS</h3>
 <div class="packs-presentation">
     <div class="pack-bachata">
-        <img class="pack-image" src="<?=asset('images/pack-bachata.png')?>" alt="">
+        <img class="pack-image" src="<?= asset('images/pack-bachata.png') ?>" alt="">
         <p><u>COURS TECHNIQUES</u><br>
         Bassin (variantes Bachata)<br>
         Vagues<br>
@@ -33,7 +33,7 @@
         Chorégraphie Bachata - intermédiaire</p>
     </div>
     <div class="pack-salsa">
-        <img class="pack-image" src="<?=asset('images/pack-salsa.png')?>" alt="">
+        <img class="pack-image" src="<?= asset('images/pack-salsa.png') ?>" alt="">
         <p><u>COURS TECHNIQUES</u><br>
         Appuis<br>
         Bassin (variantes Salsa)<br>
@@ -51,56 +51,64 @@
 <div class="video-clips">
     <div>
         <p>Extrait choré Bachata</p>
-        <video src="<?=asset('videos/extrait-chore-bachata.mp4')?>" controls poster="<?=asset('images/miniature-chore-bachata.png')?>"></video>
+        <video src="<?= asset('videos/extrait-chore-bachata.mp4') ?>" controls poster="<?= asset('images/miniature-chore-bachata.png') ?>"></video>
     </div>
     <div>
         <p>Extrait choré Salsa</p>
-        <video src="<?=asset('videos/extrait-chore-salsa.mp4')?>" controls poster="<?=asset('images/miniature-chore-salsa.png')?>"></video>
+        <video src="<?= asset('videos/extrait-chore-salsa.mp4') ?>" controls poster="<?= asset('images/miniature-chore-salsa.png') ?>"></video>
     </div>
     <div>
         <p>Extrait cours technique</p>
-        <video src="<?=asset('videos/extrait-cours.mp4')?>" controls poster="<?=asset('images/miniature-cours.png')?>"></video>
+        <video src="<?= asset('videos/extrait-cours.mp4') ?>" controls poster="<?= asset('images/miniature-cours.png') ?>"></video>
     </div>
 </div>
 
-<img src="<?=asset('images/responsive.png')?>" alt="" width="200px">
+<img src="<?= asset('images/responsive.png') ?>" alt="" width="200px">
 <p class="accessibility">Accessible sur ordinateur, tablette et mobile</p>
 
 <h3>ACCÈS AUX PACKS</h3>
 <div class="buy-packs">
-    <div class="pack-to-buy">
+    <?php foreach($packs as $pack) { ?>
+        <div class="pack-to-buy">
+            <h4><?= $pack['title'] ?></h4>
+            <p class="price"><?= $pack['price'] ?> €</p>
+            <p class="buy-description"><?= $pack['description'] ?>
+            <p class="select-pack"><a href="<?= constructUrl('/purchase', ['id' => $pack['id']]) ?>">Sélectionner</a></p>
+        </div>
+    <?php } ?>
+    <!-- <div class="pack-to-buy">
         <h4>Pack Bachata</h4>
         <p class="price">49€</p>
         <p class="buy-description">Cours techniques + choré<br>
         (Bachata)</p>
-        <p class="select-pack"><a href="<?=constructUrl('/purchase', ['id' => 1])?>">Sélectionner</a></p>
+        <p class="select-pack"><a href="<?= constructUrl('/purchase', ['id' => 1]) ?>">Sélectionner</a></p>
     </div>
     <div class="pack-to-buy">
         <h4>Pack Salsa</h4>
         <p class="price">49€</p>
         <p class="buy-description">Cours techniques + choré<br>
         (Salsa)</p>
-        <p class="select-pack"><a href="<?=constructUrl('/purchase', ['id' => 2])?>">Sélectionner</a></p>
+        <p class="select-pack"><a href="<?= constructUrl('/purchase', ['id' => 2]) ?>">Sélectionner</a></p>
     </div>
     <div class="pack-to-buy">
         <h4>Pack Technique</h4>
         <p class="price">59€</p>
         <p class="buy-description">Tous les cours techniques sans choré<br>
         (Salsa & Bachata)</p>
-        <p class="select-pack"><a href="<?=constructUrl('/purchase', ['id' => 3])?>">Sélectionner</a></p>
+        <p class="select-pack"><a href="<?= constructUrl('/purchase', ['id' => 3]) ?>">Sélectionner</a></p>
     </div>
     <div class="pack-to-buy">
         <h4>Full Pass</h4>
         <p class="price">72€</p>
         <p class="buy-description">Tous les cours techniques + chorés<br>
         (Salsa & Bachata)</p>
-        <p class="select-pack"><a href="<?=constructUrl('/purchase', ['id' => 4])?>">Sélectionner</a></p>
-    </div>
+        <p class="select-pack"><a href="<?= constructUrl('/purchase', ['id' => 4]) ?>">Sélectionner</a></p>
+    </div> -->
 </div>
 
 <div id="present">
-    <img src="<?=asset('images/gift.png')?>" alt="" width="75px">
-    <p class="present">Possibilité d'offrir un pack à un proche, cliquez <a href="<?=constructUrl('/present')?>">ICI</a></p>
+    <img src="<?= asset('images/gift.png') ?>" alt="" width="75px">
+    <p class="present">Possibilité d'offrir un pack à un proche, cliquez <a href="<?= constructUrl('/present') ?>">ICI</a></p>
 </div>
 
 <h3>DÉTAILS SUR LE CONTENU</h3>
@@ -132,10 +140,3 @@
     <br>
     • Une fois le paiement effectué, les cours sont disponibles sur votre compte sans limite de temps.</p>
 </div>
-
-<footer>
-    <p>© Isabelle Manzanares. Tous droits réservés.</p>
-    <a href="https://www.facebook.com/hola.isabelle"><img src="<?=asset('/images/facebook.png')?>" alt="" width="20px"></a>
-    <a href="https://www.instagram.com/isabellemanzanares"><img src="<?=asset('/images/instagram.png')?>" alt="" width="20px"></a>
-    <a href="https://www.isabelle-manzanares.com">https://www.isabelle-manzanares.com</a>
-</footer>

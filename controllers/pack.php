@@ -13,5 +13,5 @@ $videoModel = new VideoModel();
 
 $videos = $videoModel->getVideosByPack($_GET['pack']);
 
-$template = 'course';
+$template = 'pack';
 include '../templates/base.phtml';

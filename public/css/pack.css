@@ -16,10 +16,9 @@ main {
 }
 
 video {
-    width: 300px;
-    margin: 50px;
+    width: 350px;
 }
 
-p {
-    margin-top: 100px;;
+.video {
+    margin: 30px;
 }

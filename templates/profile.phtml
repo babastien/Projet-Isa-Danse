@@ -1,13 +1,6 @@
-<div class="left">
-
-</div>
-
-<div class="right">
-
-</div>
+<h2>Mon profil</h2>
 
 <div class="profile">
-    <legend>Mon profil</legend>
     <p><u>Nom :</u><br><?= $_SESSION['lastname'].' '.$_SESSION['firstname'] ?></p>
     <p><u>Email :</u><br><?= $_SESSION['email'] ?></p>
     <p><u>Souscription(s) :</u><br>
@@ -22,26 +15,41 @@
 </div>
 <br>
 
-<form action="" method="POST">
-    <legend>Modifier mon mot de passe</legend>
-    <input type="password" name="password" placeholder="Mot de passe actuel">
-    <input type="password" name="new-password" placeholder="Nouveau mot de passe">
-    <input type="password" name="new-password2" placeholder="Confirmer le mot de passe">
-    <br>
-    <input type="submit" name="password-submit" value="Modifier">
-</form>
-<?php if(isset($password_errors)): ?>
-    <p style="color:red"><?= $password_errors ?></p>
-<?php elseif(isset($password_changed)): ?>
+<?php if(isset($password_changed)): ?>
     <p style="color:green"><?= $password_changed ?></p>
 <?php endif; ?>
+<form action="" method="POST">
+    <legend>Modifier mon mot de passe</legend>
+    <div class="form-input">
+        <input type="password" name="password" placeholder="Mot de passe actuel">
+        <?php if(isset($errors['password'])) { ?>
+            <p class="error"><?= $errors['password'] ?></p>
+        <?php } ?>
+    </div>
+    <div class="form-input">
+        <input type="password" name="new-password" placeholder="Nouveau mot de passe">
+        <?php if(isset($errors['new_password'])) { ?>
+            <p class="error"><?= $errors['new_password'] ?></p>
+        <?php } ?>
+    </div>
+    <div class="form-input">
+        <input type="password" name="new-password2" placeholder="Confirmer le mot de passe">
+        <?php if(isset($errors['new_password2'])) { ?>
+            <p class="error"><?= $errors['new_password2'] ?></p>
+        <?php } ?>
+    </div>
+    <input type="submit" name="password-submit" value="Modifier">
+</form>
 <br>
 
 <form action="" method="POST">
     <legend>Tu as un code cadeau ?</legend>
-    <input type="text" id="gift-code" name="gift-code">
+    <div class="form-input">
+        <input type="text" id="gift-code" name="gift-code">
+        <?php if(isset($code_errors)): ?>
+            <p class="error"><?= $code_errors ?></p>
+        <?php endif; ?>
+    </div>
     <input type="submit" name="code-submit" value="Valider">
 </form>
-<?php if(isset($code_errors)): ?>
-    <p style="color:red"><?= $code_errors ?></p>
-<?php endif; ?>
+<br>

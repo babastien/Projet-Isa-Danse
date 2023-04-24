@@ -53,7 +53,7 @@ if(isset($_POST['recup-submit'])) {
                 mail($email, 'Récupération du mot de passe', $message, $header);
 
                 // Redirection vers la page de vérification du code
-                header('Location: ' . constructUrl('/forgotPassword', ['section' => 'code']));
+                header('Location: ' . constructUrl('/forgot-password', ['section' => 'code']));
 
             } else {
                 $errors = 'Cette adresse email n\'est pas enregistrée';
@@ -76,7 +76,7 @@ if(isset($_POST['verif-submit'], $_POST['verif-code'])) {
         if($passwordModel->verifyCodeExist($_SESSION['recup_email']) == true) {
             $passwordModel->confirmCode($_SESSION['recup_email']);
             
-            header('Location: ' . constructUrl('/forgotPassword', ['section' => 'changepassword']));
+            header('Location: ' . constructUrl('/forgot-password', ['section' => 'changepassword']));
         } else {
         $errors = 'Code invalide';
         }
@@ -103,7 +103,7 @@ if(isset($_POST['change-submit'])) {
 
                     if(strlen($new_password) < 8) {
                         $errors = 'Votre mot de passe doit contenir au moins 8 caractères';
-                    } elseif(!preg_match('#^[a-zA-Z0-9]$#', $new_password)) {
+                    } elseif(!preg_match('/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$/', $new_password)) {
                         $errors = 'Votre mot de passe doit contenir au moins une majuscule, une minuscule et un chiffre';
                     } else {
 

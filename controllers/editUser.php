@@ -28,12 +28,21 @@ if(isset($_POST['edit-user'])) {
     $firstname = $_POST['firstname'];
     $email = $_POST['email'];
 
-    if($userModel->verifyEmailExist($email) == true AND $email != $user['email']) {
-        $errors['email'] = '<p class="error">Cette adresse email est déjà utilisée</p>';
-    } else {
+    if(empty($lastname)) {
+        $errors['lastname'] = 'Le champ <b>Nom</b> est vide';
+    }
+    if(empty($fistname)) {
+        $errors['firstname'] = 'Le champ <b>Prénom</b> est vide';
+    }
+    if(empty($email)) {
+        $errors['email'] = 'Le champ <b>Email</b> est vide';
+    } elseif($userModel->verifyEmailExist($email) == true AND $email != $user['email']) {
+        $errors['email'] = 'Cette adresse email est déjà utilisée';
+    }
 
+    if(empty($errors)) {
         $userModel->editUser($_GET['id'], $lastname, $firstname, $email);
-        header('Location: ' . constructUrl('/admin'));
+        header('Location: ' . $_SERVER['REQUEST_URI']);
     }
 }
 
@@ -41,7 +50,7 @@ if(isset($_POST['edit-user'])) {
 foreach($userPacks as $pack) {
     if(isset($_POST['delete-'.$pack['pack_id']])) {
         $packModel->deletePackToUser($user['id'], $pack['pack_id']);
-    header('Location: ' . constructUrl('/admin'));
+        header('Location: ' . $_SERVER['REQUEST_URI']);
     }
 }
 
@@ -51,7 +60,7 @@ if(isset($_POST['add-pack'])) {
     $packSelected = $_POST['pack-selected'];
 
     $packModel->addPackToUser($_GET['id'], $packSelected);
-    header('Location: ' . constructUrl('/admin'));
+    header('Location: ' . $_SERVER['REQUEST_URI']);
 }
 
 $template = 'editUser';

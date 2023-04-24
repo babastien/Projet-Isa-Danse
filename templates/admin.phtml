@@ -1,3 +1,4 @@
+<br>
 <!-- <form action="" method="POST">
     <legend>Envoyer une carte cadeau</legend>
     <select name="pack" id="pack">
@@ -14,14 +15,14 @@
     <legend>Ajouter un Pack de vidéo(s)</legend>
     <div class="form-input">
         <label for="title">Titre</label>
-        <input type="text" id="title" name="title">
+        <input type="text" id="title" name="title" value="<?php if(isset($title)) { echo $title; } ?>">
         <?php if(isset($errors['title'])) { ?>
             <p class="error"><?= $errors['title'] ?></p>
         <?php } ?>
     </div>
     <div class="form-input">
         <label for="price">Prix</label>
-        <input type="number" id="price" name="price">
+        <input type="number" id="price" name="price" value="<?php if(isset($price)) { echo $price; } ?>">
         <?php if(isset($errors['price'])) { ?>
             <p class="error"><?= $errors['price'] ?></p>
         <?php } ?>
@@ -52,7 +53,7 @@
             <td><?= $pack['title'] ?></td>
             <td><?= $pack['price'] ?> €</td>
             <td><?= count($videoModel->getVideosByPack($pack['id'])) ?></td>
-            <td><a href="<?= constructUrl('/edit-pack', ['id' => $pack['id']]) ?>">Modifier</a></td>
+            <td><a href="<?= constructUrl('/edit-pack', ['id' => $pack['id']]) ?>"><input type="button" value="Modifier"></a></td>
         </tr>
     <?php endforeach; ?>
 </table>
@@ -67,7 +68,7 @@
         <th>Prénom</th>
         <th>Email</th>
         <th>Date d'inscription</th>
-        <th>Souscription</th>
+        <th>Souscription(s)</th>
         <th>Modifier</th>
     </tr>
     <?php foreach($users as $user): ?>
@@ -83,7 +84,8 @@
                     <?php endforeach; ?>
                 <?php endif; ?>
             </td>
-            <td><a href="<?= constructUrl('/edit-user', ['id' => $user->getId()]) ?>">Modifier</a></td>
+            <td><a href="<?= constructUrl('/edit-user', ['id' => $user->getId()]) ?>"><input type="button" value="Modifier"></a></td>
         </tr>
     <?php endforeach; ?>
 </table>
+<br>

@@ -50,8 +50,8 @@ switch($path) {
         require '../controllers/member.php';
         break;
 
-    case '/course':
-        require '../controllers/course.php';
+    case '/pack':
+        require '../controllers/pack.php';
         break;
 
     case '/purchase':

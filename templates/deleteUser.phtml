@@ -1,6 +1,6 @@
 <form>
-    <p>Êtes-vous sûr de vouloir supprimer l'utilisateur <?= $user['lastname'] .' '. $user['firstname'] .' ('. $user['email'] .')' ?> ?</p>
-    <p>Cette action est irréversible !</p>
+    <p>Êtes-vous sûr de vouloir supprimer l'utilisateur <b><?= $user['lastname'] .' '. $user['firstname'] .'</b> ('. $user['email'] .')' ?> ?</p>
+    <p><b>Cette action est irréversible !</b></p>
     <input type="submit" name="delete-user" value="Supprimer l'utilisateur">
     <a href="<?= constructUrl('/edit-user', ['id' => $_GET['id']])?>"><input type="button" value="Annuler"></a>
 </form>

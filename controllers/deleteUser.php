@@ -17,6 +17,7 @@ $user = $userModel->getUserById($_GET['id']);
 if(isset($_POST['delete-user'])) {
     $userModel->deleteUser($_GET['id']);
     header('Location: ' . constructUrl('/admin'));
+    exit;
 }
 
 $template = 'deleteUser';

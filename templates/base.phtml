@@ -23,11 +23,11 @@
             <div class="nav-bar">
                 <a href="<?= constructUrl('/') ?>">Accueil</a>
                 <?php if(!isset($_SESSION['id'])) { ?>
-                    <a href="<?= constructUrl('/login2') ?>">Connexion</a>
+                    <a href="<?= constructUrl('/login') ?>">Connexion</a>
                     <a href="<?= constructUrl('/register') ?>">Inscription</a>
                 <?php } elseif(isset($_SESSION['id'])) { ?>
                     <?php if($_SESSION['role'] === 'admin'): ?>
-                        <a href="<?= constructUrl('/admin') ?>">Administration</a>
+                        <a href="<?= constructUrl('/admin') ?>">Administrateur</a>
                     <?php endif; ?>
                     <a href="<?= constructUrl('/member') ?>">Espace membre</a>
                     <a href="<?= constructUrl('/profile') ?>">Mon profil</a>
@@ -45,7 +45,7 @@
             <div class="hidden-menu">
                 <a href="<?= constructUrl('/') ?>">Accueil</a>
                 <?php if(!isset($_SESSION['id'])) { ?>
-                    <a href="<?= constructUrl('/login2') ?>">Connexion</a>
+                    <a href="<?= constructUrl('/login') ?>">Connexion</a>
                     <a href="<?= constructUrl('/register') ?>">Inscription</a>
                 <?php } elseif(isset($_SESSION['id'])) { ?>
                     <?php if($_SESSION['role'] === 'admin'): ?>
@@ -59,20 +59,36 @@
             </div>
         </nav>
     </head>
+
     <main>
         <?php include $template . '.phtml'; ?>
     </main>
+
+    <footer>
+        <p>© Isabelle Manzanares. Tous droits réservés.</p>
+        <a href="https://www.facebook.com/hola.isabelle"><img src="<?=asset('/images/facebook.png')?>" alt=""></a>
+        <a href="https://www.youtube.com/channel/UC-5FkbLYr11nVC65PpWdt1A"><img src="<?=asset('/images/youtube.png')?>" alt=""></a>
+        <a href="https://www.instagram.com/isabellemanzanares"><img src="<?=asset('/images/instagram.png')?>" alt=""></a>
+        <a href="https://www.isabelle-manzanares.com"><p>https://www.isabelle-manzanares.com</p></a>
+    </footer>
+
     <script>
 
         const menuBurger = document.querySelector('.menu-burger');
         const hiddenMenu = document.querySelector('.hidden-menu');
         const closeMenu = document.querySelector('.close-menu');
 
+        const main = document.querySelector('main');
+
         menuBurger.addEventListener('click', () => {
             hiddenMenu.style.display = 'flex';
         })
 
         closeMenu.addEventListener('click', () => {
+            hiddenMenu.style.display = 'none';
+        })
+
+        main.addEventListener('click', () => {
             hiddenMenu.style.display = 'none';
         })
 

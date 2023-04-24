@@ -22,19 +22,48 @@ if(isset($_POST['edit-pack'])) {
     $pack_title = $_POST['pack-title'];
     $price = $_POST['price'];
     $image = $_POST['image'];
+    $value_image = $_POST['value-image'];
+    $description = $_POST['description'];
+    $pack_errors = [];
+    
+    if(empty($pack_title)) {
+        $pack_errors['title'] = 'Le champ <b>Titre</b> est vide';
+    }
+    if(empty($price)) {
+        $pack_errors['price'] = 'Le champ <b>Prix</b> est vide';
+    }
+    if(empty($description)) {
+        $pack_errors['description'] = 'Le champ <b>Description</b> est vide';
+    }
 
-    $packModel->editPack($_GET['id'], $pack_title, $price, $image);
-    header('Location: ' . $_SERVER['REQUEST_URI']);
-    exit;
+    if(empty($pack_errors)) {
+
+        if(!empty($image)) {
+            $packModel->editPack($_GET['id'], $pack_title, $price, $image, $description);
+            header('Location: ' . $_SERVER['REQUEST_URI']);
+            exit;
+        } else {
+            $packModel->editPack($_GET['id'], $pack_title, $price, $value_image, $description);
+            header('Location: ' . $_SERVER['REQUEST_URI']);
+            exit;
+        }
+    }
 }
 
 // Modifier une vidéo
 if(!empty($videos)) {
     foreach($videos as $video) {
         if(isset($_POST['edit-'.$video['id']])) {
-            $videoModel->editVideo($_GET['id'], $_POST['video-title-'.$video['id']], $_POST['video-filename-'.$video['id']], $_POST['rank-order-'.$video['id']], $video['id']);
-            // header('Location: ' . $_SERVER['REQUEST_URI']);
-            exit;
+
+            if(empty($_POST['video-filename-'.$video['id']])) {
+                $videoModel->editVideo($_GET['id'], $_POST['video-title-'.$video['id']], $_POST['value-filename-'.$video['id']], $_POST['rank-order-'.$video['id']], $video['id']);
+                header('Location: ' . $_SERVER['REQUEST_URI']);
+                exit;
+            } else {
+                $videoModel->editVideo($_GET['id'], $_POST['video-title-'.$video['id']], $_POST['video-filename-'.$video['id']], $_POST['rank-order-'.$video['id']], $video['id']);
+                header('Location: ' . $_SERVER['REQUEST_URI']);
+                exit;
+            }
         }
     }
 }
@@ -55,15 +84,30 @@ if(isset($_POST['add-video'])) {
     $video_title = $_POST['video-title'];
     $video_filename = $_POST['video-filename'];
     $rank_order = $_POST['rank-order'];
+    $video_errors = [];
 
-    if(empty($video_title) || empty($video_filename) || empty($rank_order)) {
-        $errors['add-video'] = 'Vous devez remplir tous les champs';
-    } else {
+    if(empty($video_title)) {
+        $video_errors['title'] = 'Vous devez choisir un titre';
+    }
+    if(empty($video_filename)) {
+        $video_errors['filename'] = 'Vous devez choisir un fichier vidéo';
+    }
+    if(empty($rank_order)) {
+        $video_errors['rank_order'] = 'Vous devez choisir un ordre';
+    }
 
+    if(empty($video_errors)) {
         $videoModel->addVideo($_GET['id'], $video_title, $video_filename, $rank_order);
         header('Location: ' . $_SERVER['REQUEST_URI']);
         exit;
     }
+}
+
+// Supprimer le pack
+if(isset($_POST['delete-pack'])) {
+    // $packModel->deletePack($_GET['id']);
+    header('Location: ' . constructUrl('/admin'));
+    exit;
 }
 
 $template = 'editPack';

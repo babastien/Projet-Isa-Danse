@@ -6,6 +6,7 @@ body {
     background-size: cover;
     background-attachment: fixed;
     font-family: 'Quicksand', sans-serif;
+    background: whitesmoke;
 }
 
 main {
@@ -13,4 +14,12 @@ main {
     justify-content: center;
     align-items: center;
     flex-direction: column;
+}
+
+p:nth-child(2) {
+    color: red;
+}
+
+input[type="submit"]:hover {
+    color: red;
 }

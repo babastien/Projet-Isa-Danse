@@ -3,17 +3,27 @@
 use App\Model\PackModel;
 use App\Model\UserModel;
 
-if(!isset($_GET['id'])) {
-    header('Location: home.php');
-}
-
 $userModel = new UserModel();
 $packModel = new PackModel();
 
-// Affiche le cours sélectionné
-if(isset($_GET['id'])) {
-    $packSelected = $packModel->getOnePack($_GET['id']);
+$packs = $packModel->getAllPacks();
+$packsId = [];
+foreach($packs as $pack) {
+    $packsId[] .= $pack['id'];
 }
+if(!in_array($_GET['id'], $packsId) || !array_key_exists('id', $_GET)) {
+    header('Location: '. constructUrl('/'));
+}
+
+$new_user = null;
+if(array_key_exists('new_user', $_SESSION) AND $_SESSION['new_user']) {
+    $new_user = $_SESSION['new_user'];
+    $_SESSION['new_user'] = null;
+    session_unset();
+}
+
+// Affiche le cours sélectionné
+$packSelected = $packModel->getPackById($_GET['id']);
 
 // Formulaire de connexion
 if(isset($_POST['login-submit']) AND !empty($_POST['login-submit'])) {

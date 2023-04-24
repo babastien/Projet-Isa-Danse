@@ -6,15 +6,15 @@ use App\Core\AbstractModel;
 
 class PackModel extends AbstractModel {
 
-    function getOnePack($id) {
+    // Récupère les données d'un cours par rapport à son ID
+    function getPackById($id) {
         $sql = 'SELECT * FROM packs
                 WHERE id = ?';
         return $this->db->getOneResult($sql, [$id]);
     }
 
     function getAllPacks() {
-        $sql = 'SELECT * FROM packs
-                ORDER BY id ASC';
+        $sql = 'SELECT * FROM packs ORDER BY id ASC';
         return $this->db->getAllResults($sql);
     }
 
@@ -30,19 +30,10 @@ class PackModel extends AbstractModel {
         $this->db->prepareAndExecute($sql, [$userId, $packId]);
     }
 
-    // Récupère les données d'un cours par rapport à son ID
-    function getPackById($id) {
-
-        $sql = 'SELECT * FROM packs WHERE id = ?';
-        return $this->db->getOneResult($sql, [$id]);
-    }
-
-    function editPack($packId, $title, $price, $image) {
-
+    function editPack($packId, $title, $price, $image, $description) {
         $sql = 'UPDATE packs
-                SET title = ?, price = ?, image = ?
-                WHERE id = ?';
-        $this->db->prepareAndExecute($sql, [$title, $price, $image, $packId]);
+                SET title = ?, price = ?, image = ?, description = ? WHERE id = ?';
+        $this->db->prepareAndExecute($sql, [$title, $price, $image, $description, $packId]);
     }
 
     function deletePack($packId) {
@@ -53,7 +44,6 @@ class PackModel extends AbstractModel {
 
     // Ajoute un nouveau pack
     function createNewPack($title, $price, $image) {
-
         $sql = 'INSERT INTO packs(title, price, image)
                 VALUES (?, ?, ?)';
         $this->db->prepareAndExecute($sql, [$title, $price, $image]);

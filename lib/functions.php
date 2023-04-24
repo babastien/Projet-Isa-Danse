@@ -2,119 +2,107 @@
 
 use App\Model\UserModel;
 
-function asset(string $path)
-{
+function asset(string $path) {
     return BASE_URL . '/' . $path;
 }
 
-function constructUrl(string $path, array $params = [])
-{
+function constructUrl(string $path, array $params = []) {
     $url = BASE_URL . '/index.php' . $path;
 
     if ($params) {
         $url .= '?' . http_build_query($params);
     }
-
     return $url;
 }
 
-// // Validation du formulaire de connexion
-// function validLoginForm($email, $password) {
-
-//     $errors = '';
-
-//     if(empty($email) || empty($password)) {
-//         $errors = 'Tous les champs doivent être remplis';
-//     }
-
-//     if(!empty($email) AND !filter_var($email, FILTER_VALIDATE_EMAIL)) {
-//         $errors = 'Adresse email invalide';
-//     }
-
-//     return $errors;
-// }
-
 // Validation du formulaire de connexion
 function validLoginForm($email_login, $password_login) {
-
     $errors = [];
 
     if(empty($email_login)) {
-        $errors['email_login'] = '<p class="error">Le champ <b>Email</b> doit être rempli</p>';
+        $errors['email_login'] = 'Le champ <b>Email</b> doit être rempli';
     } elseif(!filter_var($email_login, FILTER_VALIDATE_EMAIL)) {
-        $errors['email_login'] = '<p class="error">Adresse email invalide</p>';
+        $errors['email_login'] = 'Adresse email invalide';
     }
-
     if(empty($password_login)) {
-        $errors['password_login'] = '<p class="error">Le champ <b>Mot de passe</b> doit être rempli</p>';
+        $errors['password_login'] = 'Le champ <b>Mot de passe</b> doit être rempli';
     }
 
     return $errors;
 }
 
-// // Validation du formulaire d'inscription
-// function validRegisterForm($lastname, $firstname, $email, $password, $password2) {
-
-//     $errors = '';
-//     $userModel = new UserModel();
-
-//     if(empty($lastname) || empty($firstname) || empty($email) || empty($password) || empty($password2)) {
-//         $errors = 'Tous les champs doivent être remplis';
-        
-//     } else {
-
-//         if(!empty($email) AND !filter_var($email, FILTER_VALIDATE_EMAIL)) {
-//             $errors = 'Adresse email invalide';
-//         } elseif($userModel->verifyEmailExist($email) == true) {
-//             $errors = 'Cette adresse email est déjà utilisée';
-//         }
-
-//         if(strlen($password) < 8) {
-//             $errors = 'Votre mot de passe doit contenir 8 caractères minimum';
-//         } elseif(!preg_match('#^[a-zA-Z0-9]$#', $password)) {
-//             $errors = 'Votre mot de passe doit contenir au moins une majuscule, une minuscule et un chiffre';
-//         } elseif($password != $password2) {
-//             $errors = 'Vos mots de passe doivent être identiques';
-//         }
-//     }
-
-//     return $errors;
-// }
-
 // Validation du formulaire d'inscription
 function validRegisterForm($lastname, $firstname, $email, $password, $password2) {
-
     $errors = [];
     $userModel = new UserModel();
 
     if(empty($lastname)) {
-        $errors['lastname'] = '<p class="error">Le champ <b>Nom</b> doit être rempli</p>';
+        $errors['lastname'] = 'Le champ <b>Nom</b> doit être rempli';
     }
-
     if(empty($firstname)) {
-        $errors['firstname'] = '<p class="error">Le champ <b>Prénom</b> doit être rempli</p>';
+        $errors['firstname'] = 'Le champ <b>Prénom</b> doit être rempli';
+    }
+    if(empty($email)) {
+        $errors['email'] = 'Le champ <b>Email</b> doit être rempli';
+    } elseif(!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        $errors['email'] = 'Adresse email invalide';
+    } elseif($userModel->verifyEmailExist($email) == true) {
+        $errors['email'] = 'Cette adresse email est déjà utilisée';
+    }
+    if(empty($password)) {
+        $errors['password'] = 'Le champ <b>Mot de passe</b> doit être rempli';
+    } elseif(strlen($password) < 8) {
+        $errors['password'] = 'Votre mot de passe doit contenir 8 caractères minimum';
+    } elseif(!preg_match('/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$/', $password)) {
+        $errors['password'] = 'Votre mot de passe doit contenir au moins une majuscule, une minuscule et un chiffre';
+    }
+    if(empty($password2)) {
+        $errors['password2'] = 'Le champ <b>Confirmer le mot de passe</b> doit être rempli';
+    } elseif($password != $password2) {
+        $errors['password2'] = 'Vos mots de passe doivent être identiques';
     }
 
-    if(empty($email)) {
-        $errors['email'] = '<p class="error">Le champ <b>Email</b> doit être rempli</p>';
-    } elseif(!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        $errors['email'] = '<p class="error">Adresse email invalide</p>';
-    } elseif($userModel->verifyEmailExist($email) == true) {
-        $errors['email'] = '<p class="error">Cette adresse email est déjà utilisée</p>';
+    return $errors;
+}
+
+function validPresentForm($lastname, $firstname, $email, $email2) {
+    $errors = [];
+
+    if(empty($lastname)) {
+        $errors['lastname'] = 'Le champ <b>Nom</b> doit être rempli';
     }
+    if(empty($firstname)) {
+        $errors['firstname'] = 'Le champ <b>Prénom</b> doit être rempli';
+    }
+    if(empty($email)) {
+        $errors['email'] = 'Le champ <b>Email</b> doit être rempli';
+    }
+    if(empty($email2)) {
+        $errors['email2'] = 'Le champ <b>Confirmer l\'email</b> doit être rempli';
+    } elseif($email != $email2) {
+        $errors['email2'] = 'Les emails ne correspondent pas';
+    }
+
+    return $errors;
+}
+
+function validChangePasswordForm($password, $new_password, $new_password2, $session_password) {
+    $errors = [];
 
     if(empty($password)) {
-        $errors['password'] = '<p class="error">Le champ <b>Mot de passe</b> doit être rempli</p>';
-    } elseif(strlen($password) < 8) {
-        $errors['password'] = '<p class="error">Votre mot de passe doit contenir 8 caractères minimum</p>';
-    } elseif(!preg_match('#^[a-zA-Z0-9]$#', $password)) {
-        $errors['password'] = '<p class="error">Votre mot de passe doit contenir au moins une majuscule, une minuscule et un chiffre</p>';
+        $errors['password'] = 'Veuillez renseigner votre mot de passe actuel';
+    } elseif(!password_verify($password, $session_password)) {
+        $errors['password'] = 'Le mot passe actuel ne correspond pas';
     }
-
-    if(empty($password2)) {
-        $errors['password2'] = '<p class="error">Le champ <b>Mot de passe</b> doit être rempli</p>';
-    } elseif($password != $password2) {
-        $errors['password2'] = '<p class="error">Vos mots de passe doivent être identiques</p>';
+    if(empty($new_password)) {
+        $errors['new_password'] = 'Veuillez entrer un nouveau mot de passe';
+    } elseif(!preg_match('/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$/', $new_password)) {
+        $errors['new_password'] = 'Le mot de passe doit contenir au moins 8 caractères dont une majuscule, une minuscule et un chiffre';
+    }
+    if(empty($new_password2)) {
+        $errors['new_password2'] = 'Veuillez confirmer le nouveau mot de passe';
+    } elseif($new_password != $new_password2) {
+        $errors['new_password2'] = 'Les mots de passe ne correspondent pas';
     }
 
     return $errors;

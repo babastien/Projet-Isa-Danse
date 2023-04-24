@@ -1,9 +1,10 @@
 /* NAV */
 
 nav {
-    height: 80px;
+    height: 70px;
     width: 100%;
     background: white;
+    border-bottom: 1px solid rgb(211, 211, 211, 50%);
 }
 
 .nav-bar {
@@ -15,7 +16,7 @@ nav {
 
 nav a {
     text-decoration: none;
-    color: palevioletred;
+    color: black;
 }
 
 nav a:hover {
@@ -54,8 +55,8 @@ nav span {
 
 .close-menu, .open-menu {
     position: absolute;
-    top: 26px;
-    right: 27px;
+    top: 22px;
+    right: 28px;
     width: 25px;
 }
 
@@ -74,6 +75,10 @@ nav span {
     }
 }
 
+main {
+    min-height: calc(100vh - 140px);
+}
+
 /* FORMS */
 
 form {
@@ -83,7 +88,6 @@ form {
     box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
     border-radius: 20px;
     background: white;
-    margin: auto;
 }
 
 form input {
@@ -95,10 +99,16 @@ form input {
     background: white;
 }
 
+form p {
+    margin-top: 0;
+    margin-bottom: 10px;
+}
+
 input[type="submit"] {
     cursor: pointer;
     border: 1px solid lightgrey;
     box-shadow: rgba(0, 0, 0, 0.25) 0px 0.0625em 0.0625em, rgba(0, 0, 0, 0.25) 0px 0.125em 0.5em, rgba(255, 255, 255, 0.1) 0px 0px 0px 1px inset;
+    margin: 10px 0;
 }
 
 input[type="submit"]:hover, input[type="button"]:hover, .select-pack a:hover {
@@ -113,48 +123,62 @@ input[type="button"] {
     padding: 5px 10px;
     text-decoration: none;
     background: white;
-    margin-bottom: 10px;
     box-shadow: rgba(0, 0, 0, 0.25) 0px 0.0625em 0.0625em, rgba(0, 0, 0, 0.25) 0px 0.125em 0.5em, rgba(255, 255, 255, 0.1) 0px 0px 0px 1px inset;
     cursor: pointer;
+    margin: 10px 0;
+}
+
+input[type="file"] {
+    border: 0;
 }
 
 legend {
-    margin: 0;
-}
-
-form p {
-    margin-top: 0;
+    font-weight: bold;
 }
 
 .error {
     text-align: center;
     color: red;
     font-size: 12px;
+    font-style: italic;
     margin: 0;
 }
 
 .form-input {
     display: flex;
     justify-content: center;
-    align-items: start;
+    align-items: center;
     flex-direction: column;
+    margin-top: 5px;
+}
+
+table td {
+    text-align: center;
 }
 
 /* FOOTER */
 
 footer {
     width: 100%;
-    height: 80px;
+    height: 70px;
     display: flex;
     justify-content: center;
     align-items: center;
-    background: rgb(255, 255, 255, 50%);
-    border-top: 1px solid lightgrey;
-    margin-top: 15px;
+    /* background: rgb(255, 255, 255, 50%); */
+    background: white;
+    border-top: 1px solid rgb(211, 211, 211, 50%);
 }
 
 footer a {
     margin-left: 20px;
     text-decoration: none;
     color: black;
+}
+
+footer img {
+    width: 15px;
+}
+
+footer p {
+    font-size: 15px;
 }

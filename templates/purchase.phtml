@@ -1,5 +1,5 @@
+<br>
 <?php if(isset($_GET['id'])) { ?>
-    <div class="container" align="center">
 
     <?php if(!isset($_SESSION['packs']) || !in_array($_GET['id'], $_SESSION['packs'])): ?>
         <div class="command">
@@ -14,56 +14,74 @@
         <div align="center">
         <p>Connectez-vous ou inscrivez-vous pour procéder au paiement<br>
         Vous pourrez accéder aux cours en vous connectant à votre compte</p>
+
+        <?php if(isset($new_user)): ?>
+            <p style="color:green"><?= $new_user ?></p>
+        <?php endif; ?>
         
         <!-- Formulaire de connexion -->
         <form action="" method="POST" class="login-form" <?php if ($_SESSION['show_register']) { echo 'style="display:none"'; } ?>>
             <legend>Connexion</legend>
-            <label for="email">Email</label><br>
-            <input type="text" id="email" name="email-login" value="<?php if(isset($email_login)) { echo $email_login; } ?>">
-            <?php if(isset($errors['email_login'])) { echo $errors['email_login']; } ?>
-            <br>
-            <label for="password">Mot de passe</label><br>
-            <input type="password" id="password" name="password-login">
-            <?php if(isset($errors['password_login'])) { echo $errors['password_login']; } ?>
-            <br>
+            <div class="form-input">
+                <label for="email">Email</label>
+                <input type="text" id="email" name="email-login" value="<?php if(isset($email_login)) { echo $email_login; } ?>">
+                <?php if(isset($errors['email_login'])) { ?>
+                    <p class="error"><?= $errors['email_login'] ?></p>
+                <?php } ?>
+            </div>
+            <div class="form-input">
+                <label for="password">Mot de passe</label>
+                <input type="password" id="password" name="password-login">
+                <?php if(isset($errors['password_login'])) { ?>
+                    <p class="error"><?= $errors['password_login'] ?></p>
+                <?php } ?>
+            </div>
             <input type="submit" name="login-submit" value="Se connecter">
-            <br>
             <p>Pas encore inscris ? <a href="#" class="register">S'inscrire</a></p>
-            <a href="<?=constructUrl('/forgot-password')?>">Mot de passe oublié ?</a>
-            <br><br>
+            <p><a href="<?=constructUrl('/forgot-password')?>">Mot de passe oublié ?</a></p>
         </form>
 
         <!-- Formulaire d'inscription -->
         <form action="" method="POST" class="register-form" <?php if ($_SESSION['show_register']) { echo 'style="display:block"'; } ?>>
             <legend>Inscription</legend>
-            <label for="lastname">Nom</label><br>
-            <input type="text" id="lastname" name="lastname" value="<?php if(isset($lastname)) { echo $lastname; } ?>">
-            <?php if(isset($errors['lastname'])) { echo $errors['lastname']; } ?>
-            <br>
-            <label for="firstname">Prénom</label><br>
-            <input type="text" id="firstname" name="firstname" value="<?php if(isset($firstname)) { echo $firstname; } ?>">
-            <?php if(isset($errors['firstname'])) { echo $errors['firstname']; } ?>
-            <br>
-            <label for="email">Email</label><br>
-            <input type="email" id="email" name="email" value="<?php if(isset($email)) { echo $email; } ?>">
-            <?php if(isset($errors['email'])) { echo $errors['email']; } ?>
-            <br>
-            <label for="password">Mot de passe</label><br>
-            <input type="password" id="password" name="password">
-            <?php if(isset($errors['password'])) { echo $errors['password']; } ?>
-            <br>
-            <label for="password">Confirmer le mot de passe</label><br>
-            <input type="password" id="password2" name="password2">
-            <?php if(isset($errors['password2'])) { echo $errors['password2']; } ?>
-            <br>
+            <div class="form-input">
+                <label for="lastname">Nom</label>
+                <input type="text" id="lastname" name="lastname" value="<?php if(isset($lastname)) { echo $lastname; } ?>">
+                <?php if(isset($errors['lastname'])) { ?>
+                    <p class="error"><?= $errors['lastname'] ?></p>
+                <?php } ?>
+            </div>
+            <div class="form-input">
+                <label for="firstname">Prénom</label>
+                <input type="text" id="firstname" name="firstname" value="<?php if(isset($firstname)) { echo $firstname; } ?>">
+                <?php if(isset($errors['firstname'])) { ?>
+                    <p class="error"><?= $errors['firstname'] ?></p>
+                <?php } ?>
+            </div>
+            <div class="form-input">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" value="<?php if(isset($email)) { echo $email; } ?>">
+                <?php if(isset($errors['email'])) { ?>
+                    <p class="error"><?= $errors['email'] ?></p>
+                <?php } ?>
+            </div>
+            <div class="form-input">
+                <label for="password">Mot de passe</label>
+                <input type="password" id="password" name="password">
+                <?php if(isset($errors['password'])) { ?>
+                    <p class="error"><?= $errors['password'] ?></p>
+                <?php } ?>
+            </div>
+            <div class="form-input">
+                <label for="password">Confirmer le mot de passe</label>
+                <input type="password" id="password2" name="password2">
+                <?php if(isset($errors['password2'])) { ?>
+                    <p class="error"><?= $errors['password2'] ?></p>
+                <?php } ?>
+            </div>
             <input type="submit" name="register-submit" value="S'inscrire">
-            <br>
             <p>Déjà inscris ? <a href="#" class="login">Se connecter</a></p>
         </form>
-
-        <!-- <?php if(isset($errors)): ?>
-            <p class="error"><?= $errors ?></p>
-        <?php endif; ?> -->
 
     <?php } else { ?>
 
@@ -83,20 +101,25 @@
 
                     <!-- Formulaire de paiement -->
                     <form action="" method="POST" class="payment-form">
-                        <label for="card-number">Numéro de la carte</label><br>
-                        <input type="text" id="card-number" placeholder="•••• •••• •••• ••••" data-stripe="number">
-                        <br>
-                        <label for="exp-date">Date d'expiration</label><br>
-                        <div class="exp-date">
-                            <input type="text" placeholder="MM" data-stripe="exp_month">
-                            <input type="text" placeholder="YY" data-stripe="exp_year">
+                        <div class="form-input">
+                            <label for="card-number">Numéro de la carte</label>
+                            <input type="text" id="card-number" placeholder="•••• •••• •••• ••••" data-stripe="number">
                         </div>
-                        <label for="cvc">Code de sécurité</label><br>
-                        <input type="text" id="cvc" placeholder="CVC" data-stripe="cvc">
-                        <br>
-                        <label for="card-name">Titulaire de la carte</label><br>
-                        <input type="text" id="card-name" placeholder="NOM Prénom">
-                        <br>
+                        <div class="form-input">
+                            <label for="exp-date">Date d'expiration</label>
+                            <div class="exp-date">
+                                <input type="text" placeholder="MM" data-stripe="exp_month">
+                                <input type="text" placeholder="YY" data-stripe="exp_year">
+                            </div>
+                        </div>
+                        <div class="form-input">
+                            <label for="cvc">Code de sécurité</label>
+                            <input type="text" id="cvc" placeholder="CVC" data-stripe="cvc">
+                        </div>
+                        <div class="form-input">
+                            <label for="card-name">Titulaire de la carte</label>
+                            <input type="text" id="card-name" placeholder="NOM Prénom">
+                        </div>
                         <input type="submit" name="buy-submit" value="Acheter">
                     </form>
                 <?php }            
@@ -106,10 +129,9 @@
         </div>
     <?php } ?>
 
-    </div>
 <?php } ?>
 
-<p>Vous souhaitez offrir un pack à un proche ? <a href="<?=constructUrl('/present')?>">Cliquez ici</a></p>
+<p class="present">Vous souhaitez offrir un pack à un proche ? <a href="<?=constructUrl('/present')?>">Cliquez ici</a></p>
 
 <script src="https://js.stripe.com/v3/"></script>
 

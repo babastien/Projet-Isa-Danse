@@ -34,6 +34,7 @@ if(isset($_POST['login-submit']) AND !empty($_POST['login-submit'])) {
                 $_SESSION['firstname'] = $user['firstname'];
                 $_SESSION['lastname'] = $user['lastname'];
                 $_SESSION['email'] = $user['email'];
+                $_SESSION['password'] = $user['password'];
 
                 $userPacks = $userModel->getUserPacks($user['id']);
 
@@ -42,17 +43,15 @@ if(isset($_POST['login-submit']) AND !empty($_POST['login-submit'])) {
                 } else {
                     $_SESSION['packs'] = [];
                 }
-
-                // dump($_SESSION['courses']);
                 
                 header('Location: ' . constructUrl('/'));
                 exit;
 
             } else {
-                $errors = 'Mauvais email ou mot de passe';
+                $errors['password_login'] = 'Mauvais email ou mot de passe';
             }
         } else {
-            $errors = 'Mauvais email ou mot de passe';
+            $errors['password_login'] = 'Mauvais email ou mot de passe';
         }
     }
 }

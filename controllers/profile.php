@@ -22,39 +22,21 @@ if(isset($_POST['password-submit']) AND !empty($_POST['password-submit'])) {
         $password = htmlspecialchars($_POST['password']);
         $new_password = htmlspecialchars($_POST['new-password']);
         $new_password2 = htmlspecialchars($_POST['new-password2']);
+        $session_password = $_SESSION['password'];
+        $errors = [];
 
-        if(!empty($password) || !empty($new_password) || !empty($new_password2)) {
+        $errors = validChangePasswordForm($password, $new_password, $new_password2, $session_password);
 
-            if(password_verify($password, $_SESSION['password'])) {
+        if(empty($errors)) {
 
-                if($new_password == $new_password2) {
-
-                    if(strlen($new_password) < 8) {
-                        $password_errors = 'Votre mot de passe doit contenir au moins 8 caractères';
-                    } elseif(!preg_match('#^[a-zA-Z0-9]$#', $new_password)) {
-                        $password_errors = 'Votre mot de passe doit contenir au moins une majuscule, une minuscule et un chiffre';
-                    } else {
-
-                        $new_password = password_hash($new_password, PASSWORD_DEFAULT);
+            $new_password = password_hash($new_password, PASSWORD_DEFAULT);
             
-                        $userModel->updateUserPassword($_SESSION['email'], $new_password);
+            $userModel->updateUserPassword($_SESSION['email'], $new_password);
             
-                        $_SESSION['password_changed'] = 'Mot de passe modifié avec succès';
+            $_SESSION['password_changed'] = 'Mot de passe modifié avec succès';
         
-                        header('Location: ' . constructUrl('/profile'));
-                    }
-
-                } else {
-                    $password_errors = 'Les mots de passe ne correspondent pas';
-                }
-            } else {
-                $password_errors = 'Votre mot de passe actuel ne correspond pas';
-            }
-        } else {
-            $password_errors = 'Veuillez remplir tous les champs';
+            header('Location: ' . $_SERVER['REQUEST_URI']);
         }
-    } else {
-        $password_errors = 'Veuillez remplir tous les champs';
     }
 }
 
@@ -62,24 +44,30 @@ if(isset($_POST['password-submit']) AND !empty($_POST['password-submit'])) {
 if(isset($_POST['code-submit']) AND !empty($_POST['code-submit'])) {
 
     $code = $_POST['gift-code'];
-    $gift_code = $giftModel->getGiftCodeDatas($code);
 
-    if($gift_code AND $gift_code['code'] == $code) {
+    if(!empty($code)) {
 
-        if($gift_code['used'] == 0) {
-
-            $packModel->addPackToUser($_SESSION['id'], $gift_code['pack_id']);
-            $giftModel->validGiftCode($code);
-
-            $userPacks = $userModel->getUserPacks($_SESSION['id']);
-        
-            $_SESSION['packs'] = $userPacks;
-
+        $gift_db = $giftModel->getGiftCodeDatas($code);
+    
+        if($gift_db AND $gift_db['code'] == $code) {
+    
+            if($gift_db['used'] == 0) {
+    
+                $packModel->addPackToUser($_SESSION['id'], $gift_db['pack_id']);
+                $giftModel->validGiftCode($code);
+    
+                $userPacks = $userModel->getUserPacks($_SESSION['id']);
+            
+                $_SESSION['packs'] = $userPacks;
+    
+            } else {
+                $code_errors = 'Ce code a déjà été utilisé';
+            }
         } else {
-            $code_errors = 'Ce code a déjà été utilisé';
+            $code_errors = 'Code erroné';
         }
     } else {
-        $code_errors = 'Code erroné';
+        $code_errors = 'Le champ est vide';
     }
 }
 

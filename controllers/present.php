@@ -11,11 +11,15 @@ $packs = $packModel->getAllPacks();
 
 if(isset($_POST) AND !empty($_POST)) {
 
+    $lastname = $_POST['lastname'];
+    $firstname = $_POST['firstname'];
     $email = htmlspecialchars($_POST['email']);
     $email2 = htmlspecialchars($_POST['email2']);
     $idPackSelected = $_POST['pack'];
 
-    if($email == $email2) {
+    $errors = validPresentForm($lastname, $firstname, $email, $email2);
+
+    if(empty($errors)) {
 
         $gift_code = '';
 

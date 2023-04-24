@@ -17,7 +17,6 @@ main {
 
 .login-page {
     width: 100%;
-    height: calc(100vh - 160px);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -26,4 +25,14 @@ main {
 
 .register-form {
     display: none;
+}
+
+form a {
+    text-decoration: none;
+    color: black;
+    font-weight: bold;
+}
+
+form a:hover {
+    color: red;
 }

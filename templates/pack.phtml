@@ -1,0 +1,12 @@
+<?php if(!empty($videos)) { ?>
+
+    <?php foreach($videos as $video) { ?>
+        <div class="video">
+            <p><?= $video['title'] ?></p>   
+            <video controls src="<?= asset($video['filename']) ?>"></video>
+        </div>
+    <?php } ?>
+
+<?php } else { ?>
+    <p>Ce pack ne contient pas de vidéo</p>
+<?php } ?>

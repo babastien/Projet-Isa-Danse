@@ -21,3 +21,10 @@ table {
     background: white;
 }
 
+input[type="button"] {
+    margin: 0;
+}
+
+input[type="number"] {
+    width: 40px;
+}
