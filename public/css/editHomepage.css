@@ -6,6 +6,7 @@ body {
     background-size: cover;
     background-attachment: fixed;
     font-family: 'Quicksand', sans-serif;
+    background: whitesmoke;
 }
 
 main {
@@ -15,24 +16,11 @@ main {
     flex-direction: column;
 }
 
-.login-page {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
+form {
+    width: 500px;
 }
 
-.register-form {
-    display: none;
-}
-
-form a {
-    text-decoration: none;
-    color: black;
-    font-weight: bold;
-}
-
-form a:hover {
-    color: red;
+input[type="text"], textarea {
+    width: 80%;
+    border-radius: 5px;
 }

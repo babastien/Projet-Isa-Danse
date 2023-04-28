@@ -1,0 +1,17 @@
+<br>
+<?php foreach($sections as $section) : ?>
+
+    <form action="" method="POST">
+        <div class="form-input">
+            <label for="title-<?= $section['id'] ?>">Titre de la section</label>
+            <input type="text" id="title-<?= $section['id'] ?>" name="title-<?= $section['id'] ?>" value="<?php if(isset($section['title'])) { echo $section['title']; } ?>">
+        </div>
+        <div class="form-input">
+            <label for="content-<?= $section['id'] ?>">Contenu de la section</label>
+            <textarea name="content-<?= $section['id'] ?>" id="content-<?= $section['id'] ?>" cols="30" rows="10"><?php if(isset($section['content'])) { echo $section['content']; } ?></textarea>
+        </div>
+        <input type="submit" name="update-section-<?= $section['id'] ?>" value="Modifer">
+    </form>
+    <br>
+    
+<?php endforeach ?>

@@ -6,7 +6,6 @@ use App\Core\AbstractModel;
 
 class PackModel extends AbstractModel {
 
-    // Récupère les données d'un cours par rapport à son ID
     function getPackById($id) {
         $sql = 'SELECT * FROM packs
                 WHERE id = ?';
@@ -42,7 +41,6 @@ class PackModel extends AbstractModel {
         $this->db->prepareAndExecute($sql, [$packId]);
     }
 
-    // Ajoute un nouveau pack
     function createNewPack($title, $price, $image) {
         $sql = 'INSERT INTO packs(title, price, image)
                 VALUES (?, ?, ?)';

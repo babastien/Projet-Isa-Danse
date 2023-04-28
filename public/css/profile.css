@@ -6,7 +6,6 @@ body {
     background-size: cover;
     background-attachment: fixed;
     font-family: 'Quicksand', sans-serif;
-    background: whitesmoke;
 }
 
 main {
@@ -14,6 +13,7 @@ main {
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    position: relative;
 }
 
 .profile {
@@ -32,4 +32,43 @@ input[type="password"] {
 #gift-code {
     width: 60px;
     margin-top: 5px;
+}
+
+.frame {
+    width: 300px;
+    border: 1px solid lightgrey;
+    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+    border-radius: 20px;
+    text-align: center;
+    background: white;
+}
+
+.pop-up {
+    position: absolute;
+    display: none;
+    z-index: 2;
+    padding: 0 10px;
+}
+
+.pop-up p {
+    margin-bottom: 0;
+    margin-top: 10px;
+}
+
+.pop-up input[type="submit"]:hover {
+    color: red;
+}
+
+.pop-up-background {
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    background: transparent;
+    position: absolute;
+    display: none;
+    backdrop-filter: blur(3px);
+}
+
+.warning {
+    color: red;
 }

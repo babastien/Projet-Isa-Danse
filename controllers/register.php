@@ -4,6 +4,12 @@ use App\Model\UserModel;
 
 $userModel = new UserModel();
 
+// Redirect to homepage if already logged
+if(isset($_SESSION['id'])) {
+    header('Location: ' . constructUrl('home'));
+    exit;
+}
+
 if(isset($_POST) AND !empty($_POST)) {
 
     $lastname = trim(ucfirst(htmlspecialchars($_POST['lastname'])));
@@ -21,7 +27,7 @@ if(isset($_POST) AND !empty($_POST)) {
         $userModel->addNewUser($lastname, $firstname, $email, $password);
 
         $_SESSION['new_user'] = 'Votre compte a bien été créé';
-        header('Location: ' . constructUrl('/login'));
+        header('Location: ' . constructUrl('login'));
     }
 }
 

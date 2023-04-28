@@ -11,6 +11,11 @@
 </form>
 <br> -->
 
+<div class="frame">
+    <p><a href="<?= constructUrl('edit-homepage') ?>">Modifier la page d'accueil</a></p>
+</div>
+<br>
+
 <form action="" method="POST">
     <legend>Ajouter un Pack de vidéo(s)</legend>
     <div class="form-input">
@@ -53,7 +58,7 @@
             <td><?= $pack['title'] ?></td>
             <td><?= $pack['price'] ?> €</td>
             <td><?= count($videoModel->getVideosByPack($pack['id'])) ?></td>
-            <td><a href="<?= constructUrl('/edit-pack', ['id' => $pack['id']]) ?>"><input type="button" value="Modifier"></a></td>
+            <td><a href="<?= constructUrl('edit-pack', ['id' => $pack['id']]) ?>"><input type="button" value="Modifier"></a></td>
         </tr>
     <?php endforeach; ?>
 </table>
@@ -61,13 +66,12 @@
 
 <table border="1">
     <thead>
-        <th colspan="6">Liste des utilisateurs</th>
+        <th colspan="5">Liste des utilisateurs</th>
     </thead>
     <tr>
         <th>Nom</th>
         <th>Prénom</th>
         <th>Email</th>
-        <th>Date d'inscription</th>
         <th>Souscription(s)</th>
         <th>Modifier</th>
     </tr>
@@ -76,7 +80,6 @@
             <td><?= $user->getLastname() ?></td>
             <td><?= $user->getFirstname() ?></td>
             <td><?= $user->getEmail() ?></td>
-            <td><?= $user->getFormattedCreatedAt() ?></td>
             <td><?php $userPacks = $userModel->getUserPacks($user->getId()) ?>
                 <?php if($userPacks): ?>
                     <?php foreach($userPacks as $pack): ?>
@@ -84,7 +87,7 @@
                     <?php endforeach; ?>
                 <?php endif; ?>
             </td>
-            <td><a href="<?= constructUrl('/edit-user', ['id' => $user->getId()]) ?>"><input type="button" value="Modifier"></a></td>
+            <td><a href="<?= constructUrl('edit-user', ['id' => $user->getId()]) ?>"><input type="button" value="Modifier"></a></td>
         </tr>
     <?php endforeach; ?>
 </table>

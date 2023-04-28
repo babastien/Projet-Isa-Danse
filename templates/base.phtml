@@ -21,40 +21,41 @@
     <head>
         <nav>
             <div class="nav-bar">
-                <a href="<?= constructUrl('/') ?>">Accueil</a>
+                <a href="<?= constructUrl('home') ?>">Accueil</a>
                 <?php if(!isset($_SESSION['id'])) { ?>
-                    <a href="<?= constructUrl('/login') ?>">Connexion</a>
-                    <a href="<?= constructUrl('/register') ?>">Inscription</a>
+                    <a href="<?= constructUrl('login') ?>">Connexion</a>
+                    <a href="<?= constructUrl('register') ?>">Inscription</a>
                 <?php } elseif(isset($_SESSION['id'])) { ?>
                     <?php if($_SESSION['role'] === 'admin'): ?>
-                        <a href="<?= constructUrl('/admin') ?>">Administrateur</a>
+                        <a href="<?= constructUrl('admin') ?>">Administrateur</a>
                     <?php endif; ?>
-                    <a href="<?= constructUrl('/member') ?>">Espace membre</a>
-                    <a href="<?= constructUrl('/profile') ?>">Mon profil</a>
-                    <a href="<?= constructUrl('/logout') ?>">Déconnexion</a>
+                    <a href="<?= constructUrl('member') ?>">Espace membre</a>
+                    <a href="<?= constructUrl('profile') ?>">Mon profil</a>
+                    <a href="<?= constructUrl('logout') ?>">Déconnexion</a>
                 <?php } ?>
+                <a href="<?= constructUrl('contact') ?>">Contact</a>
             </div>
             <div class="nav-burger">
                 <div class="menu-burger">
                     <span></span>
                     <span></span>
                     <span></span>
-                    <!-- <img class="open-menu" src="<?= asset('images/open.png') ?>" alt="Open"> -->
                 </div>
             </div>
             <div class="hidden-menu">
-                <a href="<?= constructUrl('/') ?>">Accueil</a>
+                <a href="<?= constructUrl('home') ?>">Accueil</a>
                 <?php if(!isset($_SESSION['id'])) { ?>
-                    <a href="<?= constructUrl('/login') ?>">Connexion</a>
-                    <a href="<?= constructUrl('/register') ?>">Inscription</a>
+                    <a href="<?= constructUrl('login') ?>">Connexion</a>
+                    <a href="<?= constructUrl('register') ?>">Inscription</a>
                 <?php } elseif(isset($_SESSION['id'])) { ?>
                     <?php if($_SESSION['role'] === 'admin'): ?>
-                        <a href="<?= constructUrl('/admin') ?>">Administrateur</a>
+                        <a href="<?= constructUrl('admin') ?>">Administrateur</a>
                     <?php endif; ?>
-                    <a href="<?= constructUrl('/member') ?>">Espace membre</a>
-                    <a href="<?= constructUrl('/profile') ?>">Mon profil</a>
-                    <a href="<?= constructUrl('/logout') ?>">Déconnexion</a>
+                    <a href="<?= constructUrl('member') ?>">Espace membre</a>
+                    <a href="<?= constructUrl('profile') ?>">Mon profil</a>
+                    <a href="<?= constructUrl('logout') ?>">Déconnexion</a>
                 <?php } ?>
+                <a href="<?= constructUrl('contact') ?>">Contact</a>
                 <img class="close-menu" src="<?= asset('images/close.png') ?>" alt="Fermer">
             </div>
         </nav>
@@ -66,10 +67,12 @@
 
     <footer>
         <p>© Isabelle Manzanares. Tous droits réservés.</p>
-        <a href="https://www.facebook.com/hola.isabelle"><img src="<?=asset('/images/facebook.png')?>" alt=""></a>
-        <a href="https://www.youtube.com/channel/UC-5FkbLYr11nVC65PpWdt1A"><img src="<?=asset('/images/youtube.png')?>" alt=""></a>
-        <a href="https://www.instagram.com/isabellemanzanares"><img src="<?=asset('/images/instagram.png')?>" alt=""></a>
-        <a href="https://www.isabelle-manzanares.com"><p>https://www.isabelle-manzanares.com</p></a>
+        <div class="social-media">
+            <a href="https://www.facebook.com/hola.isabelle"><img src="<?=asset('/images/facebook.png')?>" alt=""></a>
+            <a href="https://www.youtube.com/channel/UC-5FkbLYr11nVC65PpWdt1A"><img src="<?=asset('/images/youtube.png')?>" alt=""></a>
+            <a href="https://www.instagram.com/isabellemanzanares"><img src="<?=asset('/images/instagram.png')?>" alt=""></a>
+        </div>
+        <p><a href="https://www.isabelle-manzanares.com">https://www.isabelle-manzanares.com</a></p>
     </footer>
 
     <script>

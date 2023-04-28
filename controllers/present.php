@@ -6,8 +6,8 @@ use App\Model\GiftModel;
 $packModel = new PackModel();
 $giftModel = new GiftModel();
 
-// Affiche la liste des cours pour envoyer une carte cadeau
-$packs = $packModel->getAllPacks();
+// Show packs list for gift card
+$packSelection = $packModel->getAllPacks();
 
 if(isset($_POST) AND !empty($_POST)) {
 
@@ -35,13 +35,13 @@ if(isset($_POST) AND !empty($_POST)) {
         $header.= 'Content-Transfer-Encoding: 8bit';
 
         $message = '<p>Bonjour,</p>
-        <p>Merci pour ta jolie attention, voici la carte cadeau à transférer :)</p>
+        <p>Voici la carte cadeau à transférer :)</p>
         <p>'. $gift_code .'</p>';
                 
-        // Envoi de la carte cadeau par email
+        // Send gift card by email
         mail($email, 'Carte cadeau', $message, $header);
 
-        header('Location: ' . constructUrl('/'));
+        header('Location: ' . constructUrl('home'));
     }
 }
 

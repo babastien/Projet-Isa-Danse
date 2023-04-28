@@ -1,6 +1,6 @@
 <?php
 
-// Page réservée à l'administrateur
+// Admin page
 if($_SESSION['role'] !== 'admin') {
     http_response_code(404);
     echo 'Erreur 404 : Page introuvable';
@@ -17,7 +17,7 @@ $pack = $packModel->getPackById($_GET['id']);
 
 $videos = $videoModel->getVideosByPack($_GET['id']);
 
-// Modifier le pack
+// Edit pack
 if(isset($_POST['edit-pack'])) {
     $pack_title = $_POST['pack-title'];
     $price = $_POST['price'];
@@ -32,9 +32,9 @@ if(isset($_POST['edit-pack'])) {
     if(empty($price)) {
         $pack_errors['price'] = 'Le champ <b>Prix</b> est vide';
     }
-    if(empty($description)) {
-        $pack_errors['description'] = 'Le champ <b>Description</b> est vide';
-    }
+    // if(empty($description)) {
+    //     $pack_errors['description'] = 'Le champ <b>Description</b> est vide';
+    // }
 
     if(empty($pack_errors)) {
 
@@ -50,7 +50,7 @@ if(isset($_POST['edit-pack'])) {
     }
 }
 
-// Modifier une vidéo
+// Edit video
 if(!empty($videos)) {
     foreach($videos as $video) {
         if(isset($_POST['edit-'.$video['id']])) {
@@ -68,7 +68,7 @@ if(!empty($videos)) {
     }
 }
 
-// Supprimer une vidéo
+// Delete video
 if(!empty($videos)) {
     foreach($videos as $video) {
         if(isset($_POST['delete-'.$video['id']])) {
@@ -79,7 +79,7 @@ if(!empty($videos)) {
     }
 }
 
-// Ajouter une vidéo
+// Add video to a pack
 if(isset($_POST['add-video'])) {
     $video_title = $_POST['video-title'];
     $video_filename = $_POST['video-filename'];
@@ -103,10 +103,10 @@ if(isset($_POST['add-video'])) {
     }
 }
 
-// Supprimer le pack
+// Delete the pack
 if(isset($_POST['delete-pack'])) {
-    // $packModel->deletePack($_GET['id']);
-    header('Location: ' . constructUrl('/admin'));
+    $packModel->deletePack($_GET['id']);
+    header('Location: ' . constructUrl('admin'));
     exit;
 }
 

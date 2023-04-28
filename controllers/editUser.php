@@ -1,6 +1,6 @@
 <?php
 
-// Page réservée à l'administrateur
+// Admin page
 if($_SESSION['role'] !== 'admin') {
     http_response_code(404);
     echo 'Erreur 404 : Page introuvable';
@@ -13,16 +13,21 @@ use App\Model\PackModel;
 $userModel = new UserModel();
 $packModel = new PackModel();
 
-// Récupère un utilisateur
+// Get user's datas
 $user = $userModel->getUserById($_GET['id']);
 
-// Récupère les cours de l'utilisateur
+// Get user's pack(s)
 $userPacks = $userModel->getUserPacks($user['id']);
 
-// Récupère la liste des cours
-$packs = $packModel->getAllPacks();
+$userPacksId = [];
+foreach($userPacks as $pack) {
+    $userPacksId[] .= $pack['id'];
+}
 
-// Modifier l'utilisateur
+// Show packs list
+$packSelection = $packModel->getAllPacks();
+
+// Edit user
 if(isset($_POST['edit-user'])) {
     $lastname = $_POST['lastname'];
     $firstname = $_POST['firstname'];
@@ -31,7 +36,7 @@ if(isset($_POST['edit-user'])) {
     if(empty($lastname)) {
         $errors['lastname'] = 'Le champ <b>Nom</b> est vide';
     }
-    if(empty($fistname)) {
+    if(empty($firstname)) {
         $errors['firstname'] = 'Le champ <b>Prénom</b> est vide';
     }
     if(empty($email)) {
@@ -43,24 +48,34 @@ if(isset($_POST['edit-user'])) {
     if(empty($errors)) {
         $userModel->editUser($_GET['id'], $lastname, $firstname, $email);
         header('Location: ' . $_SERVER['REQUEST_URI']);
+        exit;
     }
 }
 
-// Supprimer un cours
+// Delete pack to user
 foreach($userPacks as $pack) {
     if(isset($_POST['delete-'.$pack['pack_id']])) {
         $packModel->deletePackToUser($user['id'], $pack['pack_id']);
         header('Location: ' . $_SERVER['REQUEST_URI']);
+        exit;
     }
 }
 
-// Ajouter un cours
+// Add pack to user
 $packSelected = '';
 if(isset($_POST['add-pack'])) {
     $packSelected = $_POST['pack-selected'];
 
     $packModel->addPackToUser($_GET['id'], $packSelected);
     header('Location: ' . $_SERVER['REQUEST_URI']);
+    exit;
+}
+
+// Delete user
+if(isset($_POST['delete-user'])) {
+    $userModel->deleteUser($_GET['id']);
+    header('Location: ' . constructUrl('admin'));
+    exit;
 }
 
 $template = 'editUser';

@@ -4,11 +4,18 @@ use App\Model\UserModel;
 
 $userModel = new UserModel();
 
+// Flash message
 $new_user = null;
 if(array_key_exists('new_user', $_SESSION) AND $_SESSION['new_user']) {
     $new_user = $_SESSION['new_user'];
     $_SESSION['new_user'] = null;
     session_unset();
+}
+
+// Redirect to homepage if already logged
+if(isset($_SESSION['id'])) {
+    header('Location: ' . constructUrl('home'));
+    exit;
 }
 
 if(isset($_POST) AND !empty($_POST)) {
@@ -34,16 +41,8 @@ if(isset($_POST) AND !empty($_POST)) {
                 $_SESSION['lastname'] = $user['lastname'];
                 $_SESSION['email'] = $user['email'];
                 $_SESSION['password'] = $user['password'];
-
-                $userPacks = $userModel->getUserPacks($user['id']);
-
-                if(!empty($userPacks)) {
-                    $_SESSION['packs'] = $userPacks;
-                } else {
-                    $_SESSION['packs'] = [];
-                }
                 
-                header('Location: ' . constructUrl('/'));
+                header('Location: ' . constructUrl('home'));
                 exit;
 
             } else {

@@ -12,7 +12,7 @@ if(isset($_GET['section'])) {
     $section = '';
 }
 
-// Formulaire - Entrez l'adresse email
+// First form : enter the email
 if(isset($_POST['recup-submit'])) {
 
     if(!empty($_POST['email'])) {
@@ -36,9 +36,9 @@ if(isset($_POST['recup-submit'])) {
 
                 if($passwordModel->verifiyEmailForgotPassword($email) == true) {
 
-                    $passwordModel->updateVerifCode($email, $recup_code);
+                    $passwordModel->updateRecupCode($email, $recup_code);
                 } else {
-                    $passwordModel->insertVerifCode($email, $recup_code);
+                    $passwordModel->insertRecupCode($email, $recup_code);
                 }
 
                 $header = 'MIME-Version: 1.0\r\n';
@@ -47,13 +47,14 @@ if(isset($_POST['recup-submit'])) {
                 $header.= 'Content-Transfer-Encoding: 8bit';
 
                 $message = '<p>Bonjour,</p>
-                <p>Cliquez <a href="http://localhost/Back-end/Espace%20membre/recuperation.php?section=code&code='.$recup_code.'">ICI</a> pour réinitialiser votre mot de passe</p>';
+                <p>Voici votre code de récupération : ' . $recup_code . '</p>';
                 
-                // Envoi du code de récupération par email
+                // Send recuperation code by email
                 mail($email, 'Récupération du mot de passe', $message, $header);
 
-                // Redirection vers la page de vérification du code
-                header('Location: ' . constructUrl('/forgot-password', ['section' => 'code']));
+                // Redirect to the second form (same page)
+                header('Location: ' . constructUrl('forgot-password', ['section' => 'code']));
+                exit;
 
             } else {
                 $errors = 'Cette adresse email n\'est pas enregistrée';
@@ -66,7 +67,7 @@ if(isset($_POST['recup-submit'])) {
     }
 }
 
-// Formulaire - Entrez le code de vérification
+// Second form : enter the recuperation code
 if(isset($_POST['verif-submit'], $_POST['verif-code'])) {
 
     if(!empty($_POST['verif-code'])) {
@@ -74,9 +75,18 @@ if(isset($_POST['verif-submit'], $_POST['verif-code'])) {
         $verif_code = htmlspecialchars($_POST['verif-code']);
 
         if($passwordModel->verifyCodeExist($_SESSION['recup_email']) == true) {
-            $passwordModel->confirmCode($_SESSION['recup_email']);
-            
-            header('Location: ' . constructUrl('/forgot-password', ['section' => 'changepassword']));
+
+            if($verif_code == $_SESSION['recup_code']) {
+
+                $passwordModel->confirmCode($_SESSION['recup_email']);
+                
+                // Redirect to the third form (same page);
+                header('Location: ' . constructUrl('forgot-password', ['section' => 'changepassword']));
+                exit;
+
+            } else {
+                $errors = 'Code invalide';
+            }    
         } else {
         $errors = 'Code invalide';
         }
@@ -85,7 +95,7 @@ if(isset($_POST['verif-submit'], $_POST['verif-code'])) {
     }
 }
 
-// Formulaire - Choisissez votre nouveau mot de passe
+// Third form : choose your new password
 if(isset($_POST['change-submit'])) {
 
     if(isset($_POST['new-password'], $_POST['new-password2'])) {
@@ -112,10 +122,10 @@ if(isset($_POST['change-submit'])) {
                         $userModel->updateUserPassword($_SESSION['recup_email'], $new_password);
                         $passwordModel->deleteForgetPasswordRequest($_SESSION['recup_email']);
 
-                        // Détruit les variables de session
                         session_destroy();
         
-                        header('Location: ' . constructUrl('/login2'));
+                        header('Location: ' . constructUrl('login'));
+                        exit;
                     }
 
                 } else {

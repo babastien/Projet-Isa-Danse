@@ -4,11 +4,9 @@ namespace App\Model;
 
 use App\Core\AbstractModel;
 use App\Entity\User;
-// use App\Entity\Pack;
 
 class UserModel extends AbstractModel {
 
-    // Vérifie si l'email existe
     function verifyEmailExist($email) {
         $sql = 'SELECT * FROM users WHERE email = ?';
         $result = $this->db->verifyData($sql, [$email]);
@@ -17,19 +15,16 @@ class UserModel extends AbstractModel {
         }
     }
 
-    // Récupère les données d'un utilisateur
     function getUser($email) {
         $sql = 'SELECT * FROM users WHERE email = ?';
         return $this->db->getOneResult($sql, [$email]);
     }
 
-    // Récupère les données d'un utilisateur par rapport à son ID
     function getUserById($id) {
         $sql = 'SELECT * FROM users WHERE id = ?';
         return $this->db->getOneResult($sql, [$id]);
     }
 
-    // Récupère les données de tous les utilisateurs
     function getAllUsers() {
         $sql = 'SELECT * FROM users';
         $results = $this->db->getAllResults($sql);
@@ -40,14 +35,12 @@ class UserModel extends AbstractModel {
         return $users;
     }
 
-    // Ajoute un nouvel utilisateur
     function addNewUser($lastname, $firstname, $email, $password) {
         $sql = 'INSERT INTO users(lastname, firstname, email, password, createdAt)
                 VALUES (?, ?, ?, ?, NOW())';
         $this->db->prepareAndExecute($sql, [$lastname, $firstname, $email, $password]);
     }
 
-    // Récupère les cours de l'utilisateur
     function getUserPacks($userId) {
         $sql = 'SELECT * FROM users_packs AS UC
                 INNER JOIN packs AS C

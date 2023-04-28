@@ -6,7 +6,6 @@ use App\Core\AbstractModel;
 
 class ForgotPasswordModel extends AbstractModel {
 
-    // Vérifie si l'email existe dans la table forgot_password
     function verifiyEmailForgotPassword($email) {
         $sql = 'SELECT email FROM forgot_password
                 WHERE email = ?';
@@ -16,14 +15,14 @@ class ForgotPasswordModel extends AbstractModel {
         }
     }
 
-    // Met à jour le code de vérification
-    function updateVerifCode($email, $recup_code) {
+    function updateRecupCode($email, $recup_code) {
         $sql = 'UPDATE forgot_password
-                SET code = ? WHERE email = ?';
-        $this->db->prepareAndExecute($sql, [$recup_code, $email]);
+                SET code = ?, confirmation = ?
+                WHERE email = ?';
+        $this->db->prepareAndExecute($sql, [$recup_code, 0, $email]);
     }
 
-    function insertVerifCode($email, $recup_code) {
+    function insertRecupCode($email, $recup_code) {
         $sql = 'INSERT INTO forgot_password(email, code)
                 VALUES (?, ?)';
         $this->db->prepareAndExecute($sql, [$email, $recup_code]);

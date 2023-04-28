@@ -1,5 +1,5 @@
 <?php if(isset($new_user)): ?>
-    <p style="color:green"><?= $new_user ?></p>
+    <p class="success"><?= $new_user ?></p>
 <?php endif; ?>
 
 <form action="" method="POST">
@@ -19,6 +19,6 @@
         <?php } ?>
     </div>
     <input type="submit" name="login-submit" value="Se connecter">
-    <p>Pas encore inscris ? <a href="<?= constructUrl('/register') ?>">S'inscrire</a></p>
-    <p><a href="<?= constructUrl('/forgot-password') ?>">Mot de passe oublié ?</a></p>
+    <p>Pas encore inscris ? <a href="<?= constructUrl('register') ?>">S'inscrire</a></p>
+    <p><a href="<?= constructUrl('forgot-password') ?>">Mot de passe oublié ?</a></p>
 </form>

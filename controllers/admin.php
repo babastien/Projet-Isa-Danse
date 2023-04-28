@@ -1,6 +1,6 @@
 <?php
 
-// Page réservée à l'administrateur
+// Admin page
 if($_SESSION['role'] !== 'admin') {
     http_response_code(404);
     echo 'Erreur 404 : Page introuvable';
@@ -17,10 +17,10 @@ $giftModel = new GiftModel();
 $packModel = new PackModel();
 $videoModel = new VideoModel();
 
-// Affiche la liste des cours pour envoyer une carte cadeau
+// Show packs list for gift card
 $packs = $packModel->getAllPacks();
 
-// Affiche la liste des utilisateurs
+// Show users list
 $users = $userModel->getAllUsers();
 
 // if(isset($_POST['submit-gift']) AND !empty($_POST['submit-gift'])) {
@@ -48,9 +48,10 @@ $users = $userModel->getAllUsers();
 //     // Envoi de la carte cadeau par email
 //     mail($email, 'Carte cadeau', $message, $header);
 
-//     header('Location: ' . constructUrl('/admin'));
+//     header('Location: ' . constructUrl('admin'));
 // }
 
+// Create new pack
 if(isset($_POST['create-pack'])) {
     $title = $_POST['title'];
     $price = $_POST['price'];

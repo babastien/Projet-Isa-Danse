@@ -15,10 +15,16 @@ main {
     flex-direction: column;
 }
 
+h2 {
+    font-family: 'Niconne', cursive;
+    color: goldenrod;
+    font-size: 30px;
+}
+
 video {
     width: 350px;
 }
 
 .video {
-    margin: 30px;
+    margin-bottom: 20px;
 }

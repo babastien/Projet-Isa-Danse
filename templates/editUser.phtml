@@ -22,24 +22,41 @@
             <p class="error"><?= $errors['email'] ?></p>
         <?php endif ?>
     </div>
+    <p>Créé le <?= $user['createdAt'] ?></p>
     <input type="submit" name="edit-user" value="Modifier l'utilisateur">
 </form>
 <br>
 
-<form action="" method="POST">
-    <legend>Souscription(s) de l'utilisateur</legend>
+<?php if(!empty($userPacks)) { ?>
+<form action="" method="POST" class="form-table">
+    <table border="1">
+        <thead>
+            <th colspan="5">Souscription(s) de l'utilisateurs</th>
+        </thead>
+        <?php foreach($userPacks as $pack): ?>
+            <tr>
+                <td><?= $pack['title'] ?></td>
+                <td>Acheté le<br><?= $pack['purchased_on'] ?></td>
+                <td><input type="submit" name="delete-<?= $pack['pack_id'] ?>" value="Retirer le pack"></td>
+            </tr>
+        <?php endforeach; ?>
+    </table>
+</form>
+<?php } else { ?>
+    <div class="frame">
+        <p>L'utilisateur n'a souscris à aucun pack pour l'instant</p>
+    </div>
+<?php } ?>
+<br>
 
-    <?php if(!empty($userPacks)) {?>
-        <?php foreach($userPacks as $pack) { ?>
-            <p style="margin:0"><?= $pack['title']. ' ' ?><input style="margin-bottom:0" type="submit" name="delete-<?= $pack['pack_id'] ?>" value="Retirer le pack"></p>
-        <?php } ?>
-    <?php } else { ?>
-        <p>Aucun pack pour l'instant</p>
-    <?php } ?>
+<form action="" method="POST">
+    <legend>Ajouter un pack à l'utilisateur</legend>
 
     <select name="pack-selected">
-        <?php foreach($packs as $pack): ?>
-            <option value="<?= $pack['id'] ?>"><?= $pack['title'] ?></option>
+        <?php foreach($packSelection as $pack): ?>
+            <?php if(!in_array($pack['id'], $userPacksId)) { ?>
+                <option value="<?= $pack['id'] ?>"><?= $pack['title'] ?></option>
+            <?php } ?>
         <?php endforeach; ?>
     </select>
 
@@ -47,8 +64,25 @@
 </form>
 <br>
 
-<div class="frame">
-    <legend>Supprimer l'utilisateur</legend>
-    <a href="<?= constructUrl('/delete-user', ['id' => $_GET['id']])?>"><input type="button" value="Supprimer"></a>
-</div>
-<br>
+<?php if($user['role'] != 'admin') : ?>
+
+    <div class="frame">
+        <legend>Supprimer l'utilisateur</legend>
+        <input type="button" value="Supprimer" class="delete">
+    </div>
+    <br>
+
+    <div class="pop-up-background">
+    </div>
+
+    <form class="pop-up" method="POST">
+        <p>Êtes-vous sûr de vouloir supprimer l'utilisateur <b><?= $user['lastname'] .' '. $user['firstname'] .'</b> ('. $user['email'] .')' ?> ?</p>
+        <p>Il perdra l'accès à tous ses packs !</p>
+        <p class="warning"><b>Cette action est irréversible !</b></p>
+        <input type="submit" name="delete-user" value="Supprimer l'utilisateur">
+        <input type="button" value="Annuler" class="cancel">
+    </form>
+
+<?php endif ?>
+
+<script src="<?= asset('js/deletePopUp.js') ?>"></script>

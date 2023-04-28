@@ -13,7 +13,7 @@
         <div class="form-input">
             <label for="">Pack à offrir</label>
             <select name="pack" id="pack">
-                <?php foreach($packs as $pack): ?>
+                <?php foreach($packSelection as $pack): ?>
                     <option value="<?= $pack['id'] ?>"><?= $pack['title'] ?></option>
                 <?php endforeach; ?>
             </select>

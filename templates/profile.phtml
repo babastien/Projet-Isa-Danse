@@ -4,8 +4,8 @@
     <p><u>Nom :</u><br><?= $_SESSION['lastname'].' '.$_SESSION['firstname'] ?></p>
     <p><u>Email :</u><br><?= $_SESSION['email'] ?></p>
     <p><u>Souscription(s) :</u><br>
-    <?php if(isset($_SESSION['packs']) AND !empty($_SESSION['packs'])) {
-        foreach($_SESSION['packs'] as $pack) {
+    <?php if(isset($userPacks) AND !empty($userPacks)) {
+        foreach($userPacks as $pack) {
             echo $pack['title'].'<br>';
         }
     } else {
@@ -16,8 +16,9 @@
 <br>
 
 <?php if(isset($password_changed)): ?>
-    <p style="color:green"><?= $password_changed ?></p>
+    <p class="success"><?= $password_changed ?></p>
 <?php endif; ?>
+
 <form action="" method="POST">
     <legend>Modifier mon mot de passe</legend>
     <div class="form-input">
@@ -42,14 +43,41 @@
 </form>
 <br>
 
-<form action="" method="POST">
-    <legend>Tu as un code cadeau ?</legend>
-    <div class="form-input">
-        <input type="text" id="gift-code" name="gift-code">
-        <?php if(isset($code_errors)): ?>
-            <p class="error"><?= $code_errors ?></p>
-        <?php endif; ?>
+<?php if($_SESSION['role'] != 'admin') : ?>
+
+    <form action="" method="POST">
+        <legend>Tu as un code cadeau ?</legend>
+        <div class="form-input">
+            <input type="text" id="gift-code" name="gift-code">
+            <?php if(isset($code_errors)): ?>
+                <p class="error"><?= $code_errors ?></p>
+            <?php endif; ?>
+        </div>
+        <input type="submit" name="code-submit" value="Valider">
+    </form>
+    <br>
+
+    <div class="frame">
+        <legend>Supprimer mon compte</legend>
+        <input type="button" value="Supprimer" class="delete">
     </div>
-    <input type="submit" name="code-submit" value="Valider">
-</form>
-<br>
+    <br>
+
+    <div class="pop-up-background">
+    </div>
+
+    <form class="pop-up" method="POST">
+        <p>Êtes-vous sûr de vouloir supprimer votre compte ?</p>
+        <p>Vous perdrez l'accès à tous les packs que vous avez achetés !</p>
+        <p class="warning"><b>Cette action est irréversible !</b></p>
+        <div class="form-input">
+            <label for="delete-password">Entrez votre mot de passe</label>
+            <input type="password" id="delete-password" name="delete-password">
+        </div>
+        <input type="submit" name="delete-account" value="Supprimer mon compte">
+        <input type="button" value="Annuler" class="cancel">
+    </form>
+
+<?php endif ?>
+
+<script src="<?= asset('js/deletePopUp.js') ?>"></script>

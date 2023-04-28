@@ -6,7 +6,6 @@ body {
     background-size: cover;
     background-attachment: fixed;
     font-family: 'Quicksand', sans-serif;
-    background: whitesmoke;
 }
 
 main {
@@ -16,10 +15,8 @@ main {
     flex-direction: column;
 }
 
-p:nth-child(2) {
-    color: red;
-}
-
-input[type="submit"]:hover {
-    color: red;
+textarea {
+    width: 200px;
+    height: 100px;
+    border-radius: 5px;
 }

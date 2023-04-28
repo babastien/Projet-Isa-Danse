@@ -6,15 +6,7 @@
 <p class="h2-subtitle">pour progresser de chez vous, à votre rythme</p>
 
 <div class="presentation-text">
-    <p>Je vous propose <b>deux packs</b> de cours, un <b>Bachata</b> et un <b>Salsa</b>.<br>
-    <br>
-    Chaque pack contient :<br>
-    -> 5 cours techniques détaillés<br>
-    -> Un cours chorégraphique décliné sur 2 niveaux (1 version débutante et 1 version intermédiaire)<br><br>
-    Les <u>cours</u> aborderont des sujets essentiels pour améliorer votre style et technique en solo et duo (bien que ce soit des cours solo, j'établis des parallèles avec les danses de couple).<br>
-    <br>
-    Les <u>chorégraphies</u> auront le rôle de mettre en pratique les thèmes traités par les cours avec une notion clef : le plaisir.<br>
-    Une manière ludique d'assimiler ce que vous apprenez avec un petit goût de challenge personnel.</p>
+    <p><?= $sections[0]['content'] ?></p>
 </div>
 
 <h3>THÈMES ABORDÉS</h3>
@@ -66,77 +58,24 @@
 <img src="<?= asset('images/responsive.png') ?>" alt="" width="200px">
 <p class="accessibility">Accessible sur ordinateur, tablette et mobile</p>
 
-<h3>ACCÈS AUX PACKS</h3>
+<h3 id="packs">ACCÈS AUX PACKS</h3>
 <div class="buy-packs">
     <?php foreach($packs as $pack) { ?>
         <div class="pack-to-buy">
             <h4><?= $pack['title'] ?></h4>
             <p class="price"><?= $pack['price'] ?> €</p>
             <p class="buy-description"><?= $pack['description'] ?>
-            <p class="select-pack"><a href="<?= constructUrl('/purchase', ['id' => $pack['id']]) ?>">Sélectionner</a></p>
+            <p class="select-pack"><a href="<?= constructUrl('purchase', ['id' => $pack['id']]) ?>">Sélectionner</a></p>
         </div>
     <?php } ?>
-    <!-- <div class="pack-to-buy">
-        <h4>Pack Bachata</h4>
-        <p class="price">49€</p>
-        <p class="buy-description">Cours techniques + choré<br>
-        (Bachata)</p>
-        <p class="select-pack"><a href="<?= constructUrl('/purchase', ['id' => 1]) ?>">Sélectionner</a></p>
-    </div>
-    <div class="pack-to-buy">
-        <h4>Pack Salsa</h4>
-        <p class="price">49€</p>
-        <p class="buy-description">Cours techniques + choré<br>
-        (Salsa)</p>
-        <p class="select-pack"><a href="<?= constructUrl('/purchase', ['id' => 2]) ?>">Sélectionner</a></p>
-    </div>
-    <div class="pack-to-buy">
-        <h4>Pack Technique</h4>
-        <p class="price">59€</p>
-        <p class="buy-description">Tous les cours techniques sans choré<br>
-        (Salsa & Bachata)</p>
-        <p class="select-pack"><a href="<?= constructUrl('/purchase', ['id' => 3]) ?>">Sélectionner</a></p>
-    </div>
-    <div class="pack-to-buy">
-        <h4>Full Pass</h4>
-        <p class="price">72€</p>
-        <p class="buy-description">Tous les cours techniques + chorés<br>
-        (Salsa & Bachata)</p>
-        <p class="select-pack"><a href="<?= constructUrl('/purchase', ['id' => 4]) ?>">Sélectionner</a></p>
-    </div> -->
 </div>
 
 <div id="present">
     <img src="<?= asset('images/gift.png') ?>" alt="" width="75px">
-    <p class="present">Possibilité d'offrir un pack à un proche, cliquez <a href="<?= constructUrl('/present') ?>">ICI</a></p>
+    <p class="present">Possibilité d'offrir un pack à un proche, cliquez <a href="<?= constructUrl('present') ?>">ICI</a></p>
 </div>
 
-<h3>DÉTAILS SUR LE CONTENU</h3>
+<h3><?= $sections[1]['title'] ?></h3>
 <div class="details-text">
-    <p>• Tous les cours techniques sont <b>différents</b> et <b>complémentaires</b>.<br>
-    Un seul cours est identique dans les deux packs, il s'agit du cours sur la gestuelle de bras (j'ai souhaité utiliser les mêmes gestuelles de bras pour les chorégraphies Salsa et Bachata).<br>
-    <br>
-    • Les cours sont déjà enregistrés et mis à disposition.<br>
-    Chaque cours technique dure <b>30min</b> et chaque cours chorégraphique dure entre <b>1h15-1h30</b>.<br>
-    <br>
-    • Les cours techniques sont orientés tous niveaux et les chorégraphies sont déclinées en 2 niveaux.<br>
-    <br>
-    • Ces packs sont dédiés aux filles d'un niveau <b>débutant</b> et/ou <b>intermédiaire</b>.<br>
-    Les cours techniques sont orientés pour les deux niveaux. Seules les chorégraphies sont déclinées en 2 niveaux.<br>
-    <br>
-    • Voici ma description des niveaux :<br>
-    <br>
-    <b>DEBUTANT</b><br>
-    -> Tu as commencé cette année la Salsa et/ou la Bachata ET tu n'as jamais pris de cours de danse solo.<br>
-    OU<br>
-    -> Tu as fais quelques années de Salsa et/ou de Bachata MAIS jamais de cours de Styling, tu as de la difficulté avec ça.<br>
-    <br>
-    <b>INTERMEDIAIRE</b><br>
-    -> Tu pratiques régulièrement de la Salsa et/ou Bachata ET tu as commencé à prendre des cours de Styling. <br>
-    OU<br>
-    -> Peu d'expérience en danse de couple MAIS tu as déjà pris des cours de danse solo (jazz, classique...par exemple).<br>
-    <br>
-    • Vous pourrez visionner les vidéos sur votre écran télé si vous le souhaitez, la qualité des vidéos le permet.<br>
-    <br>
-    • Une fois le paiement effectué, les cours sont disponibles sur votre compte sans limite de temps.</p>
+    <p><?= $sections[1]['content'] ?></p>
 </div>

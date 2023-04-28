@@ -8,13 +8,16 @@ $userModel = new UserModel();
 $packModel = new PackModel();
 $giftModel = new GiftModel();
 
-// Message flash lorsque le mot de passe est modifié
+// Flash message
 if(array_key_exists('password_changed', $_SESSION) AND $_SESSION['password_changed']) {
     $password_changed = $_SESSION['password_changed'];
     $_SESSION['password_changed'] = null;
 }
 
-// Formulaire de modification du mot de passe
+// Show user's pack(s)
+$userPacks = $userModel->getUserPacks($_SESSION['id']);
+
+// Password edit form
 if(isset($_POST['password-submit']) AND !empty($_POST['password-submit'])) {
 
     if(isset($_POST["password"], $_POST['new-password'], $_POST['new-password2'])) {
@@ -40,7 +43,7 @@ if(isset($_POST['password-submit']) AND !empty($_POST['password-submit'])) {
     }
 }
 
-// Formulaire de code cadeau
+// Gift code form
 if(isset($_POST['code-submit']) AND !empty($_POST['code-submit'])) {
 
     $code = $_POST['gift-code'];
@@ -68,6 +71,17 @@ if(isset($_POST['code-submit']) AND !empty($_POST['code-submit'])) {
         }
     } else {
         $code_errors = 'Le champ est vide';
+    }
+}
+
+// Delete account
+if(isset($_POST['delete-account']) AND !empty($_POST['delete-account'])) {
+    
+    if(password_verify($_POST['delete-password'], $_SESSION['password'])) {
+        $userModel->deleteUser($_SESSION['id']);
+        session_destroy();
+        header('Location: ' . constructUrl('home'));
+        exit;
     }
 }
 

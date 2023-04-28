@@ -2,10 +2,15 @@
 
     <?php foreach($packs as $pack) { ?>    
         <div class="pack">
-            <a href="<?=constructUrl('/pack', ['pack' => $pack['id']])?>"><img class="pack-image" src="<?=asset($pack['image'])?>" alt="<?= $pack['title'] ?>"></a>
+            <a href="<?=constructUrl('pack', ['id' => $pack['id']])?>"><img class="pack-image" src="<?=asset($pack['image'])?>" alt="<?= $pack['title'] ?>"></a>
         </div>
     <?php } ?>
 
 <?php } else { ?>
-    <p>Vous n'avez souscris à aucun pack pour le moment</p>
+
+    <div class="text">
+        <p>Vous n'avez souscris à aucun pack pour le moment</p>
+        <p><a href="<?= constructUrl('home') . '#packs' ?>">Acheter un pack</a></p>
+    </div>
+
 <?php } ?>

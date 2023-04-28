@@ -15,13 +15,6 @@ main {
     flex-wrap: wrap;
 }
 
-.packs {
-    display: flex;
-    justify-content: center;
-    text-align: center;
-    flex-wrap: wrap;
-}
-
 .pack img {
     width: 200px;
     border-radius: 10px;
@@ -34,4 +27,18 @@ main {
     -webkit-transform: scale(1.05); /* Safari 3-8 */
     transform: scale(1.05);
     transition: transform 0.2s;
+}
+
+.text {
+    text-align: center;
+}
+
+.text a {
+    text-decoration: none;
+    color: black;
+    font-weight: bold;
+}
+
+.text a:hover {
+    color: red;
 }

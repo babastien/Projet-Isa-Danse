@@ -6,8 +6,12 @@ function asset(string $path) {
     return BASE_URL . '/' . $path;
 }
 
-function constructUrl(string $path, array $params = []) {
-    $url = BASE_URL . '/index.php' . $path;
+function constructUrl(string $routeName, array $params = []) {
+
+    if(!array_key_exists($routeName, ROUTES)) {
+        throw new Exception('ERREUR : pas de route nommée ' . $routeName);
+    }
+    $url = BASE_URL . '/index.php' . ROUTES[$routeName]['path'];
 
     if ($params) {
         $url .= '?' . http_build_query($params);
@@ -15,7 +19,6 @@ function constructUrl(string $path, array $params = []) {
     return $url;
 }
 
-// Validation du formulaire de connexion
 function validLoginForm($email_login, $password_login) {
     $errors = [];
 
@@ -31,7 +34,6 @@ function validLoginForm($email_login, $password_login) {
     return $errors;
 }
 
-// Validation du formulaire d'inscription
 function validRegisterForm($lastname, $firstname, $email, $password, $password2) {
     $errors = [];
     $userModel = new UserModel();

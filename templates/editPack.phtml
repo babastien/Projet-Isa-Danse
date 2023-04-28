@@ -104,8 +104,21 @@
 </form>
 <br>
 
-<form action="" method="POST" class="frame">
+<div class="frame">
     <legend>Supprimer le pack</legend>
-    <input type="submit" name="delete-pack" value="Supprimer">
-</form>
+    <input type="button" value="Supprimer" class="delete">
+</div>
 <br>
+
+<div class="pop-up-background">
+</div>
+
+<form class="pop-up" method="POST">
+    <p>Êtes-vous sûr de vouloir supprimer le pack <b><?= $pack['title'] ?></b> ?</p>
+    <p>Tous les utilisateurs ayant acheté ce pack en perdront l'accès !</p>
+    <p class="warning"><b>Cette action est irréversible !</b></p>
+    <input type="submit" name="delete-pack" value="Supprimer le pack">
+    <input type="button" value="Annuler" class="cancel">
+</form>
+
+<script src="<?= asset('js/deletePopUp.js') ?>"></script>

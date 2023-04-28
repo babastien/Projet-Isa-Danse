@@ -12,7 +12,6 @@ class Database {
         $this->pdo = $this->getPDOConnection();
     }
 
-    // Connecte à la BDD
     function getPDOConnection() {
 
         $dsn = 'mysql:host=' .DB_HOST. ';dbname=' .DB_NAME;
@@ -24,7 +23,6 @@ class Database {
         return $pdo;
     }
 
-    // Prépare et éxecute une requête SQL
     function prepareAndExecute(string $sql, array $values = []) {
 
         $pdoStatement = $this->pdo->prepare($sql);
@@ -32,21 +30,18 @@ class Database {
         return $pdoStatement;
     }
 
-    // Récupère un résultat dans la BDD
     function getOneResult(string $sql, array $values = []) {
 
         $pdoStatement = $this->prepareAndExecute($sql, $values);
         return $pdoStatement->fetch();
     }
 
-    // Récupère tous les résultats dans la BDD
     function getAllResults(string $sql, array $values = []) {
 
         $pdoStatement = $this->prepareAndExecute($sql, $values);
         return $pdoStatement->fetchAll();
     }
 
-    // Vérifie si une donnée existe dans la BDD
     function verifyData(string $sql, array $values = []) {
 
         $pdoStatement = $this->prepareAndExecute($sql, $values);
