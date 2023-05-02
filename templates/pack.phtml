@@ -2,8 +2,14 @@
 
 <?php if(!empty($videos)) { ?>
 
+    <div class="links">
+        <?php foreach($videos as $video) { ?>
+            <a href="#<?= $video['id'] ?>"><?= $video['title'] ?></a>
+        <?php } ?>
+    </div>
+
     <?php foreach($videos as $video) { ?>
-        <div class="video">
+        <div class="video" id="<?= $video['id'] ?>">
             <p><?= $video['title'] ?></p>   
             <video controls src="<?= asset($video['filename']) ?>"></video>
         </div>

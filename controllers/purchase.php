@@ -76,8 +76,8 @@ if(isset($_POST['login-submit']) AND !empty($_POST['login-submit'])) {
 // Register form
 if(isset($_POST['register-submit']) AND !empty($_POST['register-submit'])) {
 
-    $lastname = trim(ucfirst(htmlspecialchars($_POST['lastname'])));
-    $firstname = trim(ucfirst(htmlspecialchars($_POST['firstname'])));
+    $lastname = trim(htmlspecialchars($_POST['lastname']));
+    $firstname = trim(htmlspecialchars($_POST['firstname']));
     $email = trim(strtolower(htmlspecialchars($_POST['email'])));
     $password = $_POST['password'];
     $password2 = $_POST['password2'];

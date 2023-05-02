@@ -41,29 +41,25 @@ $routes = [
         'path' => '/present',
         'controller' => '/present.php'
     ],
-    'admin' => [
-        'path' => '/admin',
-        'controller' => '/admin.php'
-    ],
-    'edit-user' => [
-        'path' => '/edit-user',
-        'controller' => '/editUser.php'
-    ],
-    'delete-user' => [
-        'path' => '/delete-user',
-        'controller' => '/deleteUser.php'
-    ],
-    'edit-pack' => [
-        'path' => '/edit-pack',
-        'controller' => '/editPack.php'
-    ],
     'contact' => [
         'path' => '/contact',
         'controller' => '/contact.php'
     ],
+    'admin' => [
+        'path' => '/admin',
+        'controller' => '/admin/admin.php'
+    ],
+    'edit-user' => [
+        'path' => '/edit-user',
+        'controller' => '/admin/editUser.php'
+    ],
+    'edit-pack' => [
+        'path' => '/edit-pack',
+        'controller' => '/admin/editPack.php'
+    ],
     'edit-homepage' => [
         'path' => '/edit-homepage',
-        'controller' => '/editHomepage.php'
+        'controller' => '/admin/editHomepage.php'
     ]
 ];
 

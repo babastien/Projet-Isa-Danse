@@ -2,12 +2,13 @@
 
 namespace App\Entity;
 
-class Course {
+class Pack {
 
     private int $id;
     private string $title;
     private int $price;
     private string $image;
+    private string $description;
 
     public function __construct(array $data = []) {
 
@@ -74,7 +75,7 @@ class Course {
     }
 
     /**
-     * Get the value of content
+     * Get the value of image
      */
     public function getImage(): string
     {
@@ -82,11 +83,29 @@ class Course {
     }
 
     /**
-     * Set the value of content
+     * Set the value of image
      */
     public function setImage(string $image): self
     {
         $this->image = $image;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of description
+     */
+    public function getDescription(): string
+    {
+        return $this->description;
+    }
+
+    /**
+     * Set the value of description
+     */
+    public function setDescription(string $description): self
+    {
+        $this->description = $description;
 
         return $this;
     }

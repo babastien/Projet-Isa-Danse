@@ -74,5 +74,5 @@ if(isset($_POST['create-pack'])) {
     }
 }
 
-$template = 'admin';
+$template = 'admin/admin';
 include '../templates/base.phtml';

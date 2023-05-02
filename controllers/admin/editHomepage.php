@@ -21,5 +21,5 @@ foreach($sections as $section) {
     }
 }
 
-$template = 'editHomepage';
+$template = 'admin/editHomepage';
 require '../templates/base.phtml';

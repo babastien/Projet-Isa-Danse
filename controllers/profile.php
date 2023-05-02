@@ -1,5 +1,12 @@
 <?php
 
+// Need to be logged to access this page
+if(!isset($_SESSION['id'])) {
+    http_response_code(404);
+    echo 'Erreur 404 : Page introuvable';
+    exit;
+}
+
 use App\Model\PackModel;
 use App\Model\GiftModel;
 use App\Model\UserModel;

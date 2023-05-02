@@ -21,6 +21,27 @@ h2 {
     font-size: 30px;
 }
 
+.links {
+    display: flex;
+    justify-content: center;
+}
+
+.links a {
+    margin: 0 10px;
+    text-decoration: none;
+    color: white;
+    background: black;
+    padding: 5px 10px;
+    border: 1px solid black;
+}
+
+.links a:hover {
+    color: black;
+    background: white;
+    border: 1px solid black;
+    box-sizing: border-box;
+}
+
 video {
     width: 350px;
 }

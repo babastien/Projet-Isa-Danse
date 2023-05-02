@@ -110,5 +110,5 @@ if(isset($_POST['delete-pack'])) {
     exit;
 }
 
-$template = 'editPack';
+$template = 'admin/editPack';
 include '../templates/base.phtml';

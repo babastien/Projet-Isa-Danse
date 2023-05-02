@@ -47,6 +47,7 @@ nav span {
     width: 100%;
     background: white;
     display: none;
+    border-bottom: 1px solid rgb(211, 211, 211, 50%);
 }
 
 .hidden-menu a {

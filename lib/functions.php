@@ -25,7 +25,7 @@ function validLoginForm($email_login, $password_login) {
     if(empty($email_login)) {
         $errors['email_login'] = 'Le champ <b>Email</b> doit être rempli';
     } elseif(!filter_var($email_login, FILTER_VALIDATE_EMAIL)) {
-        $errors['email_login'] = 'Adresse email invalide';
+        $errors['email_login'] = 'Le format de l\'email est invalide';
     }
     if(empty($password_login)) {
         $errors['password_login'] = 'Le champ <b>Mot de passe</b> doit être rempli';
@@ -47,7 +47,7 @@ function validRegisterForm($lastname, $firstname, $email, $password, $password2)
     if(empty($email)) {
         $errors['email'] = 'Le champ <b>Email</b> doit être rempli';
     } elseif(!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        $errors['email'] = 'Adresse email invalide';
+        $errors['email'] = 'Le format de l\'email est invalide';
     } elseif($userModel->verifyEmailExist($email) == true) {
         $errors['email'] = 'Cette adresse email est déjà utilisée';
     }
@@ -78,6 +78,8 @@ function validPresentForm($lastname, $firstname, $email, $email2) {
     }
     if(empty($email)) {
         $errors['email'] = 'Le champ <b>Email</b> doit être rempli';
+    } elseif(!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        $errors['email'] = 'Le format de l\'email est invalide';
     }
     if(empty($email2)) {
         $errors['email2'] = 'Le champ <b>Confirmer l\'email</b> doit être rempli';

@@ -78,5 +78,5 @@ if(isset($_POST['delete-user'])) {
     exit;
 }
 
-$template = 'editUser';
+$template = 'admin/editUser';
 include '../templates/base.phtml';

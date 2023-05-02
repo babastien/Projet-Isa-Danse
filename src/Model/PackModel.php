@@ -3,13 +3,16 @@
 namespace App\Model;
 
 use App\Core\AbstractModel;
+use App\Entity\Pack;
 
 class PackModel extends AbstractModel {
 
     function getPackById($id) {
         $sql = 'SELECT * FROM packs
                 WHERE id = ?';
-        return $this->db->getOneResult($sql, [$id]);
+        $result = $this->db->getOneResult($sql, [$id]);
+
+        return new Pack($result);
     }
 
     function getAllPacks() {

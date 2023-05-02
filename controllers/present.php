@@ -11,10 +11,10 @@ $packSelection = $packModel->getAllPacks();
 
 if(isset($_POST) AND !empty($_POST)) {
 
-    $lastname = $_POST['lastname'];
-    $firstname = $_POST['firstname'];
-    $email = htmlspecialchars($_POST['email']);
-    $email2 = htmlspecialchars($_POST['email2']);
+    $lastname = trim(htmlspecialchars($_POST['lastname']));
+    $firstname = trim(htmlspecialchars($_POST['firstname']));
+    $email = trim(htmlspecialchars($_POST['email']));
+    $email2 = trim(htmlspecialchars($_POST['email2']));
     $idPackSelected = $_POST['pack'];
 
     $errors = validPresentForm($lastname, $firstname, $email, $email2);

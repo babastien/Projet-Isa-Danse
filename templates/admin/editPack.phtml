@@ -5,14 +5,14 @@
         <div>
             <div class="form-input">
                 <label for="pack-title">Titre</label>
-                <input type="text" id="pack-title" name="pack-title" value="<?= $pack['title'] ?>">
+                <input type="text" id="pack-title" name="pack-title" value="<?= $pack->getTitle() ?>">
                 <?php if(isset($pack_errors['title'])) : ?>
                     <p class="error"><?= $pack_errors['title'] ?></p>
                 <?php endif ?>
             </div>
             <div class="form-input">
                 <label for="price">Prix</label>
-                <input type="number" id="price" name="price" value="<?= $pack['price'] ?>">
+                <input type="number" id="price" name="price" value="<?= $pack->getPrice() ?>">
                 <?php if(isset($pack_errors['price'])) : ?>
                     <p class="error"><?= $pack_errors['price'] ?></p>
                 <?php endif ?>
@@ -20,8 +20,8 @@
         </div>
         <div class="form-input">
             <label for="image">Image</label>
-            <img src="<?= asset($pack['image']) ?>" alt="<?= $pack['image'] ?>">
-            <input type="hidden" name="value-image" value="<?= $pack['image'] ?>">
+            <img src="<?= asset($pack->getImage()) ?>" alt="<?= $pack->getImage() ?>">
+            <input type="hidden" name="value-image" value="<?= $pack->getImage() ?>">
             <input type="file" id="image" name="image">
             <?php if(isset($pack_errors['image'])) : ?>
                 <p class="error"><?= $pack_errors['image'] ?></p>
@@ -29,7 +29,7 @@
         </div>
         <div class="form-input">
             <label for="description">Description</label>
-            <textarea type="" id="description" name="description"><?= $pack['description'] ?></textarea>
+            <textarea type="" id="description" name="description"><?= $pack->getDescription() ?></textarea>
             <p>&lt;br&gt; pour sauter une ligne</p>
             <?php if(isset($pack_errors['description'])) : ?>
                 <p class="error"><?= $pack_errors['description'] ?></p>
@@ -114,7 +114,7 @@
 </div>
 
 <form class="pop-up" method="POST">
-    <p>Êtes-vous sûr de vouloir supprimer le pack <b><?= $pack['title'] ?></b> ?</p>
+    <p>Êtes-vous sûr de vouloir supprimer le pack <b><?= $pack->getTitle() ?></b> ?</p>
     <p>Tous les utilisateurs ayant acheté ce pack en perdront l'accès !</p>
     <p class="warning"><b>Cette action est irréversible !</b></p>
     <input type="submit" name="delete-pack" value="Supprimer le pack">

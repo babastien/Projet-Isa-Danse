@@ -12,8 +12,8 @@ if(isset($_SESSION['id'])) {
 
 if(isset($_POST) AND !empty($_POST)) {
 
-    $lastname = trim(ucfirst(htmlspecialchars($_POST['lastname'])));
-    $firstname = trim(ucfirst(htmlspecialchars($_POST['firstname'])));
+    $lastname = trim(htmlspecialchars($_POST['lastname']));
+    $firstname = trim(htmlspecialchars($_POST['firstname']));
     $email = trim(strtolower(htmlspecialchars($_POST['email'])));
     $password = $_POST['password'];
     $password2 = $_POST['password2'];
