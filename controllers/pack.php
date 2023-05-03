@@ -21,14 +21,15 @@ if(empty($userPacks)) {
     header('Location: ' . constructUrl('member'));
 }
 
-foreach($userPacks as $pack) {
-    if($pack['id'] == $_GET['id']) {
+foreach($userPacks as $userPack) {
+    if($userPack['id'] == $_GET['id']) {
 
         // Show the title pack
         $pack = $packModel->getPackById($_GET['id']);
 
         // Show the pack'video(s)
         $videos = $videoModel->getVideosByPack($_GET['id']);
+        break;
     }
 }
 

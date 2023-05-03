@@ -42,6 +42,7 @@ if(isset($_POST['password-submit']) AND !empty($_POST['password-submit'])) {
             $new_password = password_hash($new_password, PASSWORD_DEFAULT);
             
             $userModel->updateUserPassword($_SESSION['email'], $new_password);
+            $_SESSION['password'] = $new_password;
             
             $_SESSION['password_changed'] = 'Mot de passe modifié avec succès';
         

@@ -1,7 +1,10 @@
 <?php
 
-use App\Model\PackModel;
 use App\Model\GiftModel;
+use App\Model\PackModel;
+use Symfony\Component\Mime\Email;
+use Symfony\Component\Mailer\Mailer;
+use Symfony\Component\Mailer\Transport;
 
 $packModel = new PackModel();
 $giftModel = new GiftModel();
@@ -29,17 +32,21 @@ if(isset($_POST) AND !empty($_POST)) {
 
         $giftModel->createGiftCode($email, $gift_code, $idPackSelected);
 
-        $header = 'MIME-Version: 1.0\r\n';
-        $header.= 'From: "IsaDanse" <support@isa.fr>'.'\n';
-        $header.= 'Content-Type: text/html; charset="utf_8"'.'\n';
-        $header.= 'Content-Transfer-Encoding: 8bit';
+        $transport = Transport::fromDsn(MAILER_DSN);
+        $mailer = new Mailer($transport);
 
-        $message = '<p>Bonjour,</p>
+        $message = '<p>Bonjour, ' . $firstname . '</p>
         <p>Voici la carte cadeau à transférer :)</p>
-        <p>'. $gift_code .'</p>';
-                
-        // Send gift card by email
-        mail($email, 'Carte cadeau', $message, $header);
+        <p>Code cadeau : '. $gift_code .'</p>
+        <img src="https://static.vecteezy.com/ti/vecteur-libre/p3/6748641-realiste-3d-cadeau-boite-sur-blanc-illustrationle-gratuit-vectoriel.jpg" width="100px">';
+
+        $objEmail = (new Email())
+            ->from($email)
+            ->to($email)
+            ->subject('Carte cadeau')
+            ->html($message);
+
+        $mailer->send($objEmail);
 
         header('Location: ' . constructUrl('home'));
     }

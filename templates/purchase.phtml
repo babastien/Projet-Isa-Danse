@@ -2,8 +2,8 @@
 <?php if(!isset($_SESSION['packs']) || !in_array($_GET['id'], $_SESSION['packs'])): ?>
     <div class="command">
         <legend>Résumé de la commande</legend>
-        <img class="pack-image" src="<?= asset($packSelected['image']) ?>" alt="<?= $packSelected['title'] ?>" style="margin:0; width: 200px";>
-        <p>Prix : <?= $packSelected['price'] ?> €</p>
+        <img class="pack-image" src="<?= asset($packSelected->getImage()) ?>" alt="<?= $packSelected->getTitle() ?>" style="margin:0; width: 200px";>
+        <p>Prix : <?= $packSelected->getPrice() ?> €</p>
     </div>
 <?php endif; ?>
 

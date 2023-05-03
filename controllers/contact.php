@@ -1,5 +1,9 @@
 <?php
 
+use Symfony\Component\Mime\Email;
+use Symfony\Component\Mailer\Mailer;
+use Symfony\Component\Mailer\Transport;
+
 if(!empty($_POST)) {
 
     $response = [];
@@ -22,7 +26,20 @@ if(!empty($_POST)) {
     }
 
     if(empty($errors)) {
+
+        $transport = Transport::fromDsn(MAILER_DSN);
+        $mailer = new Mailer($transport);
+
+        $objEmail = (new Email())
+            ->from($email)
+            ->to(ADMIN_EMAIL)
+            ->subject('Nouveau message : ' . $subject)
+            ->text($message);
+
+        $mailer->send($objEmail);
+
         $response['success'] = 'Votre email a bien été envoyé';
+
     } else {
         $response['errors'] = $errors;
     }
