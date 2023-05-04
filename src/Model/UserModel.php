@@ -12,10 +12,12 @@ class UserModel extends AbstractModel {
         $result = $this->db->verifyData($sql, [$email]);
         if($result == 1) {
             return true;
+        } else {
+            return false;
         }
     }
 
-    function getUser($email) {
+    function getUserByEmail($email) {
         $sql = 'SELECT * FROM users WHERE email = ?';
         return $this->db->getOneResult($sql, [$email]);
     }
@@ -67,5 +69,18 @@ class UserModel extends AbstractModel {
         $sql = 'DELETE FROM users
                 WHERE id = ?';
         $this->db->prepareAndExecute($sql, [$userId]);
+    }
+
+    function verifyUserGetPack($userId, $packId): bool {
+        $sql = 'SELECT * FROM users_packs AS UC
+                INNER JOIN packs AS C
+                ON UC.pack_id = C.id
+                WHERE user_id = ? AND pack_id = ?';
+        $result = $this->db->getAllResults($sql, [$userId, $packId]);
+        if($result) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }

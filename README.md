@@ -6,7 +6,7 @@ Installation :
 
 2/ télécharger var-dumper et autoload (si vous n'utilisez pas laragon, il faut d'abord installer composer) :
 
-    - taper dans le terminal à la raçine du dossier :
+    - taper dans le terminal à la racine du dossier :
     composer require symfony/var-dumper
 
     - modifier le fichier composer.json en ajoutant : 
@@ -16,12 +16,12 @@ Installation :
         }
     }
 
-    - taper dans le terminal à la raçine du dossier :
+    - taper dans le terminal à la racine du dossier :
     composer dump-autoload
 
 3/ télécharger mailer :
 
-    - taper dans le terminal à la raçine du dossier :
+    - taper dans le terminal à la racine du dossier :
     composer require symfony/mailer
 
 4/ créer un fichier config.php dans le dossier app en suivant le fichier config.example.php

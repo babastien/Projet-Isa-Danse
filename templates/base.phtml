@@ -24,11 +24,11 @@
         <nav>
             <div class="nav-bar">
                 <a href="<?= constructUrl('home') ?>">Accueil</a>
-                <?php if(!isset($_SESSION['id'])) { ?>
+                <?php if(!isset($_SESSION['user'])) { ?>
                     <a href="<?= constructUrl('login') ?>">Connexion</a>
                     <a href="<?= constructUrl('register') ?>">Inscription</a>
-                <?php } elseif(isset($_SESSION['id'])) { ?>
-                    <?php if($_SESSION['role'] === 'admin'): ?>
+                <?php } elseif(isset($_SESSION['user'])) { ?>
+                    <?php if($_SESSION['user']['role'] == 'admin'): ?>
                         <a href="<?= constructUrl('admin') ?>">Administrateur</a>
                     <?php endif; ?>
                     <a href="<?= constructUrl('member') ?>">Espace membre</a>
@@ -46,11 +46,11 @@
             </div>
             <div class="hidden-menu">
                 <a href="<?= constructUrl('home') ?>">Accueil</a>
-                <?php if(!isset($_SESSION['id'])) { ?>
+                <?php if(!isset($_SESSION['user'])) { ?>
                     <a href="<?= constructUrl('login') ?>">Connexion</a>
                     <a href="<?= constructUrl('register') ?>">Inscription</a>
-                <?php } elseif(isset($_SESSION['id'])) { ?>
-                    <?php if($_SESSION['role'] === 'admin'): ?>
+                <?php } elseif(isset($_SESSION['user'])) { ?>
+                    <?php if($_SESSION['user']['role'] == 'admin'): ?>
                         <a href="<?= constructUrl('admin') ?>">Administrateur</a>
                     <?php endif; ?>
                     <a href="<?= constructUrl('member') ?>">Espace membre</a>

@@ -34,6 +34,8 @@ class ForgotPasswordModel extends AbstractModel {
         $result = $this->db->verifyData($sql, [$email]);
         if($result == 1) {
             return true;
+        } else {
+            return false;
         }
     }
 

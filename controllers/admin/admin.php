@@ -1,16 +1,20 @@
 <?php
 
 // Admin page
-if($_SESSION['role'] !== 'admin') {
+if($_SESSION['user']['role'] !== 'admin') {
     http_response_code(404);
     echo 'Erreur 404 : Page introuvable';
     exit;
 }
 
-use App\Model\UserModel;
 use App\Model\GiftModel;
 use App\Model\PackModel;
+use App\Model\UserModel;
 use App\Model\VideoModel;
+
+use Symfony\Component\Mime\Email;
+use Symfony\Component\Mailer\Mailer;
+use Symfony\Component\Mailer\Transport;
 
 $userModel = new UserModel();
 $giftModel = new GiftModel();
@@ -23,36 +27,62 @@ $packs = $packModel->getAllPacks();
 // Show users list
 $users = $userModel->getAllUsers();
 
-// if(isset($_POST['submit-gift']) AND !empty($_POST['submit-gift'])) {
-
-//     $email = htmlspecialchars($_POST['email']);
+// // Send a gift card
+// if(isset($_POST['submit-gift'])) {
+    
+//     $email = trim(strip_tags($_POST['email']));
 //     $idPackSelected = $_POST['pack'];
+//     $errors = [];
 
-//     $gift_code = '';
-
-//     for($i=0; $i<8; $i++) {
-//         $gift_code .= mt_rand(0,9);
+//     if(empty($email)) {
+//         $errors['email'] = 'Veuillez entrer votre adresse email';
+//     } elseif(!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+//         $errors['email'] = 'Le format de l\'email est invalide';
+//     } elseif($userModel->verifyEmailExist($email) == false) {
+//         $errors['email'] = 'Cette adresse email n\'est pas enregistrée';
 //     }
 
-//     $giftModel->createGiftCode('Isabelle', $gift_code, $idCourseSelected);
+//     if(empty($errors)) {
 
-//     $header = 'MIME-Version: 1.0\r\n';
-//     $header.= 'From: "IsaDanse" <support@isa.fr>'.'\n';
-//     $header.= 'Content-Type: text/html; charset="utf_8"'.'\n';
-//     $header.= 'Content-Transfer-Encoding: 8bit';
+//         $gift_code = '';
 
-//     $message = '<p>Bonjour,</p>
-//     <p>Voici une carte cadeau :)</p>
-//     <p>'. $gift_code .'</p>';
-                
-//     // Envoi de la carte cadeau par email
-//     mail($email, 'Carte cadeau', $message, $header);
+//         for($i=0; $i<8; $i++) {
+//             $gift_code .= mt_rand(0,9);
+//         }
+    
+//         $giftModel->createGiftCode('Isabelle', $gift_code, $idPackSelected);
 
-//     header('Location: ' . constructUrl('admin'));
+//         $user = $userModel->getUserByEmail($email);
+
+//         if($userModel->verifyUserGetPack($user['id'], $idPackSelected) == true) {
+//             $errors['user_pack'] = 'L\'utilisateur a déjà ce pack';
+
+//         } else {
+
+//             $message = '<p>Bonjour' . $user['firstname'] . ',</p>
+//             <p>Voici une carte cadeau :)</p>
+//             <p>Code cadeau : '. $gift_code .'</p>';
+
+//             $transport = Transport::fromDsn(MAILER_DSN);
+//             $mailer = new Mailer($transport);
+        
+//             $objEmail = (new Email())
+//                 ->from('Isa-Danse')
+//                 ->to($email)
+//                 ->subject('Carte cadeau')
+//                 ->html($message);
+        
+//             $mailer->send($objEmail);
+        
+//             header('Location: ' . constructUrl('admin'));
+//             exit;
+//         }
+//     }
 // }
 
 // Create new pack
 if(isset($_POST['create-pack'])) {
+
     $title = $_POST['title'];
     $price = $_POST['price'];
     $image = $_POST['image'];
@@ -66,7 +96,9 @@ if(isset($_POST['create-pack'])) {
     }
     if(empty($image)) {
         $errors['image'] = 'Veuillez choisir une image pour le pack';
-    } else {
+    }
+
+    if(empty($errors)) {
 
         $packModel->createNewPack($title, $price, $image);
         header('Location: '. $_SERVER['REQUEST_URI']);

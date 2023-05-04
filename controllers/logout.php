@@ -3,3 +3,4 @@
 $_SESSION = [];
 session_destroy();
 header('Location: ' . constructUrl('home'));
+exit;

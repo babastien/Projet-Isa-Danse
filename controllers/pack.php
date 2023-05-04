@@ -1,7 +1,7 @@
 <?php
 
 // Need to be logged to access this page
-if(!isset($_SESSION['id'])) {
+if(!isset($_SESSION['user'])) {
     http_response_code(404);
     echo 'Erreur 404 : Page introuvable';
     exit;
@@ -15,22 +15,25 @@ $userModel = new UserModel();
 $packModel = new PackModel();
 $videoModel = new VideoModel();
 
-// Verify if user get pack(s)
-$userPacks = $userModel->getUserPacks($_SESSION['id']);
-if(empty($userPacks)) {
-    header('Location: ' . constructUrl('member'));
+// Verify url/if the pack exists
+if(!array_key_exists('id', $_GET) || $packModel->verifyPackExists($_GET['id']) != true) {
+    http_response_code(404);
+    echo 'Erreur 404 : Page introuvable';
+    exit;
 }
 
-foreach($userPacks as $userPack) {
-    if($userPack['id'] == $_GET['id']) {
+// Verify if user get the pack
+if($userModel->verifyUserGetPack($_SESSION['user']['id'], $_GET['id']) == false) {
+    http_response_code(404);
+    echo 'Erreur 404 : Page introuvable';
+    exit;
 
-        // Show the title pack
-        $pack = $packModel->getPackById($_GET['id']);
+} else {
+    // Show the title pack
+    $pack = $packModel->getPackById($_GET['id']);
 
-        // Show the pack'video(s)
-        $videos = $videoModel->getVideosByPack($_GET['id']);
-        break;
-    }
+    // Show the pack'video(s)
+    $videos = $videoModel->getVideosByPack($_GET['id']);
 }
 
 $template = 'pack';

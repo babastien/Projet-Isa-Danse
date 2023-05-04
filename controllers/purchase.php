@@ -14,32 +14,23 @@ if(array_key_exists('new_user', $_SESSION) AND $_SESSION['new_user']) {
     session_unset();
 }
 
-// Verify url
-$packs = $packModel->getAllPacks();
-$packsId = [];
-foreach($packs as $pack) {
-    $packsId[] .= $pack['id'];
-}
-if(!in_array($_GET['id'], $packsId) || !array_key_exists('id', $_GET)) {
-    header('Location: '. constructUrl('home'));
+// Verify url/if the pack exists
+if(!array_key_exists('id', $_GET) || $packModel->verifyPackExists($_GET['id']) != true) {
+    http_response_code(404);
+    echo 'Erreur 404 : Page introuvable';
+    exit;
 }
 
 // Verify if user already get this pack
-if(isset($_SESSION['id'])) {
-    $userPacks = $userModel->getUserPacks($_SESSION['id']);
-    
-    foreach($userPacks as $pack) {
-        if($pack['id'] == $_GET['id']) {
-            $packAlreadyPurchased = true;
-        }
-    }
+if(isset($_SESSION['user']['id'])) {
+    $packAlreadyPurchased = $userModel->verifyUserGetPack($_SESSION['user']['id'], $_GET['id']);
 }
 
 // Show selected pack
 $packSelected = $packModel->getPackById($_GET['id']);
 
 // Login form
-if(isset($_POST['login-submit']) AND !empty($_POST['login-submit'])) {
+if(isset($_POST['login-submit'])) {
 
     $email_login = $_POST['email-login'];
     $password_login = $_POST['password-login'];
@@ -48,18 +39,21 @@ if(isset($_POST['login-submit']) AND !empty($_POST['login-submit'])) {
 
     if(empty($errors) AND !empty($email_login) AND !empty($password_login)) {
 
-        $user = $userModel->getUser($email_login);
+        $user = $userModel->getUserByEmail($email_login);
 
         if($user) {
             $password_user = $user['password'];
 
             if(password_verify($password_login, $password_user)) {
                 
-                $_SESSION['id'] = $user['id'];
-                $_SESSION['role'] = $user['role'];
-                $_SESSION['firstname'] = $user['firstname'];
-                $_SESSION['lastname'] = $user['lastname'];
-                $_SESSION['email'] = $user['email'];
+                $_SESSION['user'] = [
+                    'id' => $user['id'],
+                    'role' => $user['role'],
+                    'firstname' => $user['firstname'],
+                    'lastname' => $user['lastname'],
+                    'email' => $user['email'],
+                    'password' => $user['password']
+                ];
                 
                 header('Location: ' . $_SERVER['REQUEST_URI']);
                 exit;
@@ -74,11 +68,11 @@ if(isset($_POST['login-submit']) AND !empty($_POST['login-submit'])) {
 }
 
 // Register form
-if(isset($_POST['register-submit']) AND !empty($_POST['register-submit'])) {
+if(isset($_POST['register-submit'])) {
 
-    $lastname = trim(htmlspecialchars($_POST['lastname']));
-    $firstname = trim(htmlspecialchars($_POST['firstname']));
-    $email = trim(strtolower(htmlspecialchars($_POST['email'])));
+    $lastname = trim(strip_tags($_POST['lastname']));
+    $firstname = trim(strip_tags($_POST['firstname']));
+    $email = trim(strtolower(strip_tags($_POST['email'])));
     $password = $_POST['password'];
     $password2 = $_POST['password2'];
 
@@ -103,11 +97,11 @@ if(isset($_POST['register-submit'])) {
 }
 
 // Payment form
-if(isset($_POST['buy-submit']) AND !empty($_POST['buy-submit'])) {
+if(isset($_POST['buy-submit'])) {
 
     $idPackSelected = $_GET['id'];
     
-    $packModel->addPackToUser($_SESSION['id'], $idPackSelected);
+    $packModel->addPackToUser($_SESSION['user']['id'], $idPackSelected);
 
     header('Location: ' . constructUrl('home'));
     exit;

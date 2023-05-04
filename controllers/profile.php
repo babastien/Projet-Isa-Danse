@@ -1,7 +1,7 @@
 <?php
 
 // Need to be logged to access this page
-if(!isset($_SESSION['id'])) {
+if(!isset($_SESSION['user'])) {
     http_response_code(404);
     echo 'Erreur 404 : Page introuvable';
     exit;
@@ -22,10 +22,10 @@ if(array_key_exists('password_changed', $_SESSION) AND $_SESSION['password_chang
 }
 
 // Show user's pack(s)
-$userPacks = $userModel->getUserPacks($_SESSION['id']);
+$userPacks = $userModel->getUserPacks($_SESSION['user']['id']);
 
 // Password edit form
-if(isset($_POST['password-submit']) AND !empty($_POST['password-submit'])) {
+if(isset($_POST['password-submit'])) {
 
     if(isset($_POST["password"], $_POST['new-password'], $_POST['new-password2'])) {
 
@@ -47,12 +47,13 @@ if(isset($_POST['password-submit']) AND !empty($_POST['password-submit'])) {
             $_SESSION['password_changed'] = 'Mot de passe modifié avec succès';
         
             header('Location: ' . $_SERVER['REQUEST_URI']);
+            exit;
         }
     }
 }
 
 // Gift code form
-if(isset($_POST['code-submit']) AND !empty($_POST['code-submit'])) {
+if(isset($_POST['code-submit'])) {
 
     $code = $_POST['gift-code'];
 
@@ -64,12 +65,11 @@ if(isset($_POST['code-submit']) AND !empty($_POST['code-submit'])) {
     
             if($gift_db['used'] == 0) {
     
-                $packModel->addPackToUser($_SESSION['id'], $gift_db['pack_id']);
+                $packModel->addPackToUser($_SESSION['user']['id'], $gift_db['pack_id']);
                 $giftModel->validGiftCode($code);
-    
-                $userPacks = $userModel->getUserPacks($_SESSION['id']);
-            
-                $_SESSION['packs'] = $userPacks;
+
+                header('Location: ' . $_SERVER['REQUEST_URI']);
+                exit;
     
             } else {
                 $code_errors = 'Ce code a déjà été utilisé';
@@ -83,10 +83,10 @@ if(isset($_POST['code-submit']) AND !empty($_POST['code-submit'])) {
 }
 
 // Delete account
-if(isset($_POST['delete-account']) AND !empty($_POST['delete-account'])) {
+if(isset($_POST['delete-account'])) {
     
     if(password_verify($_POST['delete-password'], $_SESSION['password'])) {
-        $userModel->deleteUser($_SESSION['id']);
+        $userModel->deleteUser($_SESSION['user']['id']);
         session_destroy();
         header('Location: ' . constructUrl('home'));
         exit;

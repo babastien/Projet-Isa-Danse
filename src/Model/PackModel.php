@@ -49,4 +49,9 @@ class PackModel extends AbstractModel {
                 VALUES (?, ?, ?)';
         $this->db->prepareAndExecute($sql, [$title, $price, $image]);
     }
+
+    function verifyPackExists($packId) {
+        $sql = 'SELECT * FROM packs WHERE id = ?';
+        return $this->db->verifyData($sql, [$packId]);
+    }
 }

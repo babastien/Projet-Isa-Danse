@@ -1,8 +1,8 @@
 <h2>Mon profil</h2>
 
 <div class="profile">
-    <p><u>Nom :</u><br><?= $_SESSION['lastname'].' '.$_SESSION['firstname'] ?></p>
-    <p><u>Email :</u><br><?= $_SESSION['email'] ?></p>
+    <p><u>Nom :</u><br><?= $_SESSION['user']['lastname'].' '.$_SESSION['user']['firstname'] ?></p>
+    <p><u>Email :</u><br><?= $_SESSION['user']['email'] ?></p>
     <p><u>Souscription(s) :</u><br>
     <?php if(isset($userPacks) AND !empty($userPacks)) {
         foreach($userPacks as $pack) {
@@ -43,7 +43,7 @@
 </form>
 <br>
 
-<?php if($_SESSION['role'] != 'admin') : ?>
+<?php if($_SESSION['user']['role'] != 'admin') : ?>
 
     <form action="" method="POST">
         <legend>Tu as un code cadeau ?</legend>

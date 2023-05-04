@@ -6,7 +6,7 @@ use App\Model\PackModel;
 $homepageModel = new HomepageModel();
 $packModel = new PackModel();
 
-// Show homepage sections (can be edited by admin)
+// Show homepage sections (that can be edited by admin)
 $sections = $homepageModel->getAllSections();
 
 // Show packs to buy

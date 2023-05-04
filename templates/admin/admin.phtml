@@ -1,15 +1,21 @@
-<br>
-<!-- <form action="" method="POST">
+<!-- <br>
+<?php if(isset($errors['user_pack'])) { ?>
+        <p class="error"><?= $errors['user_pack'] ?></p>
+<?php } ?>
+<form action="" method="POST">
     <legend>Envoyer une carte cadeau</legend>
     <select name="pack" id="pack">
         <?php foreach($packs as $pack): ?>
             <option value="<?= $pack['id'] ?>"><?= $pack['title'] ?></option>
         <?php endforeach; ?>
     </select>
-    <input type="email" id="gift-card" name="gift-card" placeholder="Email du destinataire">
+    <input type="email" name="email" placeholder="Email du destinataire">
     <input type="submit" name="submit-gift" value="Envoyer">
-</form>
-<br> -->
+    <?php if(isset($errors['email'])) { ?>
+            <p class="error"><?= $errors['email'] ?></p>
+    <?php } ?>
+</form> -->
+<br>
 
 <div class="frame">
     <p><a href="<?= constructUrl('edit-homepage') ?>">Modifier la page d'accueil</a></p>

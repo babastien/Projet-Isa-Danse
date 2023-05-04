@@ -5,22 +5,22 @@ use App\Model\UserModel;
 $userModel = new UserModel();
 
 // Redirect to homepage if already logged
-if(isset($_SESSION['id'])) {
+if(isset($_SESSION['user'])) {
     header('Location: ' . constructUrl('home'));
     exit;
 }
 
-if(isset($_POST) AND !empty($_POST)) {
+if(!empty($_POST)) {
 
-    $lastname = trim(htmlspecialchars($_POST['lastname']));
-    $firstname = trim(htmlspecialchars($_POST['firstname']));
-    $email = trim(strtolower(htmlspecialchars($_POST['email'])));
+    $lastname = trim(strip_tags($_POST['lastname']));
+    $firstname = trim(strip_tags($_POST['firstname']));
+    $email = trim(strtolower(strip_tags($_POST['email'])));
     $password = $_POST['password'];
     $password2 = $_POST['password2'];
 
     $errors = validRegisterForm($lastname, $firstname, $email, $password, $password2);
 
-    if(!$errors) {
+    if(empty($errors)) {
 
         $password = password_hash($password, PASSWORD_DEFAULT);
 
@@ -28,6 +28,7 @@ if(isset($_POST) AND !empty($_POST)) {
 
         $_SESSION['new_user'] = 'Votre compte a bien été créé';
         header('Location: ' . constructUrl('login'));
+        exit;
     }
 }
 

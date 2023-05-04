@@ -1,7 +1,7 @@
 <?php
 
 // Admin page
-if($_SESSION['role'] !== 'admin') {
+if($_SESSION['user']['role'] !== 'admin') {
     http_response_code(404);
     echo 'Erreur 404 : Page introuvable';
     exit;
