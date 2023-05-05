@@ -83,14 +83,26 @@ if(isset($_POST['code-submit'])) {
 }
 
 // Delete account
-if(isset($_POST['delete-account'])) {
-    
-    if(password_verify($_POST['delete-password'], $_SESSION['password'])) {
-        $userModel->deleteUser($_SESSION['user']['id']);
-        session_destroy();
-        header('Location: ' . constructUrl('home'));
-        exit;
+if(array_key_exists('delete-password', $_POST)) {
+
+    if(empty($_POST['delete-password'])) {
+        $delete_errors = 'Le champ est vide';
+    } elseif(!password_verify($_POST['delete-password'], $_SESSION['user']['password'])) {
+        $delete_errors = 'Mot de passe erroné';
     }
+    
+    if(empty($delete_errors)) {
+        $response['success'] = 'Votre compte a bien été supprimé';
+
+        $userModel->deleteUser($_SESSION['user']['id']);
+        $_SESSION['user'] = null;
+        session_destroy();
+
+    } else {
+        $response['errors'] = $delete_errors;
+    }
+    echo json_encode($response);
+    exit;
 }
 
 $template = 'profile';

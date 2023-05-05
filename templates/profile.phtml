@@ -66,18 +66,19 @@
     <div class="pop-up-background">
     </div>
 
-    <form class="pop-up" method="POST">
-        <p>Êtes-vous sûr de vouloir supprimer votre compte ?</p>
+    <form class="pop-up" action="<?= constructUrl('profile') ?>" method="POST" id="delete-account-form">
+        <p>Êtes-vous sûr(e) de vouloir supprimer votre compte ?</p>
         <p>Vous perdrez l'accès à tous les packs que vous avez achetés !</p>
         <p class="warning"><b>Cette action est irréversible !</b></p>
         <div class="form-input">
             <label for="delete-password">Entrez votre mot de passe</label>
             <input type="password" id="delete-password" name="delete-password">
         </div>
-        <input type="submit" name="delete-account" value="Supprimer mon compte">
+        <input type="submit" name="delete-account" value="Supprimer mon compte" data-redirecthome="<?= constructUrl('home') ?>">
         <input type="button" value="Annuler" class="cancel">
     </form>
 
 <?php endif ?>
 
 <script src="<?= asset('js/deletePopUp.js') ?>"></script>
+<script src="<?= asset('js/profile.js') ?>"></script>

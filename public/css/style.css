@@ -143,7 +143,7 @@ input[type="file"] {
     color: red;
     font-size: 12px;
     font-style: italic;
-    margin: 0;
+    margin: 0 !important;
 }
 
 .success {

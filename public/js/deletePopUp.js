@@ -1,4 +1,4 @@
-// editUser & editPack
+// editUser / editPack / profile
 
 const deleteButton = document.querySelector('.delete');
 const popUpForm = document.querySelector('.pop-up');
