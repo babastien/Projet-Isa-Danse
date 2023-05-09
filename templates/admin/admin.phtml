@@ -6,7 +6,7 @@
     <legend>Envoyer une carte cadeau</legend>
     <select name="pack" id="pack">
         <?php foreach($packs as $pack): ?>
-            <option value="<?= $pack['id'] ?>"><?= $pack['title'] ?></option>
+            <option value="<?= $pack->getId() ?>"><?= $pack->getTitle() ?></option>
         <?php endforeach; ?>
     </select>
     <input type="email" name="email" placeholder="Email du destinataire">
@@ -61,10 +61,10 @@
     </tr>
     <?php foreach($packs as $pack): ?>
         <tr>
-            <td><?= $pack['title'] ?></td>
-            <td><?= $pack['price'] ?> €</td>
-            <td><?= count($videoModel->getVideosByPack($pack['id'])) ?></td>
-            <td><a href="<?= constructUrl('edit-pack', ['id' => $pack['id']]) ?>"><input type="button" value="Modifier"></a></td>
+            <td><?= $pack->getTitle() ?></td>
+            <td><?= $pack->getPrice() ?> €</td>
+            <td><?= count($videoModel->getVideosByPack($pack->getId())) ?></td>
+            <td><a href="<?= constructUrl('edit-pack', ['id' => $pack->getId()]) ?>"><input type="button" value="Modifier"></a></td>
         </tr>
     <?php endforeach; ?>
 </table>
@@ -88,8 +88,8 @@
             <td><?= $user->getEmail() ?></td>
             <td><?php $userPacks = $userModel->getUserPacks($user->getId()) ?>
                 <?php if($userPacks): ?>
-                    <?php foreach($userPacks as $pack): ?>
-                        <?= $pack['title'] ?><br>
+                    <?php foreach($userPacks as $userPack): ?>
+                        <?= $userPack->getPack()->getTitle() ?><br>
                     <?php endforeach; ?>
                 <?php endif; ?>
             </td>

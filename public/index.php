@@ -20,23 +20,27 @@ if ($path == '') {
 $routes = require '../app/routes.php';
 define('ROUTES', $routes);
 
-$controller = null;
+$className = null;
+$method = null;
 
 foreach($routes as $route) {
     if($path == $route['path']) {
-        $controller = $route['controller'];
+        $className = $route['controller'];
+        $method = $route['method'];
         break;
     }
 }
 
-if($controller == null) {
+if($className == null) {
     http_response_code(404);
     echo 'Erreur 404 : Page introuvable';
     exit;
 }
 
 try {
-    require '../controllers/' . $controller;
+    $className = 'App\\Controller\\' . $className;
+    $controller = new $className();
+    $controller->$method();
 }
 catch(Exception $exception) {
     echo $exception->getMessage();

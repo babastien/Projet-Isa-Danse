@@ -14,7 +14,7 @@
             <label for="">Pack à offrir</label>
             <select name="pack" id="pack">
                 <?php foreach($packSelection as $pack): ?>
-                    <option value="<?= $pack['id'] ?>"><?= $pack['title'] ?></option>
+                    <option value="<?= $pack->getId() ?>"><?= $pack->getTitle() ?></option>
                 <?php endforeach; ?>
             </select>
         </div>

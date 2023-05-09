@@ -14,8 +14,8 @@ class User {
     private string $email;
     private string $password;
 
-    public function __construct(array $data = []) {
-
+    public function __construct(array $data = [])
+    {
         foreach ($data as $propertyName => $value) {
             $setter = 'set' . ucfirst($propertyName);
             if(method_exists($this, $setter)) {
@@ -157,5 +157,15 @@ class User {
     public function getFormattedCreatedAt(): string {
 
         return $this->createdAt->format('d/m/Y H:i:s');
+    }
+
+    public function getFormattedCreatedAtDay(): string {
+
+        return $this->createdAt->format('d/m/Y');
+    }
+
+    public function getFormattedCreatedAtHour(): string {
+
+        return $this->createdAt->format('H:i:s');
     }
 }

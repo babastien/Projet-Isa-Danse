@@ -1,5 +1,5 @@
 <br>
-<?php if(!isset($_SESSION['packs']) || !in_array($_GET['id'], $_SESSION['packs'])): ?>
+<?php if(!isset($_SESSION['user']['packs']) || !in_array($_GET['id'], $_SESSION['user']['packs'])): ?>
     <div class="command">
         <legend>Résumé de la commande</legend>
         <img class="pack-image" src="<?= asset($packSelected->getImage()) ?>" alt="<?= $packSelected->getTitle() ?>" style="margin:0; width: 200px";>
@@ -7,7 +7,7 @@
     </div>
 <?php endif; ?>
 
-<?php if(!isset($_SESSION['id'])) { ?>
+<?php if(!isset($_SESSION['user']['id'])) { ?>
     
     <p>Connectez-vous ou inscrivez-vous pour procéder au paiement<br>
     Vous pourrez accéder aux cours en vous connectant à votre compte</p>

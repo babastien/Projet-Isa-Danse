@@ -3,26 +3,26 @@
 <form action="" method="POST">
     <div class="form-input">    
         <label for="lastname">Nom</label>
-        <input type="text" id="lastname" name="lastname" value="<?= $user['lastname'] ?>">
+        <input type="text" id="lastname" name="lastname" value="<?= $user->getLastname() ?>">
         <?php if(isset($errors['lastname'])) : ?>
             <p class="error"><?= $errors['lastname'] ?></p>
         <?php endif ?>
     </div>
     <div class="form-input">
         <label for="firstname">Prénom</label>
-        <input type="text" id="firstname" name="firstname" value="<?= $user['firstname'] ?>">
+        <input type="text" id="firstname" name="firstname" value="<?= $user->getFirstname() ?>">
         <?php if(isset($errors['firstname'])) : ?>
             <p class="error"><?= $errors['firstname'] ?></p>
         <?php endif ?>
     </div>
     <div class="form-input"> 
         <label for="email">Email</label>
-        <input type="email" id="email" name="email" value="<?= $user['email'] ?>">
+        <input type="email" id="email" name="email" value="<?= $user->getEmail() ?>">
         <?php if(isset($errors['email'])) : ?>
             <p class="error"><?= $errors['email'] ?></p>
         <?php endif ?>
     </div>
-    <p>Inscris le <?= $user['createdAt'] ?></p>
+    <p>Inscris le <?= $user->getFormattedCreatedAtDay() . ' à ' . $user->getFormattedCreatedAtHour() ?></p>
     <input type="submit" name="edit-user" value="Modifier l'utilisateur">
 </form>
 <br>
@@ -33,11 +33,11 @@
         <thead>
             <th colspan="5">Souscription(s) de l'utilisateurs</th>
         </thead>
-        <?php foreach($userPacks as $pack): ?>
+        <?php foreach($userPacks as $userPack): ?>
             <tr>
-                <td><?= $pack['title'] ?></td>
-                <td>Acheté le<br><?= $pack['purchased_on'] ?></td>
-                <td><input type="submit" name="delete-<?= $pack['pack_id'] ?>" value="Retirer le pack"></td>
+                <td><?= $userPack->getPack()->getTitle() ?></td>
+                <td>Acheté le<br><?= $userPack->getFormattedPurchasedOn() ?></td>
+                <td><input type="submit" name="delete-<?= $userPack->getPack()->getId() ?>" value="Retirer le pack"></td>
             </tr>
         <?php endforeach; ?>
     </table>
@@ -54,8 +54,8 @@
 
     <select name="pack-selected">
         <?php foreach($packSelection as $pack): ?>
-            <?php if(!in_array($pack['id'], $userPacksId)) { ?>
-                <option value="<?= $pack['id'] ?>"><?= $pack['title'] ?></option>
+            <?php if(!in_array($pack->getId(), $userPacksId)) { ?>
+                <option value="<?= $pack->getId() ?>"><?= $pack->getTitle() ?></option>
             <?php } ?>
         <?php endforeach; ?>
     </select>
@@ -64,7 +64,7 @@
 </form>
 <br>
 
-<?php if($user['role'] != 'admin') : ?>
+<?php if($user->getRole() != 'admin') : ?>
 
     <div class="frame">
         <legend>Supprimer l'utilisateur</legend>
@@ -76,7 +76,7 @@
     </div>
 
     <form class="pop-up" method="POST">
-        <p>Êtes-vous sûr de vouloir supprimer l'utilisateur <b><?= $user['lastname'] .' '. $user['firstname'] .'</b> ('. $user['email'] .')' ?> ?</p>
+        <p>Êtes-vous sûr de vouloir supprimer l'utilisateur <b><?= $user->getLastname() .' '. $user->getFirstname() .'</b> ('. $user->getEmail() .')' ?> ?</p>
         <p>Il perdra l'accès à tous ses packs !</p>
         <p class="warning"><b>Cette action est irréversible !</b></p>
         <input type="submit" name="delete-user" value="Supprimer l'utilisateur">

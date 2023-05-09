@@ -3,63 +3,78 @@
 $routes = [
     'home' => [
         'path' => '/',
-        'controller' => '/home.php'
-    ],
-    'login' => [
-        'path' => '/login',
-        'controller' => '/login.php'
+        'controller' => 'HomeController',
+        'method' => 'index'
     ],
     'register' => [
         'path' => '/register',
-        'controller' => '/register.php'
+        'controller' => 'UserController',
+        'method' => 'register'
+    ],
+    'login' => [
+        'path' => '/login',
+        'controller' => 'AuthController',
+        'method' => 'login'
     ],
     'logout' => [
         'path' => '/logout',
-        'controller' => '/logout.php'
+        'controller' => 'AuthController',
+        'method' => 'logout'
     ],
     'forgot-password' => [
         'path' => '/forgot-password',
-        'controller' => '/forgotPassword.php'
+        'controller' => 'ForgotPasswordController',
+        'method' => 'forgotPassword'
     ],
     'profile' => [
         'path' => '/profile',
-        'controller' => '/profile.php'
+        'controller' => 'ProfileController',
+        'method' => 'profile'
     ],
     'member' => [
         'path' => '/member',
-        'controller' => '/member.php'
+        'controller' => 'MemberController',
+        'method' => 'showPacks'
     ],
     'pack' => [
-        'path' => '/pack',
-        'controller' => '/pack.php'
+        'path' => '/member/pack',
+        'controller' => 'MemberController',
+        'method' => 'showPackVideos'
     ],
     'purchase' => [
         'path' => '/purchase',
-        'controller' => '/purchase.php'
+        'controller' => 'PurchaseController',
+        'method' => 'purchase'
     ],
     'present' => [
         'path' => '/present',
-        'controller' => '/present.php'
+        'controller' => 'PresentController',
+        'method' => 'present'
     ],
     'contact' => [
         'path' => '/contact',
-        'controller' => '/contact.php'
+        'controller' => 'ContactController',
+        'method' => 'contact'
     ],
     'admin' => [
         'path' => '/admin',
-        'controller' => '/admin/admin.php'
+        'controller' => 'Admin\\AdminDashboardController',
+        'method' => 'index'
     ],
     'edit-user' => [
-        'path' => '/edit-user',
-        'controller' => '/admin/editUser.php'
+        'path' => '/admin/edit-user',
+        'controller' => 'Admin\\AdminUserController',
+        'method' => 'editUser'
     ],
     'edit-pack' => [
-        'path' => '/edit-pack',
-        'controller' => '/admin/editPack.php'
+        'path' => '/admin/edit-pack',
+        'controller' => 'Admin\\AdminPackController',
+        'method' => 'editPack'
     ],
     'edit-homepage' => [
-        'path' => '/edit-homepage',
-        'controller' => '/admin/editHomepage.php'
+        'path' => '/admin/edit-homepage',
+        'controller' => 'Admin\\AdminHomepageController',
+        'method' => 'editHomepage'
     ]
 ];
 

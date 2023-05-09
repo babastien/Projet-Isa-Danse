@@ -5,8 +5,8 @@
     <p><u>Email :</u><br><?= $_SESSION['user']['email'] ?></p>
     <p><u>Souscription(s) :</u><br>
     <?php if(isset($userPacks) AND !empty($userPacks)) {
-        foreach($userPacks as $pack) {
-            echo $pack['title'].'<br>';
+        foreach($userPacks as $userPack) {
+            echo $userPack->getPack()->getTitle().'<br>';
         }
     } else {
         echo "Vous n'avez souscris à aucun pack pour le moment";

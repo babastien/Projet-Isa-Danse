@@ -62,10 +62,10 @@
 <div class="buy-packs">
     <?php foreach($packs as $pack) { ?>
         <div class="pack-to-buy">
-            <h4><?= $pack['title'] ?></h4>
-            <p class="price"><?= $pack['price'] ?> €</p>
-            <p class="buy-description"><?= $pack['description'] ?>
-            <p class="select-pack"><a href="<?= constructUrl('purchase', ['id' => $pack['id']]) ?>">Sélectionner</a></p>
+            <h4><?= $pack->getTitle() ?></h4>
+            <p class="price"><?= $pack->getPrice() ?> €</p>
+            <p class="buy-description"><?= $pack->getDescription() ?>
+            <p class="select-pack"><a href="<?= constructUrl('purchase', ['id' => $pack->getId()]) ?>">Sélectionner</a></p>
         </div>
     <?php } ?>
 </div>

@@ -26,7 +26,7 @@ Installation :
 
 4/ créer un fichier config.php dans le dossier app en suivant le fichier config.example.php
 
-Vous pouvez désormai utiliser le site
+Vous pouvez désormais utiliser le site
     Compte admin test :
         Email de connexion : test@gmail.com
         Mot de passe de connexion : Azerty123

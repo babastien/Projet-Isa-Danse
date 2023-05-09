@@ -10,8 +10,8 @@ class Pack {
     private string $image;
     private string $description;
 
-    public function __construct(array $data = []) {
-
+    public function __construct(array $data = [])
+    {
         foreach ($data as $propertyName => $value) {
             $setter = 'set' . ucfirst($propertyName);
             if(method_exists($this, $setter)) {

@@ -2,11 +2,13 @@
 
 use App\Model\UserModel;
 
-function asset(string $path) {
+function asset(string $path)
+{
     return BASE_URL . '/' . $path;
 }
 
-function constructUrl(string $routeName, array $params = []) {
+function constructUrl(string $routeName, array $params = [])
+{
 
     if(!array_key_exists($routeName, ROUTES)) {
         throw new Exception('ERREUR : pas de route nommée ' . $routeName);
@@ -19,7 +21,8 @@ function constructUrl(string $routeName, array $params = []) {
     return $url;
 }
 
-function validLoginForm($email_login, $password_login) {
+function validLoginForm($email_login, $password_login)
+{
     $errors = [];
 
     if(empty($email_login)) {
@@ -34,7 +37,8 @@ function validLoginForm($email_login, $password_login) {
     return $errors;
 }
 
-function validRegisterForm($lastname, $firstname, $email, $password, $password2) {
+function validRegisterForm($lastname, $firstname, $email, $password, $password2)
+{
     $errors = [];
     $userModel = new UserModel();
 
@@ -67,7 +71,8 @@ function validRegisterForm($lastname, $firstname, $email, $password, $password2)
     return $errors;
 }
 
-function validPresentForm($lastname, $firstname, $email, $email2) {
+function validPresentForm($lastname, $firstname, $email, $email2)
+{
     $errors = [];
 
     if(empty($lastname)) {
@@ -90,7 +95,8 @@ function validPresentForm($lastname, $firstname, $email, $email2) {
     return $errors;
 }
 
-function validChangePasswordForm($password, $new_password, $new_password2, $session_password) {
+function validChangePasswordForm($password, $new_password, $new_password2, $session_password)
+{
     $errors = [];
 
     if(empty($password)) {
