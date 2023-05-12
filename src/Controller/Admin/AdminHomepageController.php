@@ -17,6 +17,7 @@ class AdminHomepageController {
 
         $homepageModel = new HomepageModel();
 
+        // Show homepage sections that can be edited
         $sections = $homepageModel->getAllSections();
 
         foreach($sections as $section) {

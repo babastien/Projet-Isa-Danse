@@ -11,7 +11,7 @@
     <?php foreach($videos as $video) { ?>
         <div class="video" id="<?= $video['id'] ?>">
             <p><?= $video['title'] ?></p>   
-            <video controls src="<?= asset($video['filename']) ?>"></video>
+            <video controls src="<?= asset('videos/' . $video['filename']) ?>"></video>
         </div>
     <?php } ?>
 

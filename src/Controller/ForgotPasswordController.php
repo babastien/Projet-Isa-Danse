@@ -85,7 +85,7 @@ class ForgotPasswordController {
             $verif_code = $_POST['verif-code'];
 
             if(empty($verif_code)) {
-                $errors['code'] = 'Veuillez entrer votre code de vérification';
+                $errors['code'] = 'Veuillez entrer le code de récupération';
             } elseif($passwordModel->verifyCodeExist($_SESSION['recup_email']) == false) {
                 $errors['code'] = 'Code invalide';
             } elseif($verif_code != $_SESSION['recup_code']) {
@@ -108,34 +108,34 @@ class ForgotPasswordController {
             $new_password2 = $_POST['new-password2'];
             $confirmationCode = $passwordModel->getCodeConfirmation($_SESSION['recup_email']);
 
-            if($confirmationCode['confirmation'] == 0) {
-                $errors['confirmation'] = 'Veuillez valider votre email grâce au code de vérification qui vous a été envoyé par email';
-            }
+            if($confirmationCode['confirmation'] != 1) {
+                $confirmation = false;
+            } else {
 
-            if(empty($new_password)) {
-                $errors['new_password'] = 'Veuillez entrer un nouveau mot de passe';
-            } elseif(strlen($new_password) < 8) {
-                $errors['new_password'] = 'Votre mot de passe doit contenir au moins 8 caractères';
-            } elseif(!preg_match('/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$/', $new_password)) {
-                $errors['new_password'] = 'Votre mot de passe doit contenir au moins une majuscule, une minuscule et un chiffre';
-            }
-
-            if(empty($new_password2)) {
-                $errors['new_password2'] = 'Veuillez confirmer votre nouveau mot de passe';
-            } elseif($new_password != $new_password2) {
-                $errors['new_password2'] = 'Les mots de passe ne correspondent pas';
-            }
-
-            if(empty($errors)) {
-                $new_password = password_hash($new_password, PASSWORD_DEFAULT);
-                
-                $userModel->updateUserPassword($_SESSION['recup_email'], $new_password);
-                $passwordModel->deleteForgetPasswordRequest($_SESSION['recup_email']);
-
-                session_destroy();
-
-                header('Location: ' . constructUrl('login'));
-                exit;
+                if(empty($new_password)) {
+                    $errors['new_password'] = 'Veuillez entrer un nouveau mot de passe';
+                } elseif(strlen($new_password) < 8) {
+                    $errors['new_password'] = 'Votre mot de passe doit contenir au moins 8 caractères';
+                } elseif(!preg_match('/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$/', $new_password)) {
+                    $errors['new_password'] = 'Votre mot de passe doit contenir au moins une majuscule, une minuscule et un chiffre';
+                }
+    
+                if(empty($new_password2)) {
+                    $errors['new_password2'] = 'Veuillez confirmer votre nouveau mot de passe';
+                } elseif($new_password != $new_password2) {
+                    $errors['new_password2'] = 'Les mots de passe ne correspondent pas';
+                }
+    
+                if(empty($errors)) {
+                    $new_password = password_hash($new_password, PASSWORD_DEFAULT);
+                    
+                    $userModel->updateUserPassword($_SESSION['recup_email'], $new_password);
+                    $passwordModel->deleteForgetPasswordRequest($_SESSION['recup_email']);
+    
+                    session_destroy();
+                    header('Location: ' . constructUrl('login'));
+                    exit;
+                }
             }
         }
 

@@ -21,6 +21,37 @@ function constructUrl(string $routeName, array $params = [])
     return $url;
 }
 
+function slugify(string $string)
+{
+    $string = preg_replace('/[^\p{L}\p{N}]+/u', '-', $string);
+
+    $string = mb_strtolower($string, 'UTF-8');
+
+    $string = trim($string, '-');
+
+    $string = preg_replace('/-+/', '-', $string);
+
+    return $string;
+}
+
+function uploadFileInFolder(array $filesArray, string $folderName)
+{
+    $extension = pathinfo($filesArray['name'], PATHINFO_EXTENSION);
+    $basename = pathinfo($filesArray['name'], PATHINFO_BASENAME);
+
+    $basename = slugify($basename);
+
+    $filename = $basename . sha1(uniqid(rand(), true)) . '.' . $extension;
+
+    if(!file_exists($folderName)) {
+        mkdir($folderName);
+    }
+
+    move_uploaded_file($filesArray['tmp_name'], $folderName . '/' . $filename);
+
+    return $filename;
+}
+
 function validLoginForm($email_login, $password_login)
 {
     $errors = [];
@@ -44,9 +75,13 @@ function validRegisterForm($lastname, $firstname, $email, $password, $password2)
 
     if(empty($lastname)) {
         $errors['lastname'] = 'Le champ <b>Nom</b> doit être rempli';
+    } elseif(strlen($lastname) < 3) {
+        $errors['lastname'] = 'Le champ <b>Nom</b> doit contenir au moins 3 caractères';
     }
     if(empty($firstname)) {
         $errors['firstname'] = 'Le champ <b>Prénom</b> doit être rempli';
+    } elseif(strlen($firstname) < 3) {
+        $errors['firstname'] = 'Le champ <b>Prénom</b> doit contenir au moins 3 caractères';
     }
     if(empty($email)) {
         $errors['email'] = 'Le champ <b>Email</b> doit être rempli';
@@ -66,53 +101,6 @@ function validRegisterForm($lastname, $firstname, $email, $password, $password2)
         $errors['password2'] = 'Le champ <b>Confirmer le mot de passe</b> doit être rempli';
     } elseif($password != $password2) {
         $errors['password2'] = 'Vos mots de passe doivent être identiques';
-    }
-
-    return $errors;
-}
-
-function validPresentForm($lastname, $firstname, $email, $email2)
-{
-    $errors = [];
-
-    if(empty($lastname)) {
-        $errors['lastname'] = 'Le champ <b>Nom</b> doit être rempli';
-    }
-    if(empty($firstname)) {
-        $errors['firstname'] = 'Le champ <b>Prénom</b> doit être rempli';
-    }
-    if(empty($email)) {
-        $errors['email'] = 'Le champ <b>Email</b> doit être rempli';
-    } elseif(!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        $errors['email'] = 'Le format de l\'email est invalide';
-    }
-    if(empty($email2)) {
-        $errors['email2'] = 'Le champ <b>Confirmer l\'email</b> doit être rempli';
-    } elseif($email != $email2) {
-        $errors['email2'] = 'Les emails ne correspondent pas';
-    }
-
-    return $errors;
-}
-
-function validChangePasswordForm($password, $new_password, $new_password2, $session_password)
-{
-    $errors = [];
-
-    if(empty($password)) {
-        $errors['password'] = 'Veuillez renseigner votre mot de passe actuel';
-    } elseif(!password_verify($password, $session_password)) {
-        $errors['password'] = 'Le mot passe actuel ne correspond pas';
-    }
-    if(empty($new_password)) {
-        $errors['new_password'] = 'Veuillez entrer un nouveau mot de passe';
-    } elseif(!preg_match('/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$/', $new_password)) {
-        $errors['new_password'] = 'Le mot de passe doit contenir au moins 8 caractères dont une majuscule, une minuscule et un chiffre';
-    }
-    if(empty($new_password2)) {
-        $errors['new_password2'] = 'Veuillez confirmer le nouveau mot de passe';
-    } elseif($new_password != $new_password2) {
-        $errors['new_password2'] = 'Les mots de passe ne correspondent pas';
     }
 
     return $errors;

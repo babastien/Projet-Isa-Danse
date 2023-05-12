@@ -8,7 +8,7 @@ class Pack {
     private string $title;
     private int $price;
     private string $image;
-    private string $description;
+    private ?string $description;
 
     public function __construct(array $data = [])
     {
@@ -95,7 +95,7 @@ class Pack {
     /**
      * Get the value of description
      */
-    public function getDescription(): string
+    public function getDescription(): ?string
     {
         return $this->description;
     }
@@ -103,7 +103,7 @@ class Pack {
     /**
      * Set the value of description
      */
-    public function setDescription(string $description): self
+    public function setDescription(?string $description): self
     {
         $this->description = $description;
 

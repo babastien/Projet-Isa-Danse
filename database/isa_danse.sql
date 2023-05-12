@@ -114,7 +114,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `role`, `createdAt`, `firstname`, `lastname`, `email`, `password`) VALUES
-(1, 'admin', '2023-05-03 10:24:34', 'Toto', 'Test', 'test@gmail.com', '$2y$10$UFu.QD89U1eYI/.dvVPdf./XsXG/D1Aa9Z1Bn4iimH3.ylxCF.p3G');
+(1, 'admin', '2023-05-03 10:24:34', 'Toto', 'Admin', 'admin@gmail.com', '$2y$10$UFu.QD89U1eYI/.dvVPdf./XsXG/D1Aa9Z1Bn4iimH3.ylxCF.p3G');
 
 -- --------------------------------------------------------
 
@@ -264,7 +264,7 @@ ALTER TABLE `users_packs`
 -- Contraintes pour la table `videos`
 --
 ALTER TABLE `videos`
-  ADD CONSTRAINT `fk_pack_id` FOREIGN KEY (`pack_id`) REFERENCES `packs` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+  ADD CONSTRAINT `fk_pack_id` FOREIGN KEY (`pack_id`) REFERENCES `packs` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

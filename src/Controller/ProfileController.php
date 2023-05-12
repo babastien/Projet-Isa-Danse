@@ -38,17 +38,17 @@ class ProfileController {
                 $password = htmlspecialchars($_POST['password']);
                 $new_password = htmlspecialchars($_POST['new-password']);
                 $new_password2 = htmlspecialchars($_POST['new-password2']);
-                $session_password = $_SESSION['password'];
+                $session_password = $_SESSION['user']['password'];
                 $errors = [];
 
-                $errors = validChangePasswordForm($password, $new_password, $new_password2, $session_password);
+                $errors = $this->validChangePasswordForm($password, $new_password, $new_password2, $session_password);
 
                 if(empty($errors)) {
 
                     $new_password = password_hash($new_password, PASSWORD_DEFAULT);
                     
-                    $userModel->updateUserPassword($_SESSION['email'], $new_password);
-                    $_SESSION['password'] = $new_password;
+                    $userModel->updateUserPassword($_SESSION['user']['email'], $new_password);
+                    $_SESSION['user']['password'] = $new_password;
                     
                     $_SESSION['password_changed'] = 'Mot de passe modifié avec succès';
                 
@@ -113,5 +113,28 @@ class ProfileController {
 
         $template = 'profile';
         include '../templates/base.phtml';
+    }
+
+    public function validChangePasswordForm($password, $new_password, $new_password2, $session_password)
+    {
+        $errors = [];
+
+        if(empty($password)) {
+            $errors['password'] = 'Veuillez renseigner votre mot de passe actuel';
+        } elseif(!password_verify($password, $session_password)) {
+            $errors['password'] = 'Le mot passe actuel ne correspond pas';
+        }
+        if(empty($new_password)) {
+            $errors['new_password'] = 'Veuillez entrer un nouveau mot de passe';
+        } elseif(!preg_match('/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$/', $new_password)) {
+            $errors['new_password'] = 'Le mot de passe doit contenir au moins 8 caractères dont une majuscule, une minuscule et un chiffre';
+        }
+        if(empty($new_password2)) {
+            $errors['new_password2'] = 'Veuillez confirmer le nouveau mot de passe';
+        } elseif($new_password != $new_password2) {
+            $errors['new_password2'] = 'Les mots de passe ne correspondent pas';
+        }
+
+        return $errors;
     }
 }

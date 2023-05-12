@@ -9,11 +9,10 @@ class HomeController {
 
     public function index()
     {
-        dump($_SESSION);
         $homepageModel = new HomepageModel();
         $packModel = new PackModel();
 
-        // Show homepage sections (that can be edited by admin)
+        // Show homepage sections that can be edited by admin
         $sections = $homepageModel->getAllSections();
 
         // Show packs to buy

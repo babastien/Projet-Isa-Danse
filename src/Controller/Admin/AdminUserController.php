@@ -47,7 +47,7 @@ class AdminUserController {
             }
             if(empty($email)) {
                 $errors['email'] = 'Le champ <b>Email</b> est vide';
-            } elseif($userModel->verifyEmailExist($email) == true AND $email != $user['email']) {
+            } elseif($userModel->verifyEmailExist($email) == true AND $email != $user->getEmail()) {
                 $errors['email'] = 'Cette adresse email est déjà utilisée';
             }
 
@@ -61,7 +61,7 @@ class AdminUserController {
         // Delete pack to user
         foreach($userPacks as $userPack) {
             if(isset($_POST['delete-'.$userPack->getPack()->getId()])) {
-                $packModel->deletePackToUser($user->getId(), $userPack->getId());
+                $packModel->deletePackToUser($user->getId(), $userPack->getPack()->getId());
                 header('Location: ' . $_SERVER['REQUEST_URI']);
                 exit;
             }

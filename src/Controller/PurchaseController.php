@@ -48,17 +48,17 @@ class PurchaseController {
                 $user = $userModel->getUserByEmail($email_login);
 
                 if($user) {
-                    $password_user = $user['password'];
+                    $password_user = $user->getPassword();
 
                     if(password_verify($password_login, $password_user)) {
                         
                         $_SESSION['user'] = [
-                            'id' => $user['id'],
-                            'role' => $user['role'],
-                            'firstname' => $user['firstname'],
-                            'lastname' => $user['lastname'],
-                            'email' => $user['email'],
-                            'password' => $user['password']
+                            'id' => $user->getId(),
+                            'role' => $user->getRole(),
+                            'firstname' => $user->getFirstname(),
+                            'lastname' => $user->getLastname(),
+                            'email' => $user->getEmail(),
+                            'password' => $user->getPassword()
                         ];
                         
                         header('Location: ' . $_SERVER['REQUEST_URI']);

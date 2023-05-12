@@ -60,12 +60,12 @@ class AdminDashboardController {
 
         //         $user = $userModel->getUserByEmail($email);
 
-        //         if($userModel->verifyUserGetPack($user['id'], $idPackSelected) == true) {
+        //         if($userModel->verifyUserGetPack($user->getId(), $idPackSelected) == true) {
         //             $errors['user_pack'] = 'L\'utilisateur a déjà ce pack';
 
         //         } else {
 
-        //             $message = '<p>Bonjour' . $user['firstname'] . ',</p>
+        //             $message = '<p>Bonjour' . $user->getFirstname() . ',</p>
         //             <p>Voici une carte cadeau :)</p>
         //             <p>Code cadeau : '. $gift_code .'</p>';
 
@@ -89,9 +89,9 @@ class AdminDashboardController {
         // Create new pack
         if(isset($_POST['create-pack'])) {
 
-            $title = $_POST['title'];
+            $title = trim(strip_tags($_POST['title']));
             $price = $_POST['price'];
-            $image = $_POST['image'];
+            $image = $_FILES['image'];
             $errors = [];
 
             if(empty($title)) {
@@ -100,13 +100,27 @@ class AdminDashboardController {
             if(empty($price)) {
                 $errors['price'] = 'Veuillez donner un prix au pack';
             }
-            if(empty($image)) {
+            if(array_key_exists('image', $_FILES) && $image['error'] != UPLOAD_ERR_NO_FILE) {
+
+                $filesize = filesize($image['tmp_name']);
+                if($filesize > MAX_UPLOAD_SIZE_IMAGE) {
+                    $errors['image'] = 'Votre fichier ne doit pas excéder 1 Mo';
+                }
+
+                $allowedMimeTypes = ['image/jpeg', 'image/jpg', 'image/png'];
+                $mimeType = mime_content_type($image['tmp_name']);
+
+                if(!in_array($mimeType, $allowedMimeTypes)) {
+                    $errors['image'] = 'Type de fichier non autorisé';
+                }
+            } else {
                 $errors['image'] = 'Veuillez choisir une image pour le pack';
             }
 
             if(empty($errors)) {
+                $filename = uploadFileInFolder($image, 'images');
+                $packModel->createNewPack($title, $price, $filename);
 
-                $packModel->createNewPack($title, $price, $image);
                 header('Location: '. $_SERVER['REQUEST_URI']);
                 exit;
             }

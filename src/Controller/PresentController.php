@@ -27,7 +27,7 @@ class PresentController {
             $email2 = trim(strip_tags($_POST['email2']));
             $idPackSelected = $_POST['pack'];
 
-            $errors = validPresentForm($lastname, $firstname, $email, $email2);
+            $errors = $this->validPresentForm($lastname, $firstname, $email, $email2);
 
             if(empty($errors)) {
 
@@ -62,5 +62,29 @@ class PresentController {
 
         $template = 'present';
         include '../templates/base.phtml';
+    }
+
+    public function validPresentForm($lastname, $firstname, $email, $email2)
+    {
+        $errors = [];
+
+        if(empty($lastname)) {
+            $errors['lastname'] = 'Le champ <b>Nom</b> doit être rempli';
+        }
+        if(empty($firstname)) {
+            $errors['firstname'] = 'Le champ <b>Prénom</b> doit être rempli';
+        }
+        if(empty($email)) {
+            $errors['email'] = 'Le champ <b>Email</b> doit être rempli';
+        } elseif(!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            $errors['email'] = 'Le format de l\'email est invalide';
+        }
+        if(empty($email2)) {
+            $errors['email2'] = 'Le champ <b>Confirmer l\'email</b> doit être rempli';
+        } elseif($email != $email2) {
+            $errors['email2'] = 'Les emails ne correspondent pas';
+        }
+
+        return $errors;
     }
 }

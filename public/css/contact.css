@@ -15,8 +15,32 @@ main {
     flex-direction: column;
 }
 
+form {
+    width: 400px;
+}
+
+#email {
+    width: 50%;
+}
+
+#subject {
+    width: 80%;
+}
+
 textarea {
-    width: 200px;
+    width: 80%;
     height: 100px;
-    border-radius: 5px;
+}
+
+@media screen and (max-width:600px) {
+    form {
+        width: 300px;
+    }
+    #email, #subject {
+        width: 70%;
+    }
+    textarea {
+        width: 70%;
+        height: 100px;
+    }
 }
