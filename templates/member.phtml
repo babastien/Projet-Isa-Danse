@@ -1,9 +1,9 @@
-<?php if(!empty($userPacks)) { ?>
+<?php if (!empty($userPacks)) { ?>
 
-    <?php foreach($userPacks as $userPack) { ?>    
+    <?php foreach ($userPacks as $userPack) { ?>    
         <div class="pack">
             <a href="<?=constructUrl('pack', ['id' => $userPack->getPack()->getId()])?>">
-                <img class="pack-image" src="<?=asset($userPack->getPack()->getImage())?>" alt="<?= $userPack->getPack()->getTitle() ?>">
+                <img class="pack-image" src="<?=asset('images/' . $userPack->getPack()->getImage())?>" alt="<?= $userPack->getPack()->getTitle() ?>">
             </a>
         </div>
     <?php } ?>

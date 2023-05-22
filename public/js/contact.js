@@ -22,7 +22,7 @@ async function onSubmitForm(event) {
     document.querySelector('p.success')?.remove();
 
     // Traitement des erreurs
-    if(data.errors) {
+    if (data.errors) {
         for(const fieldName in data.errors) {
             const p = document.createElement('p');
             p.innerHTML = data.errors[fieldName];
@@ -30,7 +30,7 @@ async function onSubmitForm(event) {
             const input = document.getElementById(fieldName);
             input.after(p);
         }
-    } else if(data.success) {
+    } else if (data.success) {
         const p = document.createElement('p');
         p.innerHTML = data.success;
         p.classList.add('success');

@@ -1,17 +1,17 @@
 <h2><?= $pack->getTitle() ?></h2>
 
-<?php if(!empty($videos)) { ?>
+<?php if (!empty($videos)) { ?>
 
     <div class="links">
-        <?php foreach($videos as $video) { ?>
-            <a href="#<?= $video['id'] ?>"><?= $video['title'] ?></a>
+        <?php foreach ($videos as $video) { ?>
+            <a href="#<?= $video->getId() ?>"><?= $video->getTitle() ?></a>
         <?php } ?>
     </div>
 
-    <?php foreach($videos as $video) { ?>
-        <div class="video" id="<?= $video['id'] ?>">
-            <p><?= $video['title'] ?></p>   
-            <video controls src="<?= asset('videos/' . $video['filename']) ?>"></video>
+    <?php foreach ($videos as $video) { ?>
+        <div class="video" id="<?= $video->getId() ?>">
+            <p><?= $video->getTitle() ?></p>   
+            <video controls src="<?= asset('videos/' . $video->getFilename()) ?>"></video>
         </div>
     <?php } ?>
 

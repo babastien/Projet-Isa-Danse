@@ -2,15 +2,16 @@
 
 namespace App\Controller;
 
+use App\Core\AbstractController;
 use Symfony\Component\Mime\Email;
 use Symfony\Component\Mailer\Mailer;
 use Symfony\Component\Mailer\Transport;
 
-class ContactController {
+class ContactController extends AbstractController {
 
     public function contact()
     {
-        if(!empty($_POST)) {
+        if (!empty($_POST)) {
         
             $response = [];
             $errors = [];
@@ -19,19 +20,19 @@ class ContactController {
             $subject = trim($_POST['subject']);
             $message = trim($_POST['message']);
         
-            if(!$email) {
+            if (!$email) {
                 $errors['email'] = 'Le champ <b>Email</b> est obligatoire';
-            } elseif(!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
                 $errors['email'] = 'Le format de l\'email est invalide';
             }
-            if(!$subject) {
+            if (!$subject) {
                 $errors['subject'] = 'Le champ <b>Sujet</b> est obligatoire';
             }
-            if(!$message) {
+            if (!$message) {
                 $errors['message'] = 'Le champ <b>Message</b> est obligatoire';
             }
         
-            if(empty($errors)) {
+            if (empty($errors)) {
         
                 $transport = Transport::fromDsn(MAILER_DSN);
                 $mailer = new Mailer($transport);
@@ -54,7 +55,6 @@ class ContactController {
             exit;
         }
         
-        $template = 'contact';
-        include '../templates/base.phtml'; 
+        return $this->render('contact');
     }
 }

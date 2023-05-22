@@ -2,10 +2,11 @@
 
 namespace App\Controller;
 
+use App\Core\AbstractController;
 use App\Model\HomepageModel;
 use App\Model\PackModel;
 
-class HomeController {
+class HomeController extends AbstractController {
 
     public function index()
     {
@@ -18,7 +19,9 @@ class HomeController {
         // Show packs to buy
         $packs = $packModel->getAllPacks();
 
-        $template = 'home';
-        include '../templates/base.phtml';
+        return $this->render('home', [
+            'sections' => $sections,
+            'packs' => $packs
+        ]);
     }
 }

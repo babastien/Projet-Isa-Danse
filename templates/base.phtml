@@ -24,18 +24,20 @@
         <nav>
             <div class="nav-bar">
                 <a href="<?= constructUrl('home') ?>">Accueil</a>
-                <?php if(!isset($_SESSION['user'])) { ?>
+                <?php if (!isset($_SESSION['user'])) { ?>
                     <a href="<?= constructUrl('login') ?>">Connexion</a>
                     <a href="<?= constructUrl('register') ?>">Inscription</a>
-                <?php } elseif(isset($_SESSION['user'])) { ?>
-                    <?php if($_SESSION['user']['role'] == 'admin'): ?>
+                <?php } elseif (isset($_SESSION['user'])) { ?>
+                    <?php if ($_SESSION['user']['role'] == 'admin'): ?>
                         <a href="<?= constructUrl('admin') ?>">Administrateur</a>
                     <?php endif; ?>
                     <a href="<?= constructUrl('member') ?>">Espace membre</a>
                     <a href="<?= constructUrl('profile') ?>">Mon profil</a>
                     <a href="<?= constructUrl('logout') ?>">Déconnexion</a>
                 <?php } ?>
-                <a href="<?= constructUrl('contact') ?>">Contact</a>
+                    <?php if (!isset($_SESSION['user']) || $_SESSION['user']['role'] == 'user') { ?>
+                        <a href="<?= constructUrl('contact') ?>">Contact</a>
+                    <?php } ?>
             </div>
             <div class="nav-burger">
                 <div class="menu-burger">
@@ -46,18 +48,20 @@
             </div>
             <div class="hidden-menu">
                 <a href="<?= constructUrl('home') ?>">Accueil</a>
-                <?php if(!isset($_SESSION['user'])) { ?>
+                <?php if (!isset($_SESSION['user'])) { ?>
                     <a href="<?= constructUrl('login') ?>">Connexion</a>
                     <a href="<?= constructUrl('register') ?>">Inscription</a>
-                <?php } elseif(isset($_SESSION['user'])) { ?>
-                    <?php if($_SESSION['user']['role'] == 'admin'): ?>
+                <?php } elseif (isset($_SESSION['user'])) { ?>
+                    <?php if ($_SESSION['user']['role'] == 'admin'): ?>
                         <a href="<?= constructUrl('admin') ?>">Administrateur</a>
                     <?php endif; ?>
                     <a href="<?= constructUrl('member') ?>">Espace membre</a>
                     <a href="<?= constructUrl('profile') ?>">Mon profil</a>
                     <a href="<?= constructUrl('logout') ?>">Déconnexion</a>
                 <?php } ?>
-                <a href="<?= constructUrl('contact') ?>">Contact</a>
+                    <?php if (!isset($_SESSION['user']) || $_SESSION['user']['role'] == 'user') { ?>
+                        <a href="<?= constructUrl('contact') ?>">Contact</a>
+                    <?php } ?>
                 <img class="close-menu" src="<?= asset('images/close.png') ?>" alt="Fermer">
             </div>
         </nav>
@@ -78,7 +82,7 @@
     </footer>
 
     <script>
-
+        
         const menuBurger = document.querySelector('.menu-burger');
         const hiddenMenu = document.querySelector('.hidden-menu');
         const closeMenu = document.querySelector('.close-menu');

@@ -2,21 +2,27 @@
 
 namespace App\Controller;
 
+use App\Core\AbstractController;
 use App\Model\UserModel;
 
-class UserController {
+class UserController extends AbstractController {
 
     public function register()
     {
         $userModel = new UserModel();
 
         // Redirect to homepage if already logged
-        if(isset($_SESSION['user'])) {
+        if (isset($_SESSION['user'])) {
             header('Location: ' . constructUrl('home'));
             exit;
         }
 
-        if(!empty($_POST)) {
+        $errors = [];
+        $lastname = '';
+        $firstname = '';
+        $email = '';
+
+        if (!empty($_POST)) {
 
             $lastname = trim(strip_tags($_POST['lastname']));
             $firstname = trim(strip_tags($_POST['firstname']));
@@ -26,7 +32,7 @@ class UserController {
 
             $errors = validRegisterForm($lastname, $firstname, $email, $password, $password2);
 
-            if(empty($errors)) {
+            if (empty($errors)) {
 
                 $password = password_hash($password, PASSWORD_DEFAULT);
 
@@ -38,7 +44,11 @@ class UserController {
             }
         }
 
-        $template = 'register';
-        include '../templates/base.phtml';
+        return $this->render('register', [
+            'errors' => $errors,
+            'lastname' => $lastname,
+            'firstname' => $firstname,
+            'email' => $email
+        ]);
     }
 }

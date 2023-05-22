@@ -1,16 +1,17 @@
-<div class="top-page-home">
+<section class="top-page-home">
     <video autoplay="autoplay" muted="muted" loop src="<?= asset('videos/teaser-complet.mp4') ?>"></video>
-</div>
+</section>
 
 <h2>COURS EN LIGNE</h2>
 <p class="h2-subtitle">pour progresser de chez vous, à votre rythme</p>
 
-<div class="presentation-text">
-    <p><?= $sections[0]['content'] ?></p>
-</div>
+<section class="presentation-text">
+    <p><?= htmlspecialchars_decode($sections[0]['content']) ?></p>
+</section>
 
 <h3>THÈMES ABORDÉS</h3>
-<div class="packs-presentation">
+
+<section class="packs-presentation">
     <div class="pack-bachata">
         <img class="pack-image" src="<?= asset('images/pack-bachata.png') ?>" alt="">
         <p><u>COURS TECHNIQUES</u><br>
@@ -37,10 +38,11 @@
         Chorégraphie Salsa - débutante<br>
         Chorégraphie Salsa - intermédiaire</p>
     </div>
-</div>
+</section>
 
 <h3>APERÇU</h3>
-<div class="video-clips">
+
+<section class="video-clips">
     <div>
         <p>Extrait choré Bachata</p>
         <video src="<?= asset('videos/extrait-chore-bachata.mp4') ?>" controls poster="<?= asset('images/miniature-chore-bachata.png') ?>"></video>
@@ -53,29 +55,31 @@
         <p>Extrait cours technique</p>
         <video src="<?= asset('videos/extrait-cours.mp4') ?>" controls poster="<?= asset('images/miniature-cours.png') ?>"></video>
     </div>
-</div>
+</section>
 
 <img src="<?= asset('images/responsive.png') ?>" alt="" width="200px">
 <p class="accessibility">Accessible sur ordinateur, tablette et mobile</p>
 
 <h3 id="packs">ACCÈS AUX PACKS</h3>
-<div class="buy-packs">
-    <?php foreach($packs as $pack) { ?>
+
+<section class="buy-packs">
+    <?php foreach ($packs as $pack) { ?>
         <div class="pack-to-buy">
             <h4><?= $pack->getTitle() ?></h4>
             <p class="price"><?= $pack->getPrice() ?> €</p>
-            <p class="buy-description"><?= $pack->getDescription() ?>
+            <p class="buy-description"><?= htmlspecialchars_decode($pack->getDescription()) ?>
             <p class="select-pack"><a href="<?= constructUrl('purchase', ['id' => $pack->getId()]) ?>">Sélectionner</a></p>
         </div>
     <?php } ?>
-</div>
+</section>
 
 <div id="present">
     <img src="<?= asset('images/gift.png') ?>" alt="" width="75px">
     <p class="present">Possibilité d'offrir un pack à un proche, cliquez <a href="<?= constructUrl('present') ?>">ICI</a></p>
 </div>
 
-<h3><?= $sections[1]['title'] ?></h3>
-<div class="details-text">
-    <p><?= $sections[1]['content'] ?></p>
-</div>
+<h3><?= htmlspecialchars_decode($sections[1]['title']) ?></h3>
+
+<section class="details-text">
+    <p><?= htmlspecialchars_decode($sections[1]['content']) ?></p>
+</section>

@@ -1,22 +1,4 @@
-<!-- <br>
-<?php if(isset($errors['user_pack'])) { ?>
-        <p class="error"><?= $errors['user_pack'] ?></p>
-<?php } ?>
-<form action="" method="POST">
-    <legend>Envoyer une carte cadeau</legend>
-    <select name="pack" id="pack">
-        <?php foreach($packs as $pack): ?>
-            <option value="<?= $pack->getId() ?>"><?= $pack->getTitle() ?></option>
-        <?php endforeach; ?>
-    </select>
-    <input type="email" name="email" placeholder="Email du destinataire">
-    <input type="submit" name="submit-gift" value="Envoyer">
-    <?php if(isset($errors['email'])) { ?>
-            <p class="error"><?= $errors['email'] ?></p>
-    <?php } ?>
-</form> -->
 <br>
-
 <div class="frame">
     <p><a href="<?= constructUrl('edit-homepage') ?>">Modifier la page d'accueil</a></p>
 </div>
@@ -26,22 +8,22 @@
     <legend>Ajouter un Pack de vidéo(s)</legend>
     <div class="form-input">
         <label for="title">Titre</label>
-        <input type="text" id="title" name="title" value="<?php if(isset($title)) { echo $title; } ?>">
-        <?php if(isset($errors['title'])) { ?>
+        <input type="text" id="title" name="title" value="<?= $title ?>">
+        <?php if (isset($errors['title'])) { ?>
             <p class="error"><?= $errors['title'] ?></p>
         <?php } ?>
     </div>
     <div class="form-input">
         <label for="price">Prix</label>
-        <input type="number" id="price" name="price" value="<?php if(isset($price)) { echo $price; } ?>">
-        <?php if(isset($errors['price'])) { ?>
+        <input type="number" id="price" name="price" value="<?= $price ?>">
+        <?php if (isset($errors['price'])) { ?>
             <p class="error"><?= $errors['price'] ?></p>
         <?php } ?>
     </div>
     <div class="form-input">
         <label for="image">Image</label>
         <input type="file" id="image" name="image">
-        <?php if(isset($errors['image'])) { ?>
+        <?php if (isset($errors['image'])) { ?>
             <p class="error"><?= $errors['image'] ?></p>
         <?php } ?>
     </div>
@@ -59,11 +41,11 @@
         <th>Nb Vidéo(s)</th>
         <th>Modifier</th>
     </tr>
-    <?php foreach($packs as $pack): ?>
+    <?php foreach ($packs as $pack): ?>
         <tr>
             <td><?= $pack->getTitle() ?></td>
             <td><?= $pack->getPrice() ?> €</td>
-            <td><?= count($videoModel->getVideosByPack($pack->getId())) ?></td>
+            <td><?= count($pack->getVideos()) ?></td>
             <td><a href="<?= constructUrl('edit-pack', ['id' => $pack->getId()]) ?>"><input type="button" value="Modifier"></a></td>
         </tr>
     <?php endforeach; ?>
@@ -81,17 +63,15 @@
         <th>Souscription(s)</th>
         <th>Modifier</th>
     </tr>
-    <?php foreach($users as $user): ?>
+    <?php foreach ($users as $user): ?>
         <tr>
             <td><?= $user->getLastname() ?></td>
             <td><?= $user->getFirstname() ?></td>
             <td><?= $user->getEmail() ?></td>
-            <td><?php $userPacks = $userModel->getUserPacks($user->getId()) ?>
-                <?php if($userPacks): ?>
-                    <?php foreach($userPacks as $userPack): ?>
-                        <?= $userPack->getPack()->getTitle() ?><br>
-                    <?php endforeach; ?>
-                <?php endif; ?>
+            <td>
+                <?php foreach ($user->getPacks() as $pack): ?>
+                    <?= $pack->getTitle() ?><br>
+                <?php endforeach; ?>
             </td>
             <td><a href="<?= constructUrl('edit-user', ['id' => $user->getId()]) ?>"><input type="button" value="Modifier"></a></td>
         </tr>

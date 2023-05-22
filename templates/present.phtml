@@ -4,73 +4,73 @@
     <p>Pour cela, sélectionne le pack à offrir dans la liste déroulante et renseigne les champs demandés</p>
     <p>Une fois le paiement effectué, la carte cadeau te sera envoyée par email</p>
     <p>Cette carte cadeau contiendra un code à usage unique avec toutes les indications nécessaires pour accéder au pack</p>
-    <p>Tu n'auras plus qu'à transferez la carte cadeau à l'heureuse élue</p>
+    <p>Tu n'auras plus qu'à transferez la carte cadeau à la personne de ton choix</p>
 </div>
 <br>
 
 <form action="" method="POST">
-        <legend>Commande</legend>
-        <div class="form-input">
-            <label for="">Pack à offrir</label>
-            <select name="pack" id="pack">
-                <?php foreach($packSelection as $pack): ?>
-                    <option value="<?= $pack->getId() ?>"><?= $pack->getTitle() ?></option>
-                <?php endforeach; ?>
-            </select>
-        </div>
-        <div class="form-input">
-            <label for="lastname">Nom</label>
-            <input type="text" id="lastname" name="lastname">
-            <?php if(isset($errors['lastname'])) { ?>
-                <p class="error"><?= $errors['lastname'] ?></p>
-            <?php } ?>
-        </div>
-        <div class="form-input">
-            <label for="firstname">Prénom</label>
-            <input type="text" id="firstname" name="firstname">
-            <?php if(isset($errors['firstname'])) { ?>
-                <p class="error"><?= $errors['firstname'] ?></p>
-            <?php } ?>
-        </div>
-        <div class="form-input">
-            <label for="email">Email</label>
-            <input type="email" id="email" name="email">
-            <?php if(isset($errors['email'])) { ?>
-                <p class="error"><?= $errors['email'] ?></p>
-            <?php } ?>
-        </div>
-        <div class="form-input">
-            <label for="email2">Confirmer l'email</label>
-            <input type="email" id="email2" name="email2">
-            <?php if(isset($errors['email2'])) { ?>
-                <p class="error"><?= $errors['email2'] ?></p>
-            <?php } ?>
-        </div>
-        
-        <br>
-        <!-- <input type="submit" name="info-gift-submit" value="Procéder au paiement">
-    </form>
-        
-    <form action="" method="POST" class="payment-form"> -->
-        <div class="form-input">
-            <label for="card-number">Numéro de la carte</label>
-            <input type="text" id="card-number" placeholder="•••• •••• •••• ••••" data-stripe="number">
-        </div>
-        <div class="form-input">
-            <label for="exp-date">Date d'expiration</label>
-            <div class="exp-date">
-                <input type="text" placeholder="MM" data-stripe="exp_month">
-                <input type="text" placeholder="YY" data-stripe="exp_year">
-            </div>
-        </div>
-        <div class="form-input">
-            <label for="cvc">Code de sécurité</label>
-            <input type="text" id="cvc" placeholder="CVC" data-stripe="cvc">
-        </div>
-        <div class="form-input">
-            <label for="card-name">Titulaire de la carte</label>
-            <input type="text" id="card-name" placeholder="NOM Prénom">
-        </div>
-        <input type="submit" name="buy-submit" value="Acheter">
-    </form>
+    <legend>Commande</legend>
+    <div class="form-input">
+        <label for="">Pack à offrir</label>
+        <select name="pack" id="pack">
+            <?php foreach ($packSelection as $pack): ?>
+                <option value="<?= $pack->getId() ?>"><?= $pack->getTitle() ?></option>
+            <?php endforeach; ?>
+        </select>
+    </div>
+    <div class="form-input">
+        <label for="lastname">Nom</label>
+        <input type="text" id="lastname" name="lastname">
+        <?php if (isset($errors['lastname'])) { ?>
+            <p class="error"><?= $errors['lastname'] ?></p>
+        <?php } ?>
+    </div>
+    <div class="form-input">
+        <label for="firstname">Prénom</label>
+        <input type="text" id="firstname" name="firstname">
+        <?php if (isset($errors['firstname'])) { ?>
+            <p class="error"><?= $errors['firstname'] ?></p>
+        <?php } ?>
+    </div>
+    <div class="form-input">
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email">
+        <?php if (isset($errors['email'])) { ?>
+            <p class="error"><?= $errors['email'] ?></p>
+        <?php } ?>
+    </div>
+    <div class="form-input">
+        <label for="email2">Confirmer l'email</label>
+        <input type="email" id="email2" name="email2">
+        <?php if (isset($errors['email2'])) { ?>
+            <p class="error"><?= $errors['email2'] ?></p>
+        <?php } ?>
+    </div>
+    
     <br>
+    <!-- <input type="submit" name="info-gift-submit" value="Procéder au paiement">
+</form>
+    
+<form action="" method="POST" class="payment-form"> -->
+    <div class="form-input">
+        <label for="card-number">Numéro de la carte</label>
+        <input type="text" id="card-number" placeholder="•••• •••• •••• ••••" data-stripe="number">
+    </div>
+    <div class="form-input">
+        <label for="exp-date">Date d'expiration</label>
+        <div class="exp-date">
+            <input type="text" placeholder="MM" data-stripe="exp_month">
+            <input type="text" placeholder="YY" data-stripe="exp_year">
+        </div>
+    </div>
+    <div class="form-input">
+        <label for="cvc">Code de sécurité</label>
+        <input type="text" id="cvc" placeholder="CVC" data-stripe="cvc">
+    </div>
+    <div class="form-input">
+        <label for="card-name">Titulaire de la carte</label>
+        <input type="text" id="card-name" placeholder="NOM Prénom">
+    </div>
+    <input type="submit" name="buy-submit" value="Acheter">
+</form>
+<br>

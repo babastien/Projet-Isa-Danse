@@ -46,8 +46,10 @@ class Database {
     function verifyData(string $sql, array $values = [])
     {
         $pdoStatement = $this->prepareAndExecute($sql, $values);
-        if($pdoStatement->rowCount() == 1) {
+        if ($pdoStatement->rowCount() == 1) {
             return true;
+        } else {
+            return false;
         }
     }
 }

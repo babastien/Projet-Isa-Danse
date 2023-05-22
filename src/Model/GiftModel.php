@@ -6,7 +6,7 @@ use App\Core\AbstractModel;
 
 class GiftModel extends AbstractModel {
 
-    function createGiftCode($email, $code, $pack_id)
+    function createGiftCode(string $email, int $code, int $pack_id)
     {
         $sql = 'INSERT INTO gift (packId, code, purchasedBy, purchasedOn)
                 VALUES (?, ?, ?, NOW())';

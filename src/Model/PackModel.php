@@ -4,6 +4,7 @@ namespace App\Model;
 
 use App\Core\AbstractModel;
 use App\Entity\Pack;
+use App\Model\VideoModel;
 
 class PackModel extends AbstractModel {
 
@@ -18,11 +19,14 @@ class PackModel extends AbstractModel {
 
     function getAllPacks()
     {
+        $videoModel = new VideoModel();
+        
         $sql = 'SELECT * FROM packs ORDER BY id ASC';
         $results = $this->db->getAllResults($sql);
 
         $packs = [];
         foreach ($results as $result) {
+            $result['videos'] = $videoModel->getVideosByPack($result['id']);
             $packs[] = new Pack($result);
         }
         return $packs;

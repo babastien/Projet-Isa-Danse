@@ -13,12 +13,13 @@ class User {
     private string $lastname;
     private string $email;
     private string $password;
+    private ?array $packs = null;
 
     public function __construct(array $data = [])
     {
         foreach ($data as $propertyName => $value) {
             $setter = 'set' . ucfirst($propertyName);
-            if(method_exists($this, $setter)) {
+            if (method_exists($this, $setter)) {
                 $this->$setter($value);
             }
         }
@@ -73,10 +74,9 @@ class User {
      */
     public function setCreatedAt(string|DateTimeImmutable $createdAt): self
     {
-        if(is_string($createdAt)) {
+        if (is_string($createdAt)) {
             $createdAt = new DateTimeImmutable($createdAt);
         }
-
         $this->createdAt = $createdAt;
 
         return $this;
@@ -167,5 +167,23 @@ class User {
     public function getFormattedCreatedAtHour(): string {
 
         return $this->createdAt->format('H:i:s');
+    }
+
+    /**
+     * Get the value of password
+     */
+    public function getPacks(): ?array
+    {
+        return $this->packs;
+    }
+
+    /**
+     * Set the value of password
+     */
+    public function setPacks(?array $packs): self
+    {
+        $this->packs = $packs;
+
+        return $this;
     }
 }

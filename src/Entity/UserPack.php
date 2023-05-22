@@ -68,10 +68,9 @@ class UserPack {
      */
     public function setPurchasedOn(string|DateTimeImmutable $purchasedOn): self
     {
-        if(is_string($purchasedOn)) {
+        if (is_string($purchasedOn)) {
             $purchasedOn = new DateTimeImmutable($purchasedOn);
         }
-
         $this->purchasedOn = $purchasedOn;
 
         return $this;

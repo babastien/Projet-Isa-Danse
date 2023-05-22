@@ -1,18 +1,18 @@
 <br>
-<?php if(!isset($_SESSION['user']['packs']) || !in_array($_GET['id'], $_SESSION['user']['packs'])): ?>
+<?php if (!isset($_SESSION['user']['packs']) || !in_array($_GET['id'], $_SESSION['user']['packs'])): ?>
     <div class="command">
         <legend>Résumé de la commande</legend>
-        <img class="pack-image" src="<?= asset($packSelected->getImage()) ?>" alt="<?= $packSelected->getTitle() ?>" style="margin:0; width: 200px";>
+        <img class="pack-image" src="<?= asset('images/'.$packSelected->getImage()) ?>" alt="<?= $packSelected->getTitle() ?>" style="margin:0; width: 200px";>
         <p>Prix : <?= $packSelected->getPrice() ?> €</p>
     </div>
 <?php endif; ?>
 
-<?php if(!isset($_SESSION['user']['id'])) { ?>
+<?php if (!isset($_SESSION['user']['id'])) { ?>
     
     <p>Connectez-vous ou inscrivez-vous pour procéder au paiement<br>
     Vous pourrez accéder aux cours en vous connectant à votre compte</p>
 
-    <?php if(isset($new_user)): ?>
+    <?php if (isset($new_user)): ?>
         <p class="success"><?= $new_user ?></p>
     <?php endif; ?>
     
@@ -21,15 +21,15 @@
         <legend>Connexion</legend>
         <div class="form-input">
             <label for="email">Email</label>
-            <input type="text" id="email" name="email-login" value="<?php if(isset($email_login)) { echo $email_login; } ?>">
-            <?php if(isset($errors['email_login'])) { ?>
+            <input type="text" id="email" name="email-login" value="<?= $email_login ?>">
+            <?php if (isset($errors['email_login'])) { ?>
                 <p class="error"><?= $errors['email_login'] ?></p>
             <?php } ?>
         </div>
         <div class="form-input">
             <label for="password">Mot de passe</label>
             <input type="password" id="password" name="password-login">
-            <?php if(isset($errors['password_login'])) { ?>
+            <?php if (isset($errors['password_login'])) { ?>
                 <p class="error"><?= $errors['password_login'] ?></p>
             <?php } ?>
         </div>
@@ -43,36 +43,36 @@
         <legend>Inscription</legend>
         <div class="form-input">
             <label for="lastname">Nom</label>
-            <input type="text" id="lastname" name="lastname" value="<?php if(isset($lastname)) { echo $lastname; } ?>">
-            <?php if(isset($errors['lastname'])) { ?>
+            <input type="text" id="lastname" name="lastname" value="<?= $lastname ?>">
+            <?php if (isset($errors['lastname'])) { ?>
                 <p class="error"><?= $errors['lastname'] ?></p>
             <?php } ?>
         </div>
         <div class="form-input">
             <label for="firstname">Prénom</label>
-            <input type="text" id="firstname" name="firstname" value="<?php if(isset($firstname)) { echo $firstname; } ?>">
-            <?php if(isset($errors['firstname'])) { ?>
+            <input type="text" id="firstname" name="firstname" value="<?= $firstname ?>">
+            <?php if (isset($errors['firstname'])) { ?>
                 <p class="error"><?= $errors['firstname'] ?></p>
             <?php } ?>
         </div>
         <div class="form-input">
             <label for="email">Email</label>
-            <input type="email" id="email" name="email" value="<?php if(isset($email)) { echo $email; } ?>">
-            <?php if(isset($errors['email'])) { ?>
+            <input type="email" id="email" name="email" value="<?= $email ?>">
+            <?php if (isset($errors['email'])) { ?>
                 <p class="error"><?= $errors['email'] ?></p>
             <?php } ?>
         </div>
         <div class="form-input">
             <label for="password">Mot de passe</label>
             <input type="password" id="password" name="password">
-            <?php if(isset($errors['password'])) { ?>
+            <?php if (isset($errors['password'])) { ?>
                 <p class="error"><?= $errors['password'] ?></p>
             <?php } ?>
         </div>
         <div class="form-input">
             <label for="password">Confirmer le mot de passe</label>
             <input type="password" id="password2" name="password2">
-            <?php if(isset($errors['password2'])) { ?>
+            <?php if (isset($errors['password2'])) { ?>
                 <p class="error"><?= $errors['password2'] ?></p>
             <?php } ?>
         </div>
@@ -82,7 +82,7 @@
 
 <?php } else { ?>
 
-    <?php if(isset($packAlreadyPurchased) AND $packAlreadyPurchased == true) { ?>
+    <?php if (isset($packAlreadyPurchased) AND $packAlreadyPurchased == true) { ?>
 
         <p>Vous avez déjà accès à ce contenu</p>
                 
@@ -117,30 +117,6 @@
 <?php } ?>
 
 <p class="present">Vous souhaitez offrir un pack à un proche ? <a href="<?=constructUrl('present')?>">Cliquez ici</a></p>
-
-<script src="https://js.stripe.com/v3/"></script>
-
-<script>
-
-    // Stripe.setPublishableKey('pk_test_51MmacDEWJmtV4TN2C7uNlhquOqDXWgjFfTZjKnSq5ne1AywRWJK2Ix1mbW2Lv2l8YlK3YC7SPSR6GFLZPspMQC5I004kpEsKr3');
-    // let $form = $('.payment-form');
-
-    // $form.submit(function (e) {
-    //     e.preventDefault()
-    //     $form.find('.button').attr('disabled', true)
-    //     Stripe.card.createToken($form, function (status, response) {
-    //         if(response.error) {
-    //             $form.find('.message').remove();
-    //             $form.prepend('<div class="message"><p>' + response.error.message + '</p></div>');
-    //         } else {
-    //             let token = response.id
-    //             $form.append($('<input type="hidden" name="stripeToken">').val(token));
-    //             $form.get(0).submit();
-    //         }
-    //     })
-    // })
-
-</script>
 
 <script>
 

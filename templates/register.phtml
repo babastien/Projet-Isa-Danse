@@ -2,36 +2,36 @@
     <legend>Inscription</legend>
     <div class="form-input">
         <label for="lastname">Nom</label>
-        <input type="text" id="lastname" name="lastname" value="<?php if(isset($lastname)) { echo $lastname; } ?>">
-        <?php if(isset($errors['lastname'])) { ?>
+        <input type="text" id="lastname" name="lastname" value="<?= $lastname ?>">
+        <?php if (isset($errors['lastname'])) { ?>
             <p class="error"><?= $errors['lastname'] ?></p>
         <?php } ?>
     </div>
     <div class="form-input">
         <label for="firstname">Prénom</label>
-        <input type="text" id="firstname" name="firstname" value="<?php if(isset($firstname)) { echo $firstname; } ?>">
-        <?php if(isset($errors['firstname'])) { ?>
+        <input type="text" id="firstname" name="firstname" value="<?= $firstname ?>">
+        <?php if (isset($errors['firstname'])) { ?>
             <p class="error"><?= $errors['firstname'] ?></p>
         <?php } ?>
     </div>
     <div class="form-input">
         <label for="email">Email</label>
-        <input type="email" id="email" name="email" value="<?php if(isset($email)) { echo $email; } ?>">
-        <?php if(isset($errors['email'])) { ?>
+        <input type="email" id="email" name="email" value="<?= $email ?>">
+        <?php if (isset($errors['email'])) { ?>
             <p class="error"><?= $errors['email'] ?></p>
         <?php } ?>
     </div>
     <div class="form-input">
         <label for="password">Mot de passe</label>
         <input type="password" id="password" name="password">
-        <?php if(isset($errors['password'])) { ?>
+        <?php if (isset($errors['password'])) { ?>
             <p class="error"><?= $errors['password'] ?></p>
         <?php } ?>
     </div>
     <div class="form-input">
         <label for="password">Confirmer le mot de passe</label>
         <input type="password" id="password2" name="password2">
-        <?php if(isset($errors['password2'])) { ?>
+        <?php if (isset($errors['password2'])) { ?>
             <p class="error"><?= $errors['password2'] ?></p>
         <?php } ?>
     </div>

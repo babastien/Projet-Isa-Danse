@@ -8,7 +8,6 @@ require '../app/config.php';
 
 require '../lib/functions.php';
 
-// Path recuperation
 $path = str_replace(BASE_URL, '', $_SERVER['REQUEST_URI']);
 $path = str_replace('/index.php', '', $path);
 $path = explode('?', $path)[0];
@@ -23,15 +22,15 @@ define('ROUTES', $routes);
 $className = null;
 $method = null;
 
-foreach($routes as $route) {
-    if($path == $route['path']) {
+foreach ($routes as $route) {
+    if ($path == $route['path']) {
         $className = $route['controller'];
         $method = $route['method'];
         break;
     }
 }
 
-if($className == null) {
+if ($className == null) {
     http_response_code(404);
     echo 'Erreur 404 : Page introuvable';
     exit;
@@ -40,9 +39,9 @@ if($className == null) {
 try {
     $className = 'App\\Controller\\' . $className;
     $controller = new $className();
-    $controller->$method();
+    echo $controller->$method();
 }
-catch(Exception $exception) {
+catch (Exception $exception) {
     echo $exception->getMessage();
     exit;
 }

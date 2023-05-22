@@ -59,7 +59,7 @@ $routes = [
     'admin' => [
         'path' => '/admin',
         'controller' => 'Admin\\AdminDashboardController',
-        'method' => 'index'
+        'method' => 'dashboard'
     ],
     'edit-user' => [
         'path' => '/admin/edit-user',

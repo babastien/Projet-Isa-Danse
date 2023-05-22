@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Core\AbstractController;
 use App\Model\GiftModel;
 use App\Model\PackModel;
 
@@ -9,9 +10,9 @@ use Symfony\Component\Mime\Email;
 use Symfony\Component\Mailer\Mailer;
 use Symfony\Component\Mailer\Transport;
 
-class PresentController {
+class PresentController extends AbstractController {
 
-    function present()
+    public function present()
     {
         $packModel = new PackModel();
         $giftModel = new GiftModel();
@@ -19,7 +20,9 @@ class PresentController {
         // Show packs list for gift card
         $packSelection = $packModel->getAllPacks();
 
-        if(!empty($_POST)) {
+        $errors = [];
+
+        if (!empty($_POST)) {
 
             $lastname = trim(strip_tags($_POST['lastname']));
             $firstname = trim(strip_tags($_POST['firstname']));
@@ -29,11 +32,11 @@ class PresentController {
 
             $errors = $this->validPresentForm($lastname, $firstname, $email, $email2);
 
-            if(empty($errors)) {
+            if (empty($errors)) {
 
                 $gift_code = '';
                 
-                for($i=0; $i<8; $i++) {
+                for ($i=0; $i<8; $i++) {
                     $gift_code .= mt_rand(0,9);
                 }
 
@@ -60,28 +63,30 @@ class PresentController {
             }
         }
 
-        $template = 'present';
-        include '../templates/base.phtml';
+        return $this->render('present', [
+            'packSelection' => $packSelection,
+            'errors' => $errors
+        ]);
     }
 
-    public function validPresentForm($lastname, $firstname, $email, $email2)
+    function validPresentForm($lastname, $firstname, $email, $email2)
     {
         $errors = [];
 
-        if(empty($lastname)) {
+        if (empty($lastname)) {
             $errors['lastname'] = 'Le champ <b>Nom</b> doit être rempli';
         }
-        if(empty($firstname)) {
+        if (empty($firstname)) {
             $errors['firstname'] = 'Le champ <b>Prénom</b> doit être rempli';
         }
-        if(empty($email)) {
+        if (empty($email)) {
             $errors['email'] = 'Le champ <b>Email</b> doit être rempli';
-        } elseif(!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
             $errors['email'] = 'Le format de l\'email est invalide';
         }
-        if(empty($email2)) {
+        if (empty($email2)) {
             $errors['email2'] = 'Le champ <b>Confirmer l\'email</b> doit être rempli';
-        } elseif($email != $email2) {
+        } elseif ($email != $email2) {
             $errors['email2'] = 'Les emails ne correspondent pas';
         }
 

@@ -9,12 +9,13 @@ class Pack {
     private int $price;
     private string $image;
     private ?string $description;
+    private array $videos = [];
 
     public function __construct(array $data = [])
     {
         foreach ($data as $propertyName => $value) {
             $setter = 'set' . ucfirst($propertyName);
-            if(method_exists($this, $setter)) {
+            if (method_exists($this, $setter)) {
                 $this->$setter($value);
             }
         }
@@ -106,6 +107,18 @@ class Pack {
     public function setDescription(?string $description): self
     {
         $this->description = $description;
+
+        return $this;
+    }
+
+    public function getVideos(): array
+    {
+        return $this->videos;
+    }
+
+    public function setVideos(array $videos): self
+    {
+        $this->videos = $videos;
 
         return $this;
     }

@@ -4,8 +4,8 @@
     <p><u>Nom :</u><br><?= $_SESSION['user']['lastname'].' '.$_SESSION['user']['firstname'] ?></p>
     <p><u>Email :</u><br><?= $_SESSION['user']['email'] ?></p>
     <p><u>Souscription(s) :</u><br>
-    <?php if(isset($userPacks) AND !empty($userPacks)) {
-        foreach($userPacks as $userPack) {
+    <?php if (isset($userPacks) AND !empty($userPacks)) {
+        foreach ($userPacks as $userPack) {
             echo $userPack->getPack()->getTitle().'<br>';
         }
     } else {
@@ -15,7 +15,7 @@
 </div>
 <br>
 
-<?php if(isset($password_changed)): ?>
+<?php if (isset($password_changed)): ?>
     <p class="success"><?= $password_changed ?></p>
 <?php endif; ?>
 
@@ -23,19 +23,19 @@
     <legend>Modifier mon mot de passe</legend>
     <div class="form-input">
         <input type="password" name="password" placeholder="Mot de passe actuel">
-        <?php if(isset($errors['password'])) { ?>
+        <?php if (isset($errors['password'])) { ?>
             <p class="error"><?= $errors['password'] ?></p>
         <?php } ?>
     </div>
     <div class="form-input">
         <input type="password" name="new-password" placeholder="Nouveau mot de passe">
-        <?php if(isset($errors['new_password'])) { ?>
+        <?php if (isset($errors['new_password'])) { ?>
             <p class="error"><?= $errors['new_password'] ?></p>
         <?php } ?>
     </div>
     <div class="form-input">
         <input type="password" name="new-password2" placeholder="Confirmer le mot de passe">
-        <?php if(isset($errors['new_password2'])) { ?>
+        <?php if (isset($errors['new_password2'])) { ?>
             <p class="error"><?= $errors['new_password2'] ?></p>
         <?php } ?>
     </div>
@@ -43,13 +43,13 @@
 </form>
 <br>
 
-<?php if($_SESSION['user']['role'] != 'admin') : ?>
+<?php if ($_SESSION['user']['role'] != 'admin') : ?>
 
     <form action="" method="POST">
         <legend>Tu as un code cadeau ?</legend>
         <div class="form-input">
             <input type="text" id="gift-code" name="gift-code">
-            <?php if(isset($code_errors)): ?>
+            <?php if (isset($code_errors)): ?>
                 <p class="error"><?= $code_errors ?></p>
             <?php endif; ?>
         </div>

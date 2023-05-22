@@ -3,6 +3,7 @@
 namespace App\Model;
 
 use App\Core\AbstractModel;
+use App\Entity\Video;
 
 class VideoModel extends AbstractModel {
 
@@ -10,13 +11,19 @@ class VideoModel extends AbstractModel {
     {
         $sql = 'SELECT * FROM videos
                 WHERE packId = ?
-                ORDER BY rank_order ASC';
-        return $this->db->getAllResults($sql, [$packId]);
+                ORDER BY rankOrder ASC';
+        $results = $this->db->getAllResults($sql, [$packId]);
+
+        $videos = [];
+        foreach ($results as $result) {
+            $videos[] = new Video($result);
+        }
+        return $videos;
     }
 
     function addVideo($packId, $title, $filename, $rank_order)
     {
-        $sql = 'INSERT INTO videos (packId, title, filename, rank_order)
+        $sql = 'INSERT INTO videos (packId, title, filename, rankOrder)
                 VALUES (?, ?, ?, ?)';
         $this->db->prepareAndExecute($sql, [$packId, $title, $filename, $rank_order]);
     }
@@ -24,8 +31,7 @@ class VideoModel extends AbstractModel {
     function editVideo($packId, $title, $filename, $rank_order, $videoId)
     {
         $sql = 'UPDATE videos
-                SET packId = ?, title = ?, filename = ?, rank_order = ?
-                WHERE id = ?';
+                SET packId = ?, title = ?, filename = ?, rankOrder = ? WHERE id = ?';
         $this->db->prepareAndExecute($sql, [$packId, $title, $filename, $rank_order, $videoId]);
     }
 

@@ -1,4 +1,4 @@
-<?php if(isset($new_user)): ?>
+<?php if (isset($new_user)): ?>
     <p class="success"><?= $new_user ?></p>
 <?php endif; ?>
 
@@ -6,15 +6,15 @@
     <legend>Connexion</legend>
     <div class="form-input">
         <label for="email-login">Email</label>
-        <input type="text" id="email-login" name="email-login" value="<?php if(isset($email)) { echo $email; } ?>">
-        <?php if(isset($errors['email_login'])) { ?>
+        <input type="text" id="email-login" name="email-login" value="<?= $email_login ?>">
+        <?php if (isset($errors['email_login'])) { ?>
             <p class="error"><?= $errors['email_login'] ?></p>
         <?php } ?>
     </div>
     <div class="form-input">
         <label for="password-login">Mot de passe</label>
         <input type="password" id="password-login" name="password-login">
-        <?php if(isset($errors['password_login'])) { ?>
+        <?php if (isset($errors['password_login'])) { ?>
             <p class="error"><?= $errors['password_login'] ?></p>
         <?php } ?>
     </div>

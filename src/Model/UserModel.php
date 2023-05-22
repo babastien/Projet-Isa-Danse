@@ -12,12 +12,7 @@ class UserModel extends AbstractModel {
     function verifyEmailExist($email)
     {
         $sql = 'SELECT * FROM users WHERE email = ?';
-        $result = $this->db->verifyData($sql, [$email]);
-        if($result == 1) {
-            return true;
-        } else {
-            return false;
-        }
+        return $this->db->verifyData($sql, [$email]);
     }
 
     function getUserByEmail($email)
@@ -25,6 +20,9 @@ class UserModel extends AbstractModel {
         $sql = 'SELECT * FROM users WHERE email = ?';
         $result = $this->db->getOneResult($sql, [$email]);
 
+        if (!$result) {
+            return null;
+        }
         return new User($result);
     }
 
@@ -33,6 +31,9 @@ class UserModel extends AbstractModel {
         $sql = 'SELECT * FROM users WHERE id = ?';
         $result = $this->db->getOneResult($sql, [$id]);
 
+        if (!$result) {
+            return null;
+        }
         return new User($result);
     }
 
@@ -43,6 +44,7 @@ class UserModel extends AbstractModel {
 
         $users = [];
         foreach ($results as $result) {
+            $result['packs'] = $this->getPacksByUserId($result['id']);
             $users[] = new User($result);
         }
         return $users;
@@ -64,8 +66,23 @@ class UserModel extends AbstractModel {
         $results = $this->db->getAllResults($sql, [$userId]);
 
         $packs = [];
-        foreach($results as $result) {
+        foreach ($results as $result) {
             $packs[] = new UserPack($result);
+        }
+        return $packs;
+    }
+
+    function getPacksByUserId($userId)
+    {
+        $sql = 'SELECT * FROM users_packs AS UC
+                INNER JOIN packs AS C
+                ON UC.packId = C.id
+                WHERE userId = ?';
+        $results = $this->db->getAllResults($sql, [$userId]);
+
+        $packs = [];
+        foreach ($results as $result) {
+            $packs[] = new Pack($result);
         }
         return $packs;
     }
@@ -94,15 +111,8 @@ class UserModel extends AbstractModel {
 
     function verifyUserGetPack($userId, $packId): bool
     {
-        $sql = 'SELECT * FROM users_packs AS UC
-                INNER JOIN packs AS C
-                ON UC.packId = C.id
+        $sql = 'SELECT * FROM users_packs
                 WHERE userId = ? AND packId = ?';
-        $result = $this->db->getAllResults($sql, [$userId, $packId]);
-        if($result) {
-            return true;
-        } else {
-            return false;
-        }
+        return $this->db->verifyData($sql, [$userId, $packId]);
     }
 }

@@ -2,14 +2,15 @@
 
 namespace App\Controller\Admin;
 
+use App\Core\AbstractController;
 use App\Model\HomepageModel;
 
-class AdminHomepageController {
+class AdminHomepageController extends AbstractController {
 
-    function editHomepage()
+    public function editHomepage()
     {
         // Admin page
-        if($_SESSION['user']['role'] !== 'admin') {
+        if ($_SESSION['user']['role'] !== 'admin') {
             http_response_code(404);
             echo 'Erreur 404 : Page introuvable';
             exit;
@@ -20,15 +21,16 @@ class AdminHomepageController {
         // Show homepage sections that can be edited
         $sections = $homepageModel->getAllSections();
 
-        foreach($sections as $section) {
-            if(isset($_POST['update-section-'.$section['id']])) {
-                $homepageModel->updateSection($_POST['title-'.$section['id']], $_POST['content-'.$section['id']], $section['id']);
+        foreach ($sections as $section) {
+            if (isset($_POST['update-section-'.$section['id']])) {
+                $homepageModel->updateSection($_POST['title-'.$section['id']], nl2br($_POST['content-'.$section['id']]), $section['id']);
                 header('Location: ' . $_SERVER['REQUEST_URI']);
                 exit;
             }
         }
 
-        $template = 'admin/editHomepage';
-        require '../templates/base.phtml';
+        return $this->render('admin/editHomepage', [
+            'sections' => $sections
+        ]);
     }
 }
