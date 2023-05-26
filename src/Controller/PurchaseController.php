@@ -28,6 +28,7 @@ class PurchaseController extends AbstractController {
             exit;
         }
 
+        $packAlreadyPurchased = null;
         // Verify if user already get this pack
         if (isset($_SESSION['user']['id'])) {
             $packAlreadyPurchased = $userModel->verifyUserGetPack($_SESSION['user']['id'], $_GET['id']);

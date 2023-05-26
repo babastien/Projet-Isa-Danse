@@ -2,29 +2,15 @@ Site de danse - cours en ligne
 
 Installation :
 
-1/ importer la base de données à l'aide du fichier "isa_danse.sql" (dans le dossier "database")
+1/ Clôner le dépôt GitHub : https://github.com/babastien/Projet-Isa-Danse
 
-2/ télécharger var-dumper et autoload (si vous n'utilisez pas laragon, il faut d'abord installer composer) :
+2/ Créer une base de données
 
-    - taper dans le terminal à la racine du dossier :
-    composer require symfony/var-dumper
+3/ Importer la base de données à l'aide du fichier "isa_danse.sql" (dans le dossier "database")
 
-    - modifier le fichier "composer.json" en ajoutant : 
-    "autoload": {
-        "psr-4": {
-            "App\\": "src/"
-        }
-    }
+4/ Taper "composer install" dans le terminal à la racine du dossier (afin d'installer var-dumper, autoload et Mailer)
 
-    - taper dans le terminal à la racine du dossier :
-    composer dump-autoload
-
-3/ télécharger mailer :
-
-    - taper dans le terminal à la racine du dossier :
-    composer require symfony/mailer
-
-4/ créer un fichier "config.php" dans le dossier "app" en suivant le fichier modèle "config.example.php"
+5/ Renommer le fichier "config.example.php" en "config.php" et mettre à jour les constantes
 
 Vous pouvez désormais utiliser le site
     Compte admin test :
