@@ -80,13 +80,13 @@ function validLoginForm($email_login, $password_login)
     $errors = [];
 
     if (empty($email_login)) {
-        $errors['email_login'] = 'Le champ <b>Email</b> doit être rempli';
+        $errors['email_login'] = 'Le champ Email doit être rempli';
     } elseif (!filter_var($email_login, FILTER_VALIDATE_EMAIL)) {
         $errors['email_login'] = 'Le format de l\'email est invalide';
     }
 
     if (empty($password_login)) {
-        $errors['password_login'] = 'Le champ <b>Mot de passe</b> doit être rempli';
+        $errors['password_login'] = 'Le champ Mot de passe doit être rempli';
     }
 
     return $errors;
@@ -98,19 +98,19 @@ function validRegisterForm($lastname, $firstname, $email, $password, $password2)
     $userModel = new UserModel();
 
     if (empty($lastname)) {
-        $errors['lastname'] = 'Le champ <b>Nom</b> doit être rempli';
+        $errors['lastname'] = 'Le champ Nom doit être rempli';
     } elseif (strlen($lastname) < 3) {
-        $errors['lastname'] = 'Le champ <b>Nom</b> doit contenir au moins 3 caractères';
+        $errors['lastname'] = 'Le champ Nom doit contenir au moins 3 caractères';
     }
 
     if (empty($firstname)) {
-        $errors['firstname'] = 'Le champ <b>Prénom</b> doit être rempli';
+        $errors['firstname'] = 'Le champ Prénom doit être rempli';
     } elseif (strlen($firstname) < 3) {
-        $errors['firstname'] = 'Le champ <b>Prénom</b> doit contenir au moins 3 caractères';
+        $errors['firstname'] = 'Le champ Prénom doit contenir au moins 3 caractères';
     }
 
     if (empty($email)) {
-        $errors['email'] = 'Le champ <b>Email</b> doit être rempli';
+        $errors['email'] = 'Le champ Email doit être rempli';
     } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
         $errors['email'] = 'Le format de l\'email est invalide';
     } elseif ($userModel->verifyEmailExist($email) == true) {
@@ -118,7 +118,7 @@ function validRegisterForm($lastname, $firstname, $email, $password, $password2)
     }
 
     if (empty($password)) {
-        $errors['password'] = 'Le champ <b>Mot de passe</b> doit être rempli';
+        $errors['password'] = 'Le champ Mot de passe doit être rempli';
     } elseif (strlen($password) < 8) {
         $errors['password'] = 'Votre mot de passe doit contenir 8 caractères minimum';
     } elseif (!preg_match('/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$/', $password)) {
@@ -126,7 +126,7 @@ function validRegisterForm($lastname, $firstname, $email, $password, $password2)
     }
 
     if (empty($password2)) {
-        $errors['password2'] = 'Le champ <b>Confirmer le mot de passe</b> doit être rempli';
+        $errors['password2'] = 'Le champ Confirmer le mot de passe doit être rempli';
     } elseif ($password != $password2) {
         $errors['password2'] = 'Vos mots de passe doivent être identiques';
     }

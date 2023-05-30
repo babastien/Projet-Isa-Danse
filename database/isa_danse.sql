@@ -114,7 +114,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `role`, `createdAt`, `firstname`, `lastname`, `email`, `password`) VALUES
-(1, 'admin', '2023-05-03 10:24:34', 'Toto', 'Test', 'test@gmail.com', '$2y$10$YCtBECj.JniX1gYBurnNBOlB6IbZYXezYXflrptWVMYAd8OIKjWrK');
+(1, 'admin', '2023-05-03 10:24:34', 'Toto', 'Test', 'admin@gmail.com', '$2y$10$YCtBECj.JniX1gYBurnNBOlB6IbZYXezYXflrptWVMYAd8OIKjWrK');
 
 -- --------------------------------------------------------
 

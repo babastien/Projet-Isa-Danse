@@ -27,7 +27,6 @@ h2 {
 
 .h2-subtitle {
     margin: 0;
-    font-size: 20px;
     margin-left: 25%;
     padding-bottom: 30px;
     font-family: 'Niconne', cursive;
@@ -149,4 +148,19 @@ h4 {
     border: 1px solid red;
     padding: 5px 10px;
     text-decoration: none;
+}
+
+@media screen and (max-width:600px) {
+    h2 {
+        font-size: 40px;
+    }
+    
+    .h2-subtitle {
+        font-size: 20px;
+        margin-left: 0;
+    }
+
+    .video-clips video {
+        width: 300px;
+    }
 }

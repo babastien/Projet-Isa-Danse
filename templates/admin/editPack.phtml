@@ -28,7 +28,7 @@
         </div>
         <div class="form-input">
             <label for="description">Description</label>
-            <textarea type="" id="description" name="description"><?= strip_tags($pack->getDescription()) ?></textarea>
+            <textarea id="description" name="description"><?= $pack->getDescription() ?></textarea>
             <?php if (isset($pack_errors['description'])) : ?>
                 <p class="error"><?= $pack_errors['description'] ?></p>
             <?php endif ?>

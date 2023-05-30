@@ -6,7 +6,7 @@
 <p class="h2-subtitle">pour progresser de chez vous, à votre rythme</p>
 
 <section class="presentation-text">
-    <p><?= htmlspecialchars_decode($sections[0]['content']) ?></p>
+    <p><?= nl2br($sections[0]['content']) ?></p>
 </section>
 
 <h3>THÈMES ABORDÉS</h3>
@@ -67,7 +67,7 @@
         <div class="pack-to-buy">
             <h4><?= $pack->getTitle() ?></h4>
             <p class="price"><?= $pack->getPrice() ?> €</p>
-            <p class="buy-description"><?= htmlspecialchars_decode($pack->getDescription()) ?>
+            <p class="buy-description"><?= nl2br($pack->getDescription()) ?>
             <p class="select-pack"><a href="<?= constructUrl('purchase', ['id' => $pack->getId()]) ?>">Sélectionner</a></p>
         </div>
     <?php } ?>
@@ -78,8 +78,8 @@
     <p class="present">Possibilité d'offrir un pack à un proche, cliquez <a href="<?= constructUrl('present') ?>">ICI</a></p>
 </div>
 
-<h3><?= htmlspecialchars_decode($sections[1]['title']) ?></h3>
+<h3><?= nl2br($sections[1]['title']) ?></h3>
 
 <section class="details-text">
-    <p><?= htmlspecialchars_decode($sections[1]['content']) ?></p>
+    <p><?= nl2br($sections[1]['content']) ?></p>
 </section>

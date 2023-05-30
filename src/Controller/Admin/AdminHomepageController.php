@@ -23,7 +23,7 @@ class AdminHomepageController extends AbstractController {
 
         foreach ($sections as $section) {
             if (isset($_POST['update-section-'.$section['id']])) {
-                $homepageModel->updateSection($_POST['title-'.$section['id']], nl2br($_POST['content-'.$section['id']]), $section['id']);
+                $homepageModel->updateSection($_POST['title-'.$section['id']], $_POST['content-'.$section['id']], $section['id']);
                 header('Location: ' . $_SERVER['REQUEST_URI']);
                 exit;
             }

@@ -33,7 +33,7 @@ class AdminPackController extends AbstractController {
             $price = $_POST['price'];
             $image = $_FILES['image'];
             $actual_image = $pack->getImage();
-            $description = nl2br($_POST['description']);
+            $description = $_POST['description'];
             
             if (empty($pack_title)) {
                 $pack_errors['title'] = 'Le champ <b>Titre</b> est vide';

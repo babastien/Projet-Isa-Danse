@@ -8,7 +8,7 @@
         </div>
         <div class="form-input">
             <label for="content-<?= $section['id'] ?>">Contenu de la section</label>
-            <textarea name="content-<?= $section['id'] ?>" id="content-<?= $section['id'] ?>" cols="30" rows="10"><?= strip_tags($section['content']) ?></textarea>
+            <textarea name="content-<?= $section['id'] ?>" id="content-<?= $section['id'] ?>" cols="30" rows="10"><?= $section['content'] ?></textarea>
         </div>
         <input type="submit" name="update-section-<?= $section['id'] ?>" value="Modifer">
     </form>
