@@ -34,6 +34,7 @@ class ProfileController extends AbstractController {
         $errors = [];
         $code_errors = '';
         $delete_errors = '';
+        $password_changed = null;
 
         // Password edit form
         if (isset($_POST['password-submit'])) {

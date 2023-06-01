@@ -150,7 +150,7 @@ class AdminPackController extends AbstractController {
             $packModel->deletePack($_GET['id']);
 
             foreach ($videos as $video) {
-                unlink('videos/' . $video['filename']);
+                unlink('videos/' . $video->getFilename());
             }
             unlink('images/' . $pack->getImage());
 

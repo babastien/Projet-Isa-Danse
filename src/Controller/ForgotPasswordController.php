@@ -31,6 +31,7 @@ class ForgotPasswordController extends AbstractController {
         }
 
         $errors = [];
+        $confirmation = null;
 
         // First form : enter the email
         if (isset($_POST['recup-submit'])) {
